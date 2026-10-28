@@ -110,7 +110,6 @@ content.json                  Portable authored curriculum
 /data.js                      JS module export of identical content
 query.js                      Local bounded log query simulator
 assets/favicon.svg            Project icon
-assets/expanded-preview-*.png Screenshots (not required to run)
 docs/                         Study plan and event ID notes
 tests.mjs                      Data, drill and parser regression tests
 .github/workflows/validate.yml CI test workflow
