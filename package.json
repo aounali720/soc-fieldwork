@@ -1,9 +1,9 @@
 {
   "name": "soc-fieldwork",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests.mjs"
+    "test": "node tests.mjs && node visual-tests.mjs && node smoke.mjs"
   }
 }
