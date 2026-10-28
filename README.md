@@ -1,4 +1,4 @@
-# SOC FIELDWORK / Edition 04
+# SOC FIELDWORK / Edition 05
 
 **An offline-first, interactive SOC analyst training desk, from the first shift to threat hunting and detection engineering.**
 
@@ -6,9 +6,11 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 
 ## What is inside
 
-| Training material | Edition 04 |
+| Training material | Edition 05 |
 | --- | ---: |
 | Step-by-step lessons | **219** |
+| Original interactive concept maps | **31** |
+| Illustrated SVG reference images | **7** |
 | Multi-stage investigation files | **65** |
 | Quiz questions with coaching | **176** |
 | Interview questions with model answers and common mistakes | **165** |
@@ -23,8 +25,9 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 ### The experience
 
 - **Briefing Desk** — redesigned editorial incident-workspace home screen, tier pathway, shift-start discipline, current cases, progress.
-- **Training Manual** — prerequisite and tier-specific lessons covering networks, identity, Windows, Linux, email, cloud, SIEM, EDR, IR, forensics, hunting, detection-as-code and communication. Edition 04 adds deeper work on OAuth, PKI/AD CS, collection blind spots, Kerberos, WinRM, detection SLOs and cloud token chains.
-- **Incident Case Files** — realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs; 23 new cases include a detailed debrief revealed after submission.
+- **Visual Concept Lab** — 31 original, clickable diagrams of DNS, TLS, TCP, Kerberos, OAuth, Windows Event IDs, phishing, process trees, cloud IAM, detection engineering, hunting and incident response. Each teaches the mental model, the actual sequence, analyst log sources, common misconceptions and an interview question.
+- **Training Manual** — prerequisite and tier-specific lessons covering networks, identity, Windows, Linux, email, cloud, SIEM, EDR, IR, forensics, hunting, detection-as-code and communication. Edition 05 adds deeper work on OAuth, PKI/AD CS, collection blind spots, Kerberos, WinRM, detection SLOs and cloud token chains.
+- **Incident Case Files** — now also offer a visual event chain and event-source distribution graphic before the raw evidence. The charts show what was observed, not automatic proof of compromise. Realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs; 23 new cases include a detailed debrief revealed after submission.
 - **Query Workbench** — safe in-browser filter/query language over case logs (not real SPL/KQL).
 - **Evidence Drills** — 77 graded queries comparing the **exact event set**, so overly broad queries don't pass.
 - **Knowledge Exams & Interview Prep** — answer practice, model responses and explanation of frequent interview mistakes.
@@ -36,13 +39,13 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 ## Deployment
 
 1. Create or open the `soc-fieldwork` GitHub repository.
-2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, `content.json`, `query.js`, assets, etc.).
+2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, **`design-v5.css`**, **`visuals.js`**, `content.json`, `query.js`, assets, etc.).
 3. In **Settings → Pages**, select **Deploy from a branch**, branch `main`, folder `/(root)`.
 4. Open `https://<github-username>.github.io/soc-fieldwork/` after Pages finishes deployment.
 
 There is **no build step**. To run locally, serve the folder over HTTP (`python -m http.server 8000`) and open the local address. Module imports are not reliably supported by `file://` pages.
 
-## Edition 04 additions
+## Edition 05 additions
 
 - 68 new topic-focused technical lessons with observable telemetry, alternative explanations, investigation pivots, and common errors.
 - 23 synthetic case files containing 138 multi-source evidence events and 69 case-specific decision questions; every new case includes an after-submission debrief.
@@ -58,10 +61,9 @@ Requires Node.js 18+:
 
 ```bash
 npm test
-node smoke.mjs
 ```
 
-Tests validate dataset structure, question answers, data consistency, query evaluation, safe query rejections, atlas uniqueness, and all twelve application view renderers including atlas and chronology interactions.
+Tests validate dataset structure, question answers, data consistency, query evaluation, safe query rejections, atlas uniqueness, and all thirteen application view renderers including atlas and chronology interactions.
 
 ## Storage and portability
 
