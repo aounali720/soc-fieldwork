@@ -1,4 +1,4 @@
-/* Fictional educational data. Reserved example domains and TEST-NET addresses. */
+/* Fictional educational data. Reserved example domains and test-net addresses. */
 export const DATA = {
   "lessons": [
     {
@@ -3577,6 +3577,1978 @@ export const DATA = {
         "Escalating without indicating uncertainty or observable scope"
       ],
       "minutes": 15
+    },
+    {
+      "id": "c152",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "Reading a five-tuple",
+      "summary": "A flow is identified by source IP, source port, destination IP, destination port and protocol; NAT can change the visible tuple across sensors.",
+      "details": [
+        "A flow is identified by source IP, source port, destination IP, destination port and protocol; NAT can change the visible tuple across sensors.",
+        "What to observe: NetFlow or firewall logs showing action, interface, bytes and duration.",
+        "Important distinction: A short burst on a high destination port is not inherently malicious.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare both directions and align with proxy, DNS and asset identity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to reading a five-tuple. Begin with netflow or firewall logs showing action, interface, bytes and duration; a short burst on a high destination port is not inherently malicious. The next defensible step is to compare both directions and align with proxy, DNS and asset identity.",
+      "evidence": [
+        "NetFlow or firewall logs showing action, interface, bytes and duration",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A short burst on a high destination port is not inherently malicious",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c153",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "TCP flags and connection state",
+      "summary": "SYN establishes intent, SYN-ACK replies and ACK completes a conventional handshake; resets and timeouts need context.",
+      "details": [
+        "SYN establishes intent, SYN-ACK replies and ACK completes a conventional handshake; resets and timeouts need context.",
+        "What to observe: Firewall session state and packet capture for retransmits, RST and window behavior.",
+        "Important distinction: SYN-only traffic may be a failed application or an exposed service, not necessarily scanning.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Reconcile source address, server listener and packet loss before classifying intent.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to tcp flags and connection state. Begin with firewall session state and packet capture for retransmits, rst and window behavior; syn-only traffic may be a failed application or an exposed service, not necessarily scanning. The next defensible step is to reconcile source address, server listener and packet loss before classifying intent.",
+      "evidence": [
+        "Firewall session state and packet capture for retransmits, RST and window behavior",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "SYN-only traffic may be a failed application or an exposed service, not necessarily scanning",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c154",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "DNS caching and TTL",
+      "summary": "A recursive resolver caches answers under TTL, while authoritative servers publish zone data; DNS over HTTPS changes visibility.",
+      "details": [
+        "A recursive resolver caches answers under TTL, while authoritative servers publish zone data; DNS over HTTPS changes visibility.",
+        "What to observe: Recursive resolver query/response, TTL, NXDOMAIN and client address.",
+        "Important distinction: NXDOMAIN spikes can reflect software typos or legitimate discovery.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Separate client and resolver views, then check query cadence and domain age.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to dns caching and ttl. Begin with recursive resolver query/response, ttl, nxdomain and client address; nxdomain spikes can reflect software typos or legitimate discovery. The next defensible step is to separate client and resolver views, then check query cadence and domain age.",
+      "evidence": [
+        "Recursive resolver query/response, TTL, NXDOMAIN and client address",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "NXDOMAIN spikes can reflect software typos or legitimate discovery",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c155",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "HTTP request routing",
+      "summary": "The Host header, SNI and URL path can differ behind reverse proxies and CDNs; response status is not impact.",
+      "details": [
+        "The Host header, SNI and URL path can differ behind reverse proxies and CDNs; response status is not impact.",
+        "What to observe: Reverse-proxy request ID, route, user agent, response bytes and upstream target.",
+        "Important distinction: A 403 response shows rejection of that request only; it does not establish safety of adjacent paths.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate WAF, origin, application and authentication events by request ID.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to http request routing. Begin with reverse-proxy request id, route, user agent, response bytes and upstream target; a 403 response shows rejection of that request only; it does not establish safety of adjacent paths. The next defensible step is to correlate WAF, origin, application and authentication events by request ID.",
+      "evidence": [
+        "Reverse-proxy request ID, route, user agent, response bytes and upstream target",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A 403 response shows rejection of that request only; it does not establish safety of adjacent paths",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c156",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "TLS identity and limitations",
+      "summary": "TLS validates a certificate chain and protects traffic in transit; encrypted content is often inaccessible to a passive network sensor.",
+      "details": [
+        "TLS validates a certificate chain and protects traffic in transit; encrypted content is often inaccessible to a passive network sensor.",
+        "What to observe: TLS version, SNI when available, certificate metadata and JA4/JA3 where supported.",
+        "Important distinction: Shared CDNs and common TLS fingerprints are weak single-signal indicators.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Combine TLS metadata with DNS, process creation and destination reputation.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to tls identity and limitations. Begin with tls version, sni when available, certificate metadata and ja4/ja3 where supported; shared cdns and common tls fingerprints are weak single-signal indicators. The next defensible step is to combine TLS metadata with DNS, process creation and destination reputation.",
+      "evidence": [
+        "TLS version, SNI when available, certificate metadata and JA4/JA3 where supported",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Shared CDNs and common TLS fingerprints are weak single-signal indicators",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c157",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "IPv6 visibility parity",
+      "summary": "IPv6 uses neighbor discovery rather than ARP, and dual-stack hosts may bypass IPv4-only logging rules.",
+      "details": [
+        "IPv6 uses neighbor discovery rather than ARP, and dual-stack hosts may bypass IPv4-only logging rules.",
+        "What to observe: IPv6 firewall logs, DNS AAAA answers and endpoint connections.",
+        "Important distinction: An address beginning with fe80 is link-local; it alone does not indicate internet egress.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Audit IPv6 coverage and match dual-stack connections to a host and service.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to ipv6 visibility parity. Begin with ipv6 firewall logs, dns aaaa answers and endpoint connections; an address beginning with fe80 is link-local; it alone does not indicate internet egress. The next defensible step is to audit IPv6 coverage and match dual-stack connections to a host and service.",
+      "evidence": [
+        "IPv6 firewall logs, DNS AAAA answers and endpoint connections",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "An address beginning with fe80 is link-local; it alone does not indicate internet egress",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c158",
+      "tier": "Foundation",
+      "domain": "Networking",
+      "title": "DHCP attribution and time",
+      "summary": "DHCP leases, VPN pools and NAT mean IP ownership changes over time; correct attribution needs timestamped assignments.",
+      "details": [
+        "DHCP leases, VPN pools and NAT mean IP ownership changes over time; correct attribution needs timestamped assignments.",
+        "What to observe: Lease history, VPN session start/end, Wi-Fi association and NAT translations.",
+        "Important distinction: A public address may be shared by many users and devices.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Resolve the IP to the correct device at the observation time, recording time-zone assumptions.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to dhcp attribution and time. Begin with lease history, vpn session start/end, wi-fi association and nat translations; a public address may be shared by many users and devices. The next defensible step is to resolve the IP to the correct device at the observation time, recording time-zone assumptions.",
+      "evidence": [
+        "Lease history, VPN session start/end, Wi-Fi association and NAT translations",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A public address may be shared by many users and devices",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c159",
+      "tier": "Foundation",
+      "domain": "Windows",
+      "title": "Windows logon types",
+      "summary": "4624 logon type 2 is interactive, 3 network, 10 remote interactive; 4625 failures require their status/substatus.",
+      "details": [
+        "4624 logon type 2 is interactive, 3 network, 10 remote interactive; 4625 failures require their status/substatus.",
+        "What to observe: 4624, 4625, 4634, 4648 and linked logon IDs.",
+        "Important distinction: Type 3 occurs in normal SMB and service access; not all remote logons are RDP.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Join authentication package, source address, target account and workstation.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to windows logon types. Begin with 4624, 4625, 4634, 4648 and linked logon ids; type 3 occurs in normal smb and service access; not all remote logons are rdp. The next defensible step is to join authentication package, source address, target account and workstation.",
+      "evidence": [
+        "4624, 4625, 4634, 4648 and linked logon IDs",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Type 3 occurs in normal SMB and service access; not all remote logons are RDP",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c160",
+      "tier": "Foundation",
+      "domain": "Windows",
+      "title": "Windows service identities",
+      "summary": "A process running as LOCAL SYSTEM differs from a service account; managed service accounts reduce password handling.",
+      "details": [
+        "A process running as LOCAL SYSTEM differs from a service account; managed service accounts reduce password handling.",
+        "What to observe: Service configuration, service-install event 7045 and process-tree lineage.",
+        "Important distinction: Enterprise management platforms create and modify services legitimately.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Validate service signer, image path, change ticket and creation owner.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to windows service identities. Begin with service configuration, service-install event 7045 and process-tree lineage; enterprise management platforms create and modify services legitimately. The next defensible step is to validate service signer, image path, change ticket and creation owner.",
+      "evidence": [
+        "Service configuration, service-install event 7045 and process-tree lineage",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Enterprise management platforms create and modify services legitimately",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c161",
+      "tier": "Foundation",
+      "domain": "Linux",
+      "title": "Linux authentication sources",
+      "summary": "SSH authentication may appear in journald or distro-specific auth logs; sudo and PAM events describe privilege use.",
+      "details": [
+        "SSH authentication may appear in journald or distro-specific auth logs; sudo and PAM events describe privilege use.",
+        "What to observe: sshd, sudo and auditd entries with session and account data.",
+        "Important distinction: Root logins can occur via automation in legacy systems; establish approved use.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Join remote address, account, TTY, command and scheduled maintenance window.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to linux authentication sources. Begin with sshd, sudo and auditd entries with session and account data; root logins can occur via automation in legacy systems; establish approved use. The next defensible step is to join remote address, account, TTY, command and scheduled maintenance window.",
+      "evidence": [
+        "sshd, sudo and auditd entries with session and account data",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Root logins can occur via automation in legacy systems; establish approved use",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c162",
+      "tier": "Foundation",
+      "domain": "Linux",
+      "title": "Linux process persistence surfaces",
+      "summary": "systemd units, cron jobs and user autostart entries persist independently from the process executable.",
+      "details": [
+        "systemd units, cron jobs and user autostart entries persist independently from the process executable.",
+        "What to observe: Unit file modification, crontab edits, audit execve and package manager records.",
+        "Important distinction: Package installation legitimately creates systemd units and cron entries.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Read unit contents, ownership, timestamps and the parent installer history.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to linux process persistence surfaces. Begin with unit file modification, crontab edits, audit execve and package manager records; package installation legitimately creates systemd units and cron entries. The next defensible step is to read unit contents, ownership, timestamps and the parent installer history.",
+      "evidence": [
+        "Unit file modification, crontab edits, audit execve and package manager records",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Package installation legitimately creates systemd units and cron entries",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c163",
+      "tier": "Foundation",
+      "domain": "Identity",
+      "title": "Kerberos ticket roles",
+      "summary": "TGTs are issued by a KDC, service tickets target SPNs, and flags and encryption types matter.",
+      "details": [
+        "TGTs are issued by a KDC, service tickets target SPNs, and flags and encryption types matter.",
+        "What to observe: 4768, 4769, 4771 with account, client address and SPN.",
+        "Important distinction: Service-ticket volume scales with normal application workloads.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare to service baselines and correlate privileged access with host activity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to kerberos ticket roles. Begin with 4768, 4769, 4771 with account, client address and spn; service-ticket volume scales with normal application workloads. The next defensible step is to compare to service baselines and correlate privileged access with host activity.",
+      "evidence": [
+        "4768, 4769, 4771 with account, client address and SPN",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Service-ticket volume scales with normal application workloads",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c164",
+      "tier": "Foundation",
+      "domain": "Identity",
+      "title": "NTLM authentication fallbacks",
+      "summary": "NTLM challenges/responses may appear during compatibility fallbacks and constrained legacy connections.",
+      "details": [
+        "NTLM challenges/responses may appear during compatibility fallbacks and constrained legacy connections.",
+        "What to observe: 4776, 4624 authentication package and DC NTLM audit logs.",
+        "Important distinction: NTLM use can be ordinary legacy behavior, not evidence of relay.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Identify workstation, protocol, target and why Kerberos did not negotiate.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to ntlm authentication fallbacks. Begin with 4776, 4624 authentication package and dc ntlm audit logs; ntlm use can be ordinary legacy behavior, not evidence of relay. The next defensible step is to identify workstation, protocol, target and why Kerberos did not negotiate.",
+      "evidence": [
+        "4776, 4624 authentication package and DC NTLM audit logs",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "NTLM use can be ordinary legacy behavior, not evidence of relay",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c165",
+      "tier": "Foundation",
+      "domain": "Identity",
+      "title": "OAuth consent vocabulary",
+      "summary": "OAuth separates resource owner, client, scopes and tokens; refresh-token lifetime differs from access-token lifetime.",
+      "details": [
+        "OAuth separates resource owner, client, scopes and tokens; refresh-token lifetime differs from access-token lifetime.",
+        "What to observe: Entra audit consent events, app registration, grant scopes and sign-ins.",
+        "Important distinction: A granted scope may be authorized, and consent does not prove subsequent data access.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Check grant actor, app publisher, scopes, service principal and subsequent API calls.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to oauth consent vocabulary. Begin with entra audit consent events, app registration, grant scopes and sign-ins; a granted scope may be authorized, and consent does not prove subsequent data access. The next defensible step is to check grant actor, app publisher, scopes, service principal and subsequent API calls.",
+      "evidence": [
+        "Entra audit consent events, app registration, grant scopes and sign-ins",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A granted scope may be authorized, and consent does not prove subsequent data access",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c166",
+      "tier": "Foundation",
+      "domain": "Logging",
+      "title": "Timestamp normalization",
+      "summary": "Agents can report UTC, local wall time and ingestion time; delays make chronology misleading if uncorrected.",
+      "details": [
+        "Agents can report UTC, local wall time and ingestion time; delays make chronology misleading if uncorrected.",
+        "What to observe: Raw event time, received timestamp, offset and collector health.",
+        "Important distinction: Near-simultaneous events can arrive out of order because of buffering.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Normalize UTC and document clock skew before claiming event order.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to timestamp normalization. Begin with raw event time, received timestamp, offset and collector health; near-simultaneous events can arrive out of order because of buffering. The next defensible step is to normalize UTC and document clock skew before claiming event order.",
+      "evidence": [
+        "Raw event time, received timestamp, offset and collector health",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Near-simultaneous events can arrive out of order because of buffering",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c167",
+      "tier": "Foundation",
+      "domain": "Logging",
+      "title": "Log loss and sampling",
+      "summary": "Event loss may arise from endpoint policy, forwarding queues, retention and parser drops.",
+      "details": [
+        "Event loss may arise from endpoint policy, forwarding queues, retention and parser drops.",
+        "What to observe: Agent queue metrics, heartbeat, ingestion counts and source-side audit totals.",
+        "Important distinction: An empty result is not a negative finding if collection is missing.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Measure collection coverage and mark findings as inconclusive when telemetry is absent.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to log loss and sampling. Begin with agent queue metrics, heartbeat, ingestion counts and source-side audit totals; an empty result is not a negative finding if collection is missing. The next defensible step is to measure collection coverage and mark findings as inconclusive when telemetry is absent.",
+      "evidence": [
+        "Agent queue metrics, heartbeat, ingestion counts and source-side audit totals",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "An empty result is not a negative finding if collection is missing",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c168",
+      "tier": "Foundation",
+      "domain": "Security fundamentals",
+      "title": "Least privilege in practice",
+      "summary": "Rights should be limited by task, duration, target and approval; just-in-time access reduces standing privilege.",
+      "details": [
+        "Rights should be limited by task, duration, target and approval; just-in-time access reduces standing privilege.",
+        "What to observe: Identity entitlements, PAM elevation sessions and role assignment audit.",
+        "Important distinction: Privileged action can be approved during a short change window.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare actor, assigned scope, elevation ticket and actual action.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to least privilege in practice. Begin with identity entitlements, pam elevation sessions and role assignment audit; privileged action can be approved during a short change window. The next defensible step is to compare actor, assigned scope, elevation ticket and actual action.",
+      "evidence": [
+        "Identity entitlements, PAM elevation sessions and role assignment audit",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Privileged action can be approved during a short change window",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c169",
+      "tier": "Foundation",
+      "domain": "Security fundamentals",
+      "title": "Confidence versus severity",
+      "summary": "Severity measures potential consequence while confidence measures evidentiary support; a high-impact asset can warrant escalation on uncertain evidence.",
+      "details": [
+        "Severity measures potential consequence while confidence measures evidentiary support; a high-impact asset can warrant escalation on uncertain evidence.",
+        "What to observe: Independent signal agreement, asset criticality and threat exposure.",
+        "Important distinction: A high alert score is not automatically high confidence.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Record known facts, uncertainty, possible impact and escalation rationale separately.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to confidence versus severity. Begin with independent signal agreement, asset criticality and threat exposure; a high alert score is not automatically high confidence. The next defensible step is to record known facts, uncertainty, possible impact and escalation rationale separately.",
+      "evidence": [
+        "Independent signal agreement, asset criticality and threat exposure",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A high alert score is not automatically high confidence",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c170",
+      "tier": "L1",
+      "domain": "Daily operations",
+      "title": "Queue ownership and SLAs",
+      "summary": "Ticket state should identify an accountable analyst, next action and response deadline rather than merely an alert count.",
+      "details": [
+        "Ticket state should identify an accountable analyst, next action and response deadline rather than merely an alert count.",
+        "What to observe: Ticket timestamps, assignment history, shift handover and SLA markers.",
+        "Important distinction: A deferred ticket may be valid when waiting on owner approval.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Take explicit ownership, add the next checkpoint and escalate SLA risks early.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to queue ownership and slas. Begin with ticket timestamps, assignment history, shift handover and sla markers; a deferred ticket may be valid when waiting on owner approval. The next defensible step is to take explicit ownership, add the next checkpoint and escalate SLA risks early.",
+      "evidence": [
+        "Ticket timestamps, assignment history, shift handover and SLA markers",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A deferred ticket may be valid when waiting on owner approval",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c171",
+      "tier": "L1",
+      "domain": "Daily operations",
+      "title": "Alert suppression review",
+      "summary": "A suppression must include scope, owner, expiry and validation; broad filters can silently hide new attacks.",
+      "details": [
+        "A suppression must include scope, owner, expiry and validation; broad filters can silently hide new attacks.",
+        "What to observe: SIEM suppression list, alert counts and historical hits.",
+        "Important distinction: A temporary maintenance suppression may be appropriate when documented.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Inspect affected entities and test that a known-positive can still alert.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to alert suppression review. Begin with siem suppression list, alert counts and historical hits; a temporary maintenance suppression may be appropriate when documented. The next defensible step is to inspect affected entities and test that a known-positive can still alert.",
+      "evidence": [
+        "SIEM suppression list, alert counts and historical hits",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A temporary maintenance suppression may be appropriate when documented",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c172",
+      "tier": "L1",
+      "domain": "Email",
+      "title": "Attachment detonation limitations",
+      "summary": "Sandbox detonation observes one execution path; delayed behavior, password protection and anti-analysis can reduce visibility.",
+      "details": [
+        "Sandbox detonation observes one execution path; delayed behavior, password protection and anti-analysis can reduce visibility.",
+        "What to observe: Mail trace, attachment hash, sandbox report and endpoint launch telemetry.",
+        "Important distinction: A clean detonation is not proof that a file is harmless.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate actual delivery and user interaction before closing a case.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to attachment detonation limitations. Begin with mail trace, attachment hash, sandbox report and endpoint launch telemetry; a clean detonation is not proof that a file is harmless. The next defensible step is to correlate actual delivery and user interaction before closing a case.",
+      "evidence": [
+        "Mail trace, attachment hash, sandbox report and endpoint launch telemetry",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A clean detonation is not proof that a file is harmless",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c173",
+      "tier": "L1",
+      "domain": "Email",
+      "title": "SPF DKIM DMARC together",
+      "summary": "SPF authorizes envelope sending IPs, DKIM signs selected content and DMARC checks aligned domains.",
+      "details": [
+        "SPF authorizes envelope sending IPs, DKIM signs selected content and DMARC checks aligned domains.",
+        "What to observe: Authentication-Results, From, Return-Path, DKIM d= and DMARC disposition.",
+        "Important distinction: Forwarding can break SPF while DKIM survives; mailing lists may modify content.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Review alignment plus actual destination and requested action, not just a pass/fail badge.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to spf dkim dmarc together. Begin with authentication-results, from, return-path, dkim d= and dmarc disposition; forwarding can break spf while dkim survives; mailing lists may modify content. The next defensible step is to review alignment plus actual destination and requested action, not just a pass/fail badge.",
+      "evidence": [
+        "Authentication-Results, From, Return-Path, DKIM d= and DMARC disposition",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Forwarding can break SPF while DKIM survives; mailing lists may modify content",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c174",
+      "tier": "L1",
+      "domain": "Endpoint",
+      "title": "Process tree basics",
+      "summary": "The parent process and command line explain how a binary was launched; unusual parent-child relations merit context.",
+      "details": [
+        "The parent process and command line explain how a binary was launched; unusual parent-child relations merit context.",
+        "What to observe: EDR process GUID, parent command line, signer, account and endpoint.",
+        "Important distinction: Office applications may spawn approved automation during reporting.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Check document origin, user confirmation and descendant network activity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to process tree basics. Begin with edr process guid, parent command line, signer, account and endpoint; office applications may spawn approved automation during reporting. The next defensible step is to check document origin, user confirmation and descendant network activity.",
+      "evidence": [
+        "EDR process GUID, parent command line, signer, account and endpoint",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Office applications may spawn approved automation during reporting",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c175",
+      "tier": "L1",
+      "domain": "Endpoint",
+      "title": "Hash, signer and prevalence",
+      "summary": "File hash identifies one binary version; signer validates declared publisher subject to trust; prevalence helps prioritize.",
+      "details": [
+        "File hash identifies one binary version; signer validates declared publisher subject to trust; prevalence helps prioritize.",
+        "What to observe: SHA256 or SHA1, certificate validation, file path and fleet count.",
+        "Important distinction: Low prevalence is common for internal tools, and valid signatures do not guarantee benign behavior.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate file reputation with provenance, execution context and behavior.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to hash, signer and prevalence. Begin with sha256 or sha1, certificate validation, file path and fleet count; low prevalence is common for internal tools, and valid signatures do not guarantee benign behavior. The next defensible step is to correlate file reputation with provenance, execution context and behavior.",
+      "evidence": [
+        "SHA256 or SHA1, certificate validation, file path and fleet count",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Low prevalence is common for internal tools, and valid signatures do not guarantee benign behavior",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c176",
+      "tier": "L1",
+      "domain": "Identity",
+      "title": "MFA fatigue triage",
+      "summary": "Repeated push denials followed by a success can signal social engineering, but logs cannot alone establish who tapped approve.",
+      "details": [
+        "Repeated push denials followed by a success can signal social engineering, but logs cannot alone establish who tapped approve.",
+        "What to observe: MFA method, challenge counts, device and sign-in risk.",
+        "Important distinction: Users sometimes approve late or after a change in device.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Contact account owner via trusted channel and revoke sessions only under approved procedure.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to mfa fatigue triage. Begin with mfa method, challenge counts, device and sign-in risk; users sometimes approve late or after a change in device. The next defensible step is to contact account owner via trusted channel and revoke sessions only under approved procedure.",
+      "evidence": [
+        "MFA method, challenge counts, device and sign-in risk",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Users sometimes approve late or after a change in device",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c177",
+      "tier": "L1",
+      "domain": "Identity",
+      "title": "Impossible-travel caveats",
+      "summary": "Geolocation is an estimate, and VPN/proxy/mobile networks create abrupt jumps.",
+      "details": [
+        "Geolocation is an estimate, and VPN/proxy/mobile networks create abrupt jumps.",
+        "What to observe: Sign-in app, ASN, device ID, token/session, source IP.",
+        "Important distinction: A corporate secure web gateway may egress from multiple countries.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Look for differing device and session tokens, MFA method and subsequent activity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to impossible-travel caveats. Begin with sign-in app, asn, device id, token/session, source ip; a corporate secure web gateway may egress from multiple countries. The next defensible step is to look for differing device and session tokens, MFA method and subsequent activity.",
+      "evidence": [
+        "Sign-in app, ASN, device ID, token/session, source IP",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A corporate secure web gateway may egress from multiple countries",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c178",
+      "tier": "L1",
+      "domain": "Network",
+      "title": "DNS tunneling triage",
+      "summary": "Frequent long subdomain labels, unusual TXT responses and high unique-query cardinality may suggest encoded transfer.",
+      "details": [
+        "Frequent long subdomain labels, unusual TXT responses and high unique-query cardinality may suggest encoded transfer.",
+        "What to observe: DNS query labels, qtype, response size, entropy and volume.",
+        "Important distinction: CDNs, monitoring products and service discovery generate unusual DNS names.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Build a per-client baseline and pivot to process and proxy egress.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to dns tunneling triage. Begin with dns query labels, qtype, response size, entropy and volume; cdns, monitoring products and service discovery generate unusual dns names. The next defensible step is to build a per-client baseline and pivot to process and proxy egress.",
+      "evidence": [
+        "DNS query labels, qtype, response size, entropy and volume",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "CDNs, monitoring products and service discovery generate unusual DNS names",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c179",
+      "tier": "L1",
+      "domain": "Network",
+      "title": "TLS outbound destination triage",
+      "summary": "Connections to an unfamiliar endpoint require endpoint and timing context rather than instant blocking.",
+      "details": [
+        "Connections to an unfamiliar endpoint require endpoint and timing context rather than instant blocking.",
+        "What to observe: Process ID, DNS resolution, SNI where visible, destination ASN and bytes out.",
+        "Important distinction: Shared cloud hosting makes IP reputation non-specific.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Identify initiator process, asset role, user and repeat behavior before assigning severity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to tls outbound destination triage. Begin with process id, dns resolution, sni where visible, destination asn and bytes out; shared cloud hosting makes ip reputation non-specific. The next defensible step is to identify initiator process, asset role, user and repeat behavior before assigning severity.",
+      "evidence": [
+        "Process ID, DNS resolution, SNI where visible, destination ASN and bytes out",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Shared cloud hosting makes IP reputation non-specific",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c180",
+      "tier": "L1",
+      "domain": "Identity",
+      "title": "Account lockout investigations",
+      "summary": "Windows 4740 includes the caller computer and points to stale passwords, scripts or attack attempts.",
+      "details": [
+        "Windows 4740 includes the caller computer and points to stale passwords, scripts or attack attempts.",
+        "What to observe: 4740, 4625, client host and time distribution.",
+        "Important distinction: Password rotation can leave mapped drives or scheduled jobs using old credentials.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate lockout origin with recent changes and sign-in success patterns.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to account lockout investigations. Begin with 4740, 4625, client host and time distribution; password rotation can leave mapped drives or scheduled jobs using old credentials. The next defensible step is to correlate lockout origin with recent changes and sign-in success patterns.",
+      "evidence": [
+        "4740, 4625, client host and time distribution",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Password rotation can leave mapped drives or scheduled jobs using old credentials",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c181",
+      "tier": "L1",
+      "domain": "Endpoint",
+      "title": "USB and removable media",
+      "summary": "USB insertion or removable file writes can matter for data loss, but device existence alone is not misuse.",
+      "details": [
+        "USB insertion or removable file writes can matter for data loss, but device existence alone is not misuse.",
+        "What to observe: PnP inventory, EDR file events and device policy logs.",
+        "Important distinction: Approved backups and engineering hardware can generate identical connect events.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Check policy, file copy volume, user and device serial where available.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to usb and removable media. Begin with pnp inventory, edr file events and device policy logs; approved backups and engineering hardware can generate identical connect events. The next defensible step is to check policy, file copy volume, user and device serial where available.",
+      "evidence": [
+        "PnP inventory, EDR file events and device policy logs",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Approved backups and engineering hardware can generate identical connect events",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c182",
+      "tier": "L1",
+      "domain": "Web",
+      "title": "WAF block versus impact",
+      "summary": "A blocked malicious-looking request does not establish that all exploit paths were blocked or that the app is vulnerable.",
+      "details": [
+        "A blocked malicious-looking request does not establish that all exploit paths were blocked or that the app is vulnerable.",
+        "What to observe: WAF action, rule ID, path, origin status and web server exceptions.",
+        "Important distinction: Automated vulnerability scanners routinely probe public endpoints.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Examine unique source behavior, origin outcomes and any successful follow-up requests.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to waf block versus impact. Begin with waf action, rule id, path, origin status and web server exceptions; automated vulnerability scanners routinely probe public endpoints. The next defensible step is to examine unique source behavior, origin outcomes and any successful follow-up requests.",
+      "evidence": [
+        "WAF action, rule ID, path, origin status and web server exceptions",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Automated vulnerability scanners routinely probe public endpoints",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c183",
+      "tier": "L1",
+      "domain": "Cloud",
+      "title": "CloudTrail event identity",
+      "summary": "The caller can be a human principal, role session or service; assumed-role session names alone are not trustworthy identity.",
+      "details": [
+        "The caller can be a human principal, role session or service; assumed-role session names alone are not trustworthy identity.",
+        "What to observe: userIdentity, sessionContext, eventName, sourceIPAddress and errorCode.",
+        "Important distinction: CI/CD roles and managed services perform authorized cloud actions.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Trace session issuer, request parameters, region and associated change approval.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to cloudtrail event identity. Begin with useridentity, sessioncontext, eventname, sourceipaddress and errorcode; ci/cd roles and managed services perform authorized cloud actions. The next defensible step is to trace session issuer, request parameters, region and associated change approval.",
+      "evidence": [
+        "userIdentity, sessionContext, eventName, sourceIPAddress and errorCode",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "CI/CD roles and managed services perform authorized cloud actions",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c184",
+      "tier": "L1",
+      "domain": "Operations",
+      "title": "Analyst evidence preservation",
+      "summary": "Retain raw records, timezone, query string and search interval so a peer can reproduce your finding.",
+      "details": [
+        "Retain raw records, timezone, query string and search interval so a peer can reproduce your finding.",
+        "What to observe: Saved search, event IDs, data source and export checksum.",
+        "Important distinction: Screenshots omit filters and schema details.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Document reproducible pivot and immutable reference before enrichment.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to analyst evidence preservation. Begin with saved search, event ids, data source and export checksum; screenshots omit filters and schema details. The next defensible step is to document reproducible pivot and immutable reference before enrichment.",
+      "evidence": [
+        "Saved search, event IDs, data source and export checksum",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Screenshots omit filters and schema details",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c185",
+      "tier": "L1",
+      "domain": "Operations",
+      "title": "Writing a useful false-positive closure",
+      "summary": "A false positive requires an alternative explanation supported by evidence, not just an alert that did not repeat.",
+      "details": [
+        "A false positive requires an alternative explanation supported by evidence, not just an alert that did not repeat.",
+        "What to observe: Known benign signer, ticketed job schedule, destination owner and negative corroboration.",
+        "Important distinction: A single absent EDR hit cannot disprove threat if coverage is limited.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Record why the behavior matched, what verified it benign and when to review tuning.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to writing a useful false-positive closure. Begin with known benign signer, ticketed job schedule, destination owner and negative corroboration; a single absent edr hit cannot disprove threat if coverage is limited. The next defensible step is to record why the behavior matched, what verified it benign and when to review tuning.",
+      "evidence": [
+        "Known benign signer, ticketed job schedule, destination owner and negative corroboration",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A single absent EDR hit cannot disprove threat if coverage is limited",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c186",
+      "tier": "L2",
+      "domain": "Identity",
+      "title": "Detecting Golden Ticket suspicion",
+      "summary": "Forged Kerberos tickets can create anomalous TGT/service behavior but cannot be reliably proven from one log pattern.",
+      "details": [
+        "Forged Kerberos tickets can create anomalous TGT/service behavior but cannot be reliably proven from one log pattern.",
+        "What to observe: 4769, 4768 where available, ticket lifetime, DC consistency and endpoint logon.",
+        "Important distinction: DC logging gaps and service tickets with existing TGTs complicate conclusions.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate account privileges, DC coverage, logon context and KDC evidence.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to detecting golden ticket suspicion. Begin with 4769, 4768 where available, ticket lifetime, dc consistency and endpoint logon; dc logging gaps and service tickets with existing tgts complicate conclusions. The next defensible step is to correlate account privileges, DC coverage, logon context and KDC evidence.",
+      "evidence": [
+        "4769, 4768 where available, ticket lifetime, DC consistency and endpoint logon",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "DC logging gaps and service tickets with existing TGTs complicate conclusions",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c187",
+      "tier": "L2",
+      "domain": "Identity",
+      "title": "Delegation abuse visibility",
+      "summary": "Kerberos constrained and resource-based delegation changes can enable service impersonation paths.",
+      "details": [
+        "Kerberos constrained and resource-based delegation changes can enable service impersonation paths.",
+        "What to observe: AD object attribute changes 5136, 4742 and directory replication records.",
+        "Important distinction: Delegation settings sometimes change for legitimate application migrations.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Validate author, before/after attribute values, target services and change record.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to delegation abuse visibility. Begin with ad object attribute changes 5136, 4742 and directory replication records; delegation settings sometimes change for legitimate application migrations. The next defensible step is to validate author, before/after attribute values, target services and change record.",
+      "evidence": [
+        "AD object attribute changes 5136, 4742 and directory replication records",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Delegation settings sometimes change for legitimate application migrations",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c188",
+      "tier": "L2",
+      "domain": "Identity",
+      "title": "AD CS enrollment abuse detection",
+      "summary": "Certificate templates and enrollment authorization can introduce authentication paths beyond passwords.",
+      "details": [
+        "Certificate templates and enrollment authorization can introduce authentication paths beyond passwords.",
+        "What to observe: CA issuance 4886/4887 where enabled, template changes and account mapping.",
+        "Important distinction: Routine auto-enrollment causes bursts of certificate requests.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Map requester, template risk, issuance disposition and resulting logon.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to ad cs enrollment abuse detection. Begin with ca issuance 4886/4887 where enabled, template changes and account mapping; routine auto-enrollment causes bursts of certificate requests. The next defensible step is to map requester, template risk, issuance disposition and resulting logon.",
+      "evidence": [
+        "CA issuance 4886/4887 where enabled, template changes and account mapping",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Routine auto-enrollment causes bursts of certificate requests",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c189",
+      "tier": "L2",
+      "domain": "Identity",
+      "title": "Privileged group membership changes",
+      "summary": "Adding a member to a domain privileged group is a high-signal change only when tied to impact and approval.",
+      "details": [
+        "Adding a member to a domain privileged group is a high-signal change only when tied to impact and approval.",
+        "What to observe: 4728/4732/4756, actor account, target group and logon session.",
+        "Important distinction: Break-glass changes can be authorized during an outage.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Confirm ticket, elevation session, affected scope and post-change access.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to privileged group membership changes. Begin with 4728/4732/4756, actor account, target group and logon session; break-glass changes can be authorized during an outage. The next defensible step is to confirm ticket, elevation session, affected scope and post-change access.",
+      "evidence": [
+        "4728/4732/4756, actor account, target group and logon session",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Break-glass changes can be authorized during an outage",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c190",
+      "tier": "L2",
+      "domain": "Forensics",
+      "title": "Process GUID and PID reuse",
+      "summary": "PIDs recycle after processes exit; GUIDs and creation timestamps better maintain event lineage.",
+      "details": [
+        "PIDs recycle after processes exit; GUIDs and creation timestamps better maintain event lineage.",
+        "What to observe: EDR unique process ID, Sysmon ProcessGuid, start time and host reboot.",
+        "Important distinction: Identical PIDs across time or different hosts are unrelated.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Rebuild process tree using unique identifiers and parent start times.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to process guid and pid reuse. Begin with edr unique process id, sysmon processguid, start time and host reboot; identical pids across time or different hosts are unrelated. The next defensible step is to rebuild process tree using unique identifiers and parent start times.",
+      "evidence": [
+        "EDR unique process ID, Sysmon ProcessGuid, start time and host reboot",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Identical PIDs across time or different hosts are unrelated",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c191",
+      "tier": "L2",
+      "domain": "Forensics",
+      "title": "Prefetch limitations",
+      "summary": "Windows Prefetch may show application execution traces but collection policy and cleanup affect completeness.",
+      "details": [
+        "Windows Prefetch may show application execution traces but collection policy and cleanup affect completeness.",
+        "What to observe: Prefetch file metadata, EDR process start and Amcache.",
+        "Important distinction: Missing Prefetch does not prove an executable never ran.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Triangulate multiple artifacts and document OS configuration assumptions.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to prefetch limitations. Begin with prefetch file metadata, edr process start and amcache; missing prefetch does not prove an executable never ran. The next defensible step is to triangulate multiple artifacts and document OS configuration assumptions.",
+      "evidence": [
+        "Prefetch file metadata, EDR process start and Amcache",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Missing Prefetch does not prove an executable never ran",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c192",
+      "tier": "L2",
+      "domain": "Forensics",
+      "title": "Scheduled task artifacts",
+      "summary": "Task XML, 4698/4702 auditing and task execution logs help explain persistence and approved automation.",
+      "details": [
+        "Task XML, 4698/4702 auditing and task execution logs help explain persistence and approved automation.",
+        "What to observe: Task registration, task action path, principal and trigger history.",
+        "Important distinction: IT automation may install the same task name fleet-wide.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare author, XML action, file signer and ticketed deployment.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to scheduled task artifacts. Begin with task registration, task action path, principal and trigger history; it automation may install the same task name fleet-wide. The next defensible step is to compare author, XML action, file signer and ticketed deployment.",
+      "evidence": [
+        "Task registration, task action path, principal and trigger history",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "IT automation may install the same task name fleet-wide",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c193",
+      "tier": "L2",
+      "domain": "Forensics",
+      "title": "PowerShell 4104 interpretation",
+      "summary": "Script block logging records script text when enabled, but truncation, encoding and policy differences affect visibility.",
+      "details": [
+        "Script block logging records script text when enabled, but truncation, encoding and policy differences affect visibility.",
+        "What to observe: 4104, 4103 and EDR command lines plus network/file events.",
+        "Important distinction: Administrative scripts may contain suspicious keywords without malicious intent.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Reconstruct script provenance and effects, not merely match token strings.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to powershell 4104 interpretation. Begin with 4104, 4103 and edr command lines plus network/file events; administrative scripts may contain suspicious keywords without malicious intent. The next defensible step is to reconstruct script provenance and effects, not merely match token strings.",
+      "evidence": [
+        "4104, 4103 and EDR command lines plus network/file events",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Administrative scripts may contain suspicious keywords without malicious intent",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c194",
+      "tier": "L2",
+      "domain": "Cloud",
+      "title": "AssumeRole chain reconstruction",
+      "summary": "STS AssumeRole can hop across principals and accounts; the session issuer is as important as the resulting role name.",
+      "details": [
+        "STS AssumeRole can hop across principals and accounts; the session issuer is as important as the resulting role name.",
+        "What to observe: CloudTrail sourceIdentity, accessKeyId, assumedRole ARN and session issuer.",
+        "Important distinction: Federated production apps frequently assume roles.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Link original identity to sessions and subsequent high-impact API events.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to assumerole chain reconstruction. Begin with cloudtrail sourceidentity, accesskeyid, assumedrole arn and session issuer; federated production apps frequently assume roles. The next defensible step is to link original identity to sessions and subsequent high-impact API events.",
+      "evidence": [
+        "CloudTrail sourceIdentity, accessKeyId, assumedRole ARN and session issuer",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Federated production apps frequently assume roles",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c195",
+      "tier": "L2",
+      "domain": "Cloud",
+      "title": "Cloud object exfiltration uncertainty",
+      "summary": "GetObject and object counts can signal collection, but a successful API does not automatically mean off-network exfiltration.",
+      "details": [
+        "GetObject and object counts can signal collection, but a successful API does not automatically mean off-network exfiltration.",
+        "What to observe: S3 data-event logging, requester, object keys, size and egress telemetry.",
+        "Important distinction: Data processing jobs legitimately read large numbers of objects.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Confirm who read which objects, where data moved and whether access was approved.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to cloud object exfiltration uncertainty. Begin with s3 data-event logging, requester, object keys, size and egress telemetry; data processing jobs legitimately read large numbers of objects. The next defensible step is to confirm who read which objects, where data moved and whether access was approved.",
+      "evidence": [
+        "S3 data-event logging, requester, object keys, size and egress telemetry",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Data processing jobs legitimately read large numbers of objects",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c196",
+      "tier": "L2",
+      "domain": "Cloud",
+      "title": "Azure control-plane drift",
+      "summary": "Changes to NSGs, diagnostic settings or Key Vault policy can remove audit or widen exposure.",
+      "details": [
+        "Changes to NSGs, diagnostic settings or Key Vault policy can remove audit or widen exposure.",
+        "What to observe: Azure Activity, resource IDs, properties before/after and actor.",
+        "Important distinction: Infrastructure-as-code runs can change many resources safely.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare deployment ID, Git change and effective post-change security state.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to azure control-plane drift. Begin with azure activity, resource ids, properties before/after and actor; infrastructure-as-code runs can change many resources safely. The next defensible step is to compare deployment ID, Git change and effective post-change security state.",
+      "evidence": [
+        "Azure Activity, resource IDs, properties before/after and actor",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Infrastructure-as-code runs can change many resources safely",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c197",
+      "tier": "L2",
+      "domain": "Cloud",
+      "title": "Kubernetes service account tokens",
+      "summary": "Pod workloads may receive service account credentials; an unexpected API actor can signal stolen or overprivileged tokens.",
+      "details": [
+        "Pod workloads may receive service account credentials; an unexpected API actor can signal stolen or overprivileged tokens.",
+        "What to observe: kube-audit user.username, sourceIPs, objectRef and RBAC decisions.",
+        "Important distinction: Controllers legitimately read many objects using service accounts.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Link token identity to original workload, pod IP and RBAC grants.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to kubernetes service account tokens. Begin with kube-audit user.username, sourceips, objectref and rbac decisions; controllers legitimately read many objects using service accounts. The next defensible step is to link token identity to original workload, pod IP and RBAC grants.",
+      "evidence": [
+        "kube-audit user.username, sourceIPs, objectRef and RBAC decisions",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Controllers legitimately read many objects using service accounts",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c198",
+      "tier": "L2",
+      "domain": "Endpoint",
+      "title": "EDR isolation decision points",
+      "summary": "Isolating an endpoint can interrupt revenue systems or evidence collection; authority and fallback access matter.",
+      "details": [
+        "Isolating an endpoint can interrupt revenue systems or evidence collection; authority and fallback access matter.",
+        "What to observe: Process/network activity, asset criticality, containment approvals and endpoint heartbeat.",
+        "Important distinction: A suspected alert on a domain controller requires exceptional coordination.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Escalate with proposed impact, approval, isolation mode and rollback plan.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to edr isolation decision points. Begin with process/network activity, asset criticality, containment approvals and endpoint heartbeat; a suspected alert on a domain controller requires exceptional coordination. The next defensible step is to escalate with proposed impact, approval, isolation mode and rollback plan.",
+      "evidence": [
+        "Process/network activity, asset criticality, containment approvals and endpoint heartbeat",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A suspected alert on a domain controller requires exceptional coordination",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c199",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Ransomware scope before restore",
+      "summary": "Encryptor detection is one element; assess identity access, backup integrity, staging and lateral movement.",
+      "details": [
+        "Encryptor detection is one element; assess identity access, backup integrity, staging and lateral movement.",
+        "What to observe: File rename bursts, process chains, RDP, SMB writes, backup alerts.",
+        "Important distinction: Mass file changes can arise from migrations and bulk applications.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Contain under approval, preserve evidence and validate unaffected restoration points.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to ransomware scope before restore. Begin with file rename bursts, process chains, rdp, smb writes, backup alerts; mass file changes can arise from migrations and bulk applications. The next defensible step is to contain under approval, preserve evidence and validate unaffected restoration points.",
+      "evidence": [
+        "File rename bursts, process chains, RDP, SMB writes, backup alerts",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Mass file changes can arise from migrations and bulk applications",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c200",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Data breach scoping language",
+      "summary": "Access, download, transfer, and confirmed receipt are different evidentiary claims.",
+      "details": [
+        "Access, download, transfer, and confirmed receipt are different evidentiary claims.",
+        "What to observe: Access logs, proxy byte counts, DLP match and endpoint archive activity.",
+        "Important distinction: Large response sizes can be compression or application caching.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Use confidence-specific language and route legal notification decisions to authorized teams.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to data breach scoping language. Begin with access logs, proxy byte counts, dlp match and endpoint archive activity; large response sizes can be compression or application caching. The next defensible step is to use confidence-specific language and route legal notification decisions to authorized teams.",
+      "evidence": [
+        "Access logs, proxy byte counts, DLP match and endpoint archive activity",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Large response sizes can be compression or application caching",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c201",
+      "tier": "L2",
+      "domain": "Detection",
+      "title": "Suppression regression testing",
+      "summary": "Suppressions and exceptions must be tested against known positives and benign examples.",
+      "details": [
+        "Suppressions and exceptions must be tested against known positives and benign examples.",
+        "What to observe: Rule version, simulated test events, suppression key and expected alert behavior.",
+        "Important distinction: A one-off reduction in alerts may reflect data loss rather than quality.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Replay positive and negative fixtures before and after tuning.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to suppression regression testing. Begin with rule version, simulated test events, suppression key and expected alert behavior; a one-off reduction in alerts may reflect data loss rather than quality. The next defensible step is to replay positive and negative fixtures before and after tuning.",
+      "evidence": [
+        "Rule version, simulated test events, suppression key and expected alert behavior",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A one-off reduction in alerts may reflect data loss rather than quality",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c202",
+      "tier": "L2",
+      "domain": "Detection",
+      "title": "Baseline by peer group",
+      "summary": "Rare behavior is only meaningful compared with similar users, workloads and environments.",
+      "details": [
+        "Rare behavior is only meaningful compared with similar users, workloads and environments.",
+        "What to observe: Asset role, user department, hour-of-day and 30-day rolling volume.",
+        "Important distinction: New hosts and sparse environments naturally show high rarity.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Build separate baselines and document sample-size uncertainty.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to baseline by peer group. Begin with asset role, user department, hour-of-day and 30-day rolling volume; new hosts and sparse environments naturally show high rarity. The next defensible step is to build separate baselines and document sample-size uncertainty.",
+      "evidence": [
+        "Asset role, user department, hour-of-day and 30-day rolling volume",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "New hosts and sparse environments naturally show high rarity",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c203",
+      "tier": "L2",
+      "domain": "Hunting",
+      "title": "Building entity timelines",
+      "summary": "A timeline combines process, network, identity and cloud evidence keyed by stable user/device/session entities.",
+      "details": [
+        "A timeline combines process, network, identity and cloud evidence keyed by stable user/device/session entities.",
+        "What to observe: Normalized timestamps, IDs and preserved raw pointers.",
+        "Important distinction: Timezone skew and shared IPs can create false causality.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Construct source-aware chronology and label inferred links explicitly.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to building entity timelines. Begin with normalized timestamps, ids and preserved raw pointers; timezone skew and shared ips can create false causality. The next defensible step is to construct source-aware chronology and label inferred links explicitly.",
+      "evidence": [
+        "Normalized timestamps, IDs and preserved raw pointers",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Timezone skew and shared IPs can create false causality",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c204",
+      "tier": "L2",
+      "domain": "Hunting",
+      "title": "Scoping service account access",
+      "summary": "Service account activity should correlate with workload and host allowlists rather than human behavior rules.",
+      "details": [
+        "Service account activity should correlate with workload and host allowlists rather than human behavior rules.",
+        "What to observe: SPN, scheduled job owner, logon type, target hosts and process identity.",
+        "Important distinction: Workload moves can change expected host patterns.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Validate owner, deployment window and unexpected interactive use.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to scoping service account access. Begin with spn, scheduled job owner, logon type, target hosts and process identity; workload moves can change expected host patterns. The next defensible step is to validate owner, deployment window and unexpected interactive use.",
+      "evidence": [
+        "SPN, scheduled job owner, logon type, target hosts and process identity",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Workload moves can change expected host patterns",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c205",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "ATT&CK mapping validation",
+      "summary": "Mapping an alert to a technique is a claim about behavior; the mapping alone does not establish detection coverage.",
+      "details": [
+        "Mapping an alert to a technique is a claim about behavior; the mapping alone does not establish detection coverage.",
+        "What to observe: Rule logic, telemetry fields, tests and documented mapping rationale.",
+        "Important distinction: One rule may cover only a narrow variant of a broad technique.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Describe coverage boundaries and test variations with authorized emulation.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to att&ck mapping validation. Begin with rule logic, telemetry fields, tests and documented mapping rationale; one rule may cover only a narrow variant of a broad technique. The next defensible step is to describe coverage boundaries and test variations with authorized emulation.",
+      "evidence": [
+        "Rule logic, telemetry fields, tests and documented mapping rationale",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "One rule may cover only a narrow variant of a broad technique",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c206",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "Sigma field mapping pipelines",
+      "summary": "A Sigma condition is portable conceptually, not identical across SIEMs; pipelines translate source fields.",
+      "details": [
+        "A Sigma condition is portable conceptually, not identical across SIEMs; pipelines translate source fields.",
+        "What to observe: Sigma logsource, detection selector, field map and backend conversion.",
+        "Important distinction: Translated rules may silently miss fields or change matching semantics.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Validate target syntax and replay ground-truth events in the actual SIEM.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to sigma field mapping pipelines. Begin with sigma logsource, detection selector, field map and backend conversion; translated rules may silently miss fields or change matching semantics. The next defensible step is to validate target syntax and replay ground-truth events in the actual SIEM.",
+      "evidence": [
+        "Sigma logsource, detection selector, field map and backend conversion",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Translated rules may silently miss fields or change matching semantics",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c207",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "KQL join cardinality pitfalls",
+      "summary": "Joining broad endpoint and identity streams on usernames can explode rows or invent correlations.",
+      "details": [
+        "Joining broad endpoint and identity streams on usernames can explode rows or invent correlations.",
+        "What to observe: Join keys, time windows, device IDs and cardinality checks.",
+        "Important distinction: Usernames are reused across contexts and stale sessions.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Use stable identifiers, constrained windows and explicit deduplication.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to kql join cardinality pitfalls. Begin with join keys, time windows, device ids and cardinality checks; usernames are reused across contexts and stale sessions. The next defensible step is to use stable identifiers, constrained windows and explicit deduplication.",
+      "evidence": [
+        "Join keys, time windows, device IDs and cardinality checks",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Usernames are reused across contexts and stale sessions",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c208",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "SPL transaction versus stats",
+      "summary": "Splunk transaction can build sessions but is memory-heavy; stats and streamstats often scale better.",
+      "details": [
+        "Splunk transaction can build sessions but is memory-heavy; stats and streamstats often scale better.",
+        "What to observe: Search execution time, command limits and indexed fields.",
+        "Important distinction: A low event count can disguise expensive high-cardinality processing.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Test on bounded windows and report query latency and fidelity.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to spl transaction versus stats. Begin with search execution time, command limits and indexed fields; a low event count can disguise expensive high-cardinality processing. The next defensible step is to test on bounded windows and report query latency and fidelity.",
+      "evidence": [
+        "Search execution time, command limits and indexed fields",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A low event count can disguise expensive high-cardinality processing",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c209",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "Sequence detection and time windows",
+      "summary": "An attack chain often matters more than a single indicator; sequencing needs key choice, watermarks and late-event handling.",
+      "details": [
+        "An attack chain often matters more than a single indicator; sequencing needs key choice, watermarks and late-event handling.",
+        "What to observe: Process start, network egress and credential use on same identity/host.",
+        "Important distinction: Distributed systems reorder records and create artificial sequences.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Model allowable lag and test cases with missed or reordered events.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to sequence detection and time windows. Begin with process start, network egress and credential use on same identity/host; distributed systems reorder records and create artificial sequences. The next defensible step is to model allowable lag and test cases with missed or reordered events.",
+      "evidence": [
+        "Process start, network egress and credential use on same identity/host",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Distributed systems reorder records and create artificial sequences",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c210",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "Detection performance budgeting",
+      "summary": "A detection has latency, throughput and compute cost requirements alongside true/false positives.",
+      "details": [
+        "A detection has latency, throughput and compute cost requirements alongside true/false positives.",
+        "What to observe: Search runtime, ingest-to-alert delay, dropped events and scheduled search contention.",
+        "Important distinction: A low alert count can mean filters silently excluded relevant data.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Track technical SLOs and retain canary coverage through upgrades.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to detection performance budgeting. Begin with search runtime, ingest-to-alert delay, dropped events and scheduled search contention; a low alert count can mean filters silently excluded relevant data. The next defensible step is to track technical SLOs and retain canary coverage through upgrades.",
+      "evidence": [
+        "Search runtime, ingest-to-alert delay, dropped events and scheduled search contention",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A low alert count can mean filters silently excluded relevant data",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c211",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Hunt hypothesis confidence ladder",
+      "summary": "Separate the proposed behavior, observational expectations, data coverage and alternative explanations.",
+      "details": [
+        "Separate the proposed behavior, observational expectations, data coverage and alternative explanations.",
+        "What to observe: Hypothesis statement, search plan, hit distributions and cross-sensor validation.",
+        "Important distinction: One anomalous point cannot confirm a fleet-wide campaign.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Record supported, refuted or unresolved outcomes and preserve search evidence.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to hunt hypothesis confidence ladder. Begin with hypothesis statement, search plan, hit distributions and cross-sensor validation; one anomalous point cannot confirm a fleet-wide campaign. The next defensible step is to record supported, refuted or unresolved outcomes and preserve search evidence.",
+      "evidence": [
+        "Hypothesis statement, search plan, hit distributions and cross-sensor validation",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "One anomalous point cannot confirm a fleet-wide campaign",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c212",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Finding silent lateral movement",
+      "summary": "Attackers may reuse approved admin tools; hunt for rare source-target paths and unexpected service principals.",
+      "details": [
+        "Attackers may reuse approved admin tools; hunt for rare source-target paths and unexpected service principals.",
+        "What to observe: SMB/RPC connection graph, new service or scheduled task and logons.",
+        "Important distinction: Patch or management platforms may generate similar paths.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Verify operator/change ticket, process source and target ownership.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to finding silent lateral movement. Begin with smb/rpc connection graph, new service or scheduled task and logons; patch or management platforms may generate similar paths. The next defensible step is to verify operator/change ticket, process source and target ownership.",
+      "evidence": [
+        "SMB/RPC connection graph, new service or scheduled task and logons",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Patch or management platforms may generate similar paths",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c213",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Detecting abused remote management",
+      "summary": "RMM agents are dual-use, so signed tools and cloud relay domains require inventory correlation.",
+      "details": [
+        "RMM agents are dual-use, so signed tools and cloud relay domains require inventory correlation.",
+        "What to observe: New RMM service, unattended access change and account session.",
+        "Important distinction: Helpdesk may deploy a new RMM product on approval.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Correlate deployment inventory, signer, user consent and allowed relay list.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to detecting abused remote management. Begin with new rmm service, unattended access change and account session; helpdesk may deploy a new rmm product on approval. The next defensible step is to correlate deployment inventory, signer, user consent and allowed relay list.",
+      "evidence": [
+        "New RMM service, unattended access change and account session",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Helpdesk may deploy a new RMM product on approval",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c214",
+      "tier": "L3",
+      "domain": "Forensics",
+      "title": "Memory collection trade-offs",
+      "summary": "Volatile evidence can expose decrypted material, sockets and running implants, but acquisition affects system availability.",
+      "details": [
+        "Volatile evidence can expose decrypted material, sockets and running implants, but acquisition affects system availability.",
+        "What to observe: Memory image hash, chain of custody, acquisition log and process metadata.",
+        "Important distinction: Live response tools can change the very state under investigation.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Obtain authority, document tool version, system impact and custody history.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to memory collection trade-offs. Begin with memory image hash, chain of custody, acquisition log and process metadata; live response tools can change the very state under investigation. The next defensible step is to obtain authority, document tool version, system impact and custody history.",
+      "evidence": [
+        "Memory image hash, chain of custody, acquisition log and process metadata",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Live response tools can change the very state under investigation",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c215",
+      "tier": "L3",
+      "domain": "Forensics",
+      "title": "Cloud artifact collection",
+      "summary": "Cloud investigations combine control-plane logs, object versioning and workload snapshots; no single snapshot captures all actions.",
+      "details": [
+        "Cloud investigations combine control-plane logs, object versioning and workload snapshots; no single snapshot captures all actions.",
+        "What to observe: Immutable exported audit, image IDs, object version and policy revisions.",
+        "Important distinction: Cloud resources can disappear quickly through autoscaling.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Snapshot approved resources and preserve identifiers with UTC acquisition times.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to cloud artifact collection. Begin with immutable exported audit, image ids, object version and policy revisions; cloud resources can disappear quickly through autoscaling. The next defensible step is to snapshot approved resources and preserve identifiers with UTC acquisition times.",
+      "evidence": [
+        "Immutable exported audit, image IDs, object version and policy revisions",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Cloud resources can disappear quickly through autoscaling",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c216",
+      "tier": "L3",
+      "domain": "Operations",
+      "title": "Detection ownership and retirement",
+      "summary": "An effective rule has an owner, purpose, data dependency, test fixtures, tuning history and a retirement policy.",
+      "details": [
+        "An effective rule has an owner, purpose, data dependency, test fixtures, tuning history and a retirement policy.",
+        "What to observe: Rule repository, contact, test history and telemetry SLO.",
+        "Important distinction: A noisy rule may still detect a uniquely dangerous path.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Review cost, coverage and replacements before disabling or retiring.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to detection ownership and retirement. Begin with rule repository, contact, test history and telemetry slo; a noisy rule may still detect a uniquely dangerous path. The next defensible step is to review cost, coverage and replacements before disabling or retiring.",
+      "evidence": [
+        "Rule repository, contact, test history and telemetry SLO",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A noisy rule may still detect a uniquely dangerous path",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c217",
+      "tier": "L3",
+      "domain": "Operations",
+      "title": "Incident command decision log",
+      "summary": "Complex incidents require roles, decisions, owners and time-bound checkpoints in addition to technical evidence.",
+      "details": [
+        "Complex incidents require roles, decisions, owners and time-bound checkpoints in addition to technical evidence.",
+        "What to observe: Decision register, approval actor, dependency and status updates.",
+        "Important distinction: Fast verbal agreements are easy to misremember later.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Write decision, alternatives, risk, approver and next review timestamp.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to incident command decision log. Begin with decision register, approval actor, dependency and status updates; fast verbal agreements are easy to misremember later. The next defensible step is to write decision, alternatives, risk, approver and next review timestamp.",
+      "evidence": [
+        "Decision register, approval actor, dependency and status updates",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Fast verbal agreements are easy to misremember later",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c218",
+      "tier": "L3",
+      "domain": "Cloud",
+      "title": "SaaS audit data completeness",
+      "summary": "SaaS vendors differ on operation logs, retention tiers and API export latency; missing events are a coverage gap.",
+      "details": [
+        "SaaS vendors differ on operation logs, retention tiers and API export latency; missing events are a coverage gap.",
+        "What to observe: Audit export cursor, API response and tenant retention setting.",
+        "Important distinction: Audit API throttling can create delayed collection during spikes.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Compare known user activity against ingestion and escalate missing critical events.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to saas audit data completeness. Begin with audit export cursor, api response and tenant retention setting; audit api throttling can create delayed collection during spikes. The next defensible step is to compare known user activity against ingestion and escalate missing critical events.",
+      "evidence": [
+        "Audit export cursor, API response and tenant retention setting",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "Audit API throttling can create delayed collection during spikes",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
+    },
+    {
+      "id": "c219",
+      "tier": "L3",
+      "domain": "Strategy",
+      "title": "Purple-team outcome measurements",
+      "summary": "An exercise should test alert creation, investigation, escalation and containment readiness—not simply attacker success.",
+      "details": [
+        "An exercise should test alert creation, investigation, escalation and containment readiness—not simply attacker success.",
+        "What to observe: Exercise scenario, expected event ID, alert time and response notes.",
+        "Important distinction: A rule firing with no analyst acknowledgement is not full detection readiness.",
+        "Never use the alert label alone as proof: associate a timestamp, identity, asset and alternative explanation with every conclusion."
+      ],
+      "workflow": [
+        "Define scope and identify the relevant host, account, asset owner and UTC time interval.",
+        "Record misses per stage and assign retest owners against a deadline.",
+        "Preserve the original records and explain whether the behavior is confirmed, plausible or unresolved.",
+        "Document a safe next action, required approval and evidence another shift can reproduce."
+      ],
+      "example": "An alert points to purple-team outcome measurements. Begin with exercise scenario, expected event id, alert time and response notes; a rule firing with no analyst acknowledgement is not full detection readiness. The next defensible step is to record misses per stage and assign retest owners against a deadline.",
+      "evidence": [
+        "Exercise scenario, expected event ID, alert time and response notes",
+        "Corroborating log source with stable entity identifiers and collection-health evidence"
+      ],
+      "pitfalls": [
+        "A rule firing with no analyst acknowledgement is not full detection readiness",
+        "Treating a missing result as proof of absence without validating ingestion coverage"
+      ],
+      "minutes": 16
     }
   ],
   "interviews": [
@@ -4659,6 +6631,246 @@ export const DATA = {
       "question": "What makes a productive post-incident action item?",
       "answer": "Specific owner, measurable outcome, urgency, deadline, evidence of implementation and a retest that verifies risk reduction.",
       "trap": "Closing a review with broad recommendations and no ownership."
+    },
+    {
+      "id": "i136",
+      "tier": "L1",
+      "category": "Daily operations",
+      "question": "You begin a shift with five critical alerts and a missing data feed. How do you prioritize?",
+      "answer": "Acknowledge highest business risk, owner and SLA, check for active incident indicators, assign the feed outage separately and communicate visibility limits in the handover.",
+      "trap": "Sorting solely by vendor score while ignoring asset impact and log blindness."
+    },
+    {
+      "id": "i137",
+      "tier": "L1",
+      "category": "Triage",
+      "question": "A user says a phishing email was deleted. What evidence do you still need?",
+      "answer": "Message trace, headers, recipient scope, click/download records, endpoint activity and any exposed secrets; deletion alone does not revoke tokens.",
+      "trap": "Treating mailbox deletion as complete eradication."
+    },
+    {
+      "id": "i138",
+      "tier": "L1",
+      "category": "Windows",
+      "question": "What does Windows 4625 prove, and what does it not prove?",
+      "answer": "It records a failed logon attempt under enabled auditing. Inspect status, source and logon type; it does not prove brute force without a pattern.",
+      "trap": "Calling every 4625 a password spray."
+    },
+    {
+      "id": "i139",
+      "tier": "L1",
+      "category": "Network",
+      "question": "How can you tell a scan from a failed application?",
+      "answer": "Look at number of destinations/ports, sequence, frequency, approved monitoring, and whether there was follow-on authentication or payload behavior.",
+      "trap": "Assuming three connections to closed ports establish intent."
+    },
+    {
+      "id": "i140",
+      "tier": "L1",
+      "category": "Identity",
+      "question": "When do you escalate a suspicious MFA approval?",
+      "answer": "When denials and an unexpected approval combine with unusual device, application or follow-on actions, immediately route to identity response following policy.",
+      "trap": "Assuming a successful MFA means the user is safe."
+    },
+    {
+      "id": "i141",
+      "tier": "L1",
+      "category": "EDR",
+      "question": "What is the difference between a file hash and file behavior?",
+      "answer": "A hash identifies a particular file version; behavior is the observed process, network and persistence activity. Both need provenance and corroboration.",
+      "trap": "Treating clean reputation on a hash as proof the process was harmless."
+    },
+    {
+      "id": "i142",
+      "tier": "L1",
+      "category": "Email",
+      "question": "How are SPF, DKIM and DMARC related?",
+      "answer": "SPF covers the sending envelope IP; DKIM checks a signature; DMARC evaluates alignment with the visible From domain and defined policy.",
+      "trap": "Assuming SPF pass always means the displayed sender domain is authenticated."
+    },
+    {
+      "id": "i143",
+      "tier": "L1",
+      "category": "SOC writing",
+      "question": "What belongs in a one-paragraph escalation?",
+      "answer": "Time range, affected identity/assets, exact evidence, assessment with confidence, business impact, containment status, decisions requested and ticket owner.",
+      "trap": "Copying an alert description without analysis or next action."
+    },
+    {
+      "id": "i144",
+      "tier": "L1",
+      "category": "SIEM",
+      "question": "What does an empty search result mean?",
+      "answer": "It means no records matched in that query and interval. Check ingestion, time zones, filters, indexes and retention before declaring absence.",
+      "trap": "Saying 'no events' equals 'no compromise'."
+    },
+    {
+      "id": "i145",
+      "tier": "L1",
+      "category": "Cloud",
+      "question": "What is an assumed role in CloudTrail?",
+      "answer": "A temporary role session with permissions from a role trust/policy configuration; trace the source principal and session issuer, not just session name.",
+      "trap": "Treating a friendly session name as verified human identity."
+    },
+    {
+      "id": "i146",
+      "tier": "L2",
+      "category": "Forensics",
+      "question": "Why can Windows process IDs mislead an investigation?",
+      "answer": "PIDs recycle. Prefer host, creation timestamp, EDR process GUID, parent GUID and boot boundaries.",
+      "trap": "Linking two processes on PID alone."
+    },
+    {
+      "id": "i147",
+      "tier": "L2",
+      "category": "Identity",
+      "question": "How do you scope suspected token theft?",
+      "answer": "Determine affected account/app/device and token family, compare sign-ins and app audit, examine actions and coordinate authorized revocation.",
+      "trap": "Changing a password and stopping without session or consent review."
+    },
+    {
+      "id": "i148",
+      "tier": "L2",
+      "category": "IR",
+      "question": "How would you justify endpoint isolation to incident command?",
+      "answer": "Explain evidence confidence, active risk, asset criticality, operational impact, proposed isolation mode, approvals, rollback and preservation plan.",
+      "trap": "Isolating a business-critical host reflexively without impact assessment."
+    },
+    {
+      "id": "i149",
+      "tier": "L2",
+      "category": "Detection",
+      "question": "Why might alerts suddenly fall to zero?",
+      "answer": "Sensor outage, parser change, filtering/exception drift, rule scheduler failure or genuinely reduced threat activity; test canary positives.",
+      "trap": "Celebrating zero alerts without checking sensor health."
+    },
+    {
+      "id": "i150",
+      "tier": "L2",
+      "category": "Cloud",
+      "question": "How would you investigate unexpected S3 GetObject bursts?",
+      "answer": "Trace role chain and user identity, validate data-event coverage, object names and size, correlate egress, business job and change approvals.",
+      "trap": "Claiming confirmed exfiltration from GetObject count alone."
+    },
+    {
+      "id": "i151",
+      "tier": "L2",
+      "category": "Response",
+      "question": "A user denies an unfamiliar login but device tokens match. What next?",
+      "answer": "Verify device identity, proxy egress, token/session chronology and contact through a trusted channel; preserve uncertainty and escalate if actions remain unexplained.",
+      "trap": "Calling it a false positive based only on shared device ID."
+    },
+    {
+      "id": "i152",
+      "tier": "L2",
+      "category": "Email",
+      "question": "What is the scope of an inbox auto-forwarding incident?",
+      "answer": "Identify rule creation actor/session, rule condition and destination, affected messages, tenant policies and any linked OAuth grants.",
+      "trap": "Deleting the rule without scoping already-forwarded messages."
+    },
+    {
+      "id": "i153",
+      "tier": "L2",
+      "category": "Linux",
+      "question": "How would you investigate a new systemd unit?",
+      "answer": "Record unit content, file ownership, signer/package origin where relevant, timestamp, invoking principal, exec path and network behavior.",
+      "trap": "Treating every new service as malicious."
+    },
+    {
+      "id": "i154",
+      "tier": "L2",
+      "category": "Threat hunting",
+      "question": "How do you build a defensible multi-source timeline?",
+      "answer": "Normalize timestamps, preserve raw event pointers, tie entities with stable IDs, quantify clock skew and distinguish correlation from proven causation.",
+      "trap": "Sorting display timestamps without correcting ingestion delay."
+    },
+    {
+      "id": "i155",
+      "tier": "L2",
+      "category": "Data",
+      "question": "What is the difference between data staging and exfiltration?",
+      "answer": "Staging is collecting/preparing data locally; exfiltration is transfer outside authorized controls. Look for destination, bytes and evidence of successful transfer.",
+      "trap": "Reporting a large ZIP file as confirmed breach without a transfer record."
+    },
+    {
+      "id": "i156",
+      "tier": "L3",
+      "category": "Engineering",
+      "question": "How do you prove a Sigma detection works after conversion?",
+      "answer": "Test target SIEM query and field mapping against known-positive and benign events, then verify alert latency and actual collection schemas.",
+      "trap": "Assuming a successfully parsed YAML rule detects the desired behavior."
+    },
+    {
+      "id": "i157",
+      "tier": "L3",
+      "category": "Hunting",
+      "question": "What makes a hunt hypothesis falsifiable?",
+      "answer": "Specify attacker behavior, telemetry requirements, expected observations and alternate explanations before searching; record supported/refuted/unresolved outcomes.",
+      "trap": "Starting with a search for 'suspicious' and retrofitting an explanation."
+    },
+    {
+      "id": "i158",
+      "tier": "L3",
+      "category": "Operations",
+      "question": "What is a detection coverage SLO?",
+      "answer": "A measurable commitment on collection freshness, query execution, alert latency or expected positive tests for a defined behavior.",
+      "trap": "Measuring only number of created rules."
+    },
+    {
+      "id": "i159",
+      "tier": "L3",
+      "category": "Engineering",
+      "question": "How do you protect against false negatives during parser migration?",
+      "answer": "Compare raw and normalized fields, run canary positive fixtures, monitor null-rate drift, roll out gradually with rollback plan.",
+      "trap": "Evaluating success based only on normal parsing throughput."
+    },
+    {
+      "id": "i160",
+      "tier": "L3",
+      "category": "Cloud",
+      "question": "Explain cross-account role assumption investigation.",
+      "answer": "Follow STS role trust, session issuer, source identity and the API calls made under temporary credentials across account/region boundaries.",
+      "trap": "Stopping at the final role name without reconstructing original principal."
+    },
+    {
+      "id": "i161",
+      "tier": "L3",
+      "category": "IR",
+      "question": "How do you balance evidence preservation against RTO?",
+      "answer": "Prioritize volatile/expiring evidence with incident leader approval, document collection impact and sequence recovery steps against business risk.",
+      "trap": "Assuming full disk images are always possible before restoring production."
+    },
+    {
+      "id": "i162",
+      "tier": "L3",
+      "category": "Forensics",
+      "question": "Why can a missing endpoint artifact not exonerate a host?",
+      "answer": "Sensor configuration, log rotation, anti-forensics, privilege and collection gaps can suppress or remove artifacts.",
+      "trap": "Treating telemetry silence as proof of no execution."
+    },
+    {
+      "id": "i163",
+      "tier": "L3",
+      "category": "Leadership",
+      "question": "What should an executive update state?",
+      "answer": "Business impact, supported facts, confidence, unknowns, current controls, key decisions needed, accountable owners and next update milestone.",
+      "trap": "Providing a wall of tool logs without impact or decisions."
+    },
+    {
+      "id": "i164",
+      "tier": "L3",
+      "category": "Detection",
+      "question": "Why is rarity not equivalent to maliciousness?",
+      "answer": "Rarity depends on population, role, seasonality, deployment maturity and collection coverage; pair anomalies with causal indicators.",
+      "trap": "Firing P1 solely because an executable ran once."
+    },
+    {
+      "id": "i165",
+      "tier": "L3",
+      "category": "Purple team",
+      "question": "What is the output of a useful purple-team exercise?",
+      "answer": "An evidence-backed gap list across logging, detection, triage, response, with owners, due dates and retest results.",
+      "trap": "Reporting success because the red team reached an objective while SOC missed it."
     }
   ],
   "cases": [
@@ -7769,6 +9981,2007 @@ export const DATA = {
           "why": "The compromised audit trail limits what can be proved."
         }
       ]
+    },
+    {
+      "id": "s43",
+      "tier": "L1",
+      "name": "The Expired VPN Credential",
+      "kind": "Identity",
+      "difficulty": "Starter",
+      "attack": "T1110",
+      "host": "VPN-GW",
+      "summary": "Several failures hit one user after a password rotation, then stop without a success.",
+      "mission": "Distinguish stale stored credentials from an active account attack, with the limits of the evidence.",
+      "events": [
+        {
+          "time": "07:10:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "CHG-841 approved password reset for user=maya on corp laptop"
+        },
+        {
+          "time": "07:12:04",
+          "source": "vpn",
+          "asset": "198.51.100.52",
+          "detail": "user=maya result=FAIL reason=bad_password device=LT-114"
+        },
+        {
+          "time": "07:12:35",
+          "source": "vpn",
+          "asset": "198.51.100.52",
+          "detail": "user=maya result=FAIL reason=bad_password device=LT-114"
+        },
+        {
+          "time": "07:14:00",
+          "source": "edr",
+          "asset": "LT-114",
+          "detail": "scheduled_task=OldVPNConnect auth_attempt user=maya failed"
+        },
+        {
+          "time": "07:14:30",
+          "source": "idp",
+          "asset": "maya",
+          "detail": "MFA challenge=none result=not_issued"
+        },
+        {
+          "time": "07:17:00",
+          "source": "it",
+          "asset": "HELPDESK",
+          "detail": "user=maya confirmed password changed; stale scheduled VPN task disabled"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Evidence best supports stale saved credentials on one managed laptop, not a proven spray.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Evidence best supports stale saved credentials on one managed laptop, not a proven spray. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Check that failures cease and compare other login sources and successful sign-ins for this account.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Check that failures cease and compare other login sources and successful sign-ins for this account. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Document benign cause with change ticket and alert suppression only narrowly after verification.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Document benign cause with change ticket and alert suppression only narrowly after verification. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Evidence best supports stale saved credentials on one managed laptop, not a proven spray.",
+        "pivot": "Check that failures cease and compare other login sources and successful sign-ins for this account.",
+        "decision": "Document benign cause with change ticket and alert suppression only narrowly after verification.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s44",
+      "tier": "L1",
+      "name": "Misdelivered Finance Attachment",
+      "kind": "Email",
+      "difficulty": "Starter",
+      "attack": "T1566",
+      "host": "MAIL-GW",
+      "summary": "Finance-themed mail goes to an unexpected recipient; a preview event does not prove downloading a file.",
+      "mission": "Scope actual access and avoid equating delivery with compromise.",
+      "events": [
+        {
+          "time": "09:01:00",
+          "source": "email",
+          "asset": "MAIL-GW",
+          "detail": "message_id=E-900 from=billing@example.com to=ops@example.org subject=Invoice"
+        },
+        {
+          "time": "09:02:00",
+          "source": "email",
+          "asset": "MAIL-GW",
+          "detail": "message_id=E-900 delivery=success recipients=1"
+        },
+        {
+          "time": "09:03:10",
+          "source": "proxy",
+          "asset": "WK-OPS7",
+          "detail": "url=https://files.example.net/invoice.pdf action=preview bytes=412"
+        },
+        {
+          "time": "09:03:28",
+          "source": "edr",
+          "asset": "WK-OPS7",
+          "detail": "file_write=none process=browser.exe verdict=not_executed"
+        },
+        {
+          "time": "09:04:00",
+          "source": "email",
+          "asset": "SECURITY",
+          "detail": "url_click protection=warn user_action=cancel"
+        },
+        {
+          "time": "09:08:00",
+          "source": "helpdesk",
+          "asset": "USER",
+          "detail": "user reports recognized sender mismatch and did not open attachment"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Mail delivery and preview occurred; the current records do not prove payload execution.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Mail delivery and preview occurred; the current records do not prove payload execution. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Review mail headers, URL redirect chain and endpoint process/file telemetry.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Review mail headers, URL redirect chain and endpoint process/file telemetry. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Preserve and quarantine suspicious mail per policy while noting confirmed and unconfirmed impact.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Preserve and quarantine suspicious mail per policy while noting confirmed and unconfirmed impact. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Mail delivery and preview occurred; the current records do not prove payload execution.",
+        "pivot": "Review mail headers, URL redirect chain and endpoint process/file telemetry.",
+        "decision": "Preserve and quarantine suspicious mail per policy while noting confirmed and unconfirmed impact.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s45",
+      "tier": "L1",
+      "name": "Misleading Geo Anomaly",
+      "kind": "Identity",
+      "difficulty": "Starter",
+      "attack": "T1078",
+      "host": "IDP",
+      "summary": "A single user appears to log in from distant countries minutes apart using the same managed device.",
+      "mission": "Decide whether the alert proves token theft or needs secure-egress attribution.",
+      "events": [
+        {
+          "time": "10:11:00",
+          "source": "idp",
+          "asset": "user=dena",
+          "detail": "signin=success ip=198.51.100.11 geo=US device=CORP-22"
+        },
+        {
+          "time": "10:12:00",
+          "source": "vpn",
+          "asset": "CORP-22",
+          "detail": "tunnel=connected egress_pool=corp-global"
+        },
+        {
+          "time": "10:13:00",
+          "source": "idp",
+          "asset": "user=dena",
+          "detail": "signin=success ip=203.0.113.19 geo=DE device=CORP-22"
+        },
+        {
+          "time": "10:13:30",
+          "source": "proxy",
+          "asset": "CORP-22",
+          "detail": "egress_location=DE route=corp-global-gateway"
+        },
+        {
+          "time": "10:14:00",
+          "source": "idp",
+          "asset": "user=dena",
+          "detail": "device_compliance=true MFA=satisfied token_id=tok-551"
+        },
+        {
+          "time": "10:15:00",
+          "source": "asset",
+          "asset": "SECURE-WEB-GW",
+          "detail": "198.51.100.11 and 203.0.113.19 are registered corporate egress"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Different geolocations map to the same compliant device through corporate gateways.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Different geolocations map to the same compliant device through corporate gateways. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Check token/session continuity, egress ownership and any sensitive follow-on API use.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Check token/session continuity, egress ownership and any sensitive follow-on API use. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Close only with gateway attribution evidence and record the detection tuning need.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Close only with gateway attribution evidence and record the detection tuning need. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Different geolocations map to the same compliant device through corporate gateways.",
+        "pivot": "Check token/session continuity, egress ownership and any sensitive follow-on API use.",
+        "decision": "Close only with gateway attribution evidence and record the detection tuning need.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s46",
+      "tier": "L1",
+      "name": "New Scheduled Job On Jump Host",
+      "kind": "Endpoint",
+      "difficulty": "Starter",
+      "attack": "T1053.005",
+      "host": "JUMP-02",
+      "summary": "A privileged scheduled task appears after a maintenance window and starts an unsigned script.",
+      "mission": "Determine who created the task and whether the maintenance justification matches the script.",
+      "events": [
+        {
+          "time": "11:21:10",
+          "source": "windows",
+          "asset": "JUMP-02",
+          "detail": "event_id=4698 task=CacheRefresh principal=SYSTEM creator=svc_ops"
+        },
+        {
+          "time": "11:21:22",
+          "source": "edr",
+          "asset": "JUMP-02",
+          "detail": "parent=svchost.exe child=powershell.exe path=C:\\Ops\\cache.ps1"
+        },
+        {
+          "time": "11:21:40",
+          "source": "edr",
+          "asset": "JUMP-02",
+          "detail": "script_sha=AB12 signer=unsigned network=198.51.100.66"
+        },
+        {
+          "time": "11:22:00",
+          "source": "it",
+          "asset": "ITSM",
+          "detail": "CHG-915 approved patch window ended at 10:00 UTC"
+        },
+        {
+          "time": "11:24:00",
+          "source": "idp",
+          "asset": "svc_ops",
+          "detail": "role=Admin login_source=198.51.100.66 unregistered_device=true"
+        },
+        {
+          "time": "11:25:00",
+          "source": "edr",
+          "asset": "JUMP-02",
+          "detail": "task=CacheRefresh status=enabled run_as=SYSTEM"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "A privileged task was created out of the approved window with an unexplained source.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "A privileged task was created out of the approved window with an unexplained source. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Obtain task XML and creator logon, then compare script hash and external host to change evidence.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Obtain task XML and creator logon, then compare script hash and external host to change evidence. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Escalate and request authorized containment rather than silently deleting the task.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Escalate and request authorized containment rather than silently deleting the task. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "A privileged task was created out of the approved window with an unexplained source.",
+        "pivot": "Obtain task XML and creator logon, then compare script hash and external host to change evidence.",
+        "decision": "Escalate and request authorized containment rather than silently deleting the task.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s47",
+      "tier": "L1",
+      "name": "DNS Resolver Failure or Beacon",
+      "kind": "Network",
+      "difficulty": "Starter",
+      "attack": "T1071.004",
+      "host": "DESK-19",
+      "summary": "DNS lookups fail periodically against one domain just as an app rolls out.",
+      "mission": "Use process and rollout data to separate an application bug from beaconing.",
+      "events": [
+        {
+          "time": "12:00:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "release=DesktopAgent-6.4 deployed to department=Design"
+        },
+        {
+          "time": "12:00:20",
+          "source": "dns",
+          "asset": "DESK-19",
+          "detail": "qname=health.sync.example.net qtype=A result=NXDOMAIN"
+        },
+        {
+          "time": "12:01:20",
+          "source": "dns",
+          "asset": "DESK-19",
+          "detail": "qname=health.sync.example.net qtype=A result=NXDOMAIN"
+        },
+        {
+          "time": "12:02:20",
+          "source": "dns",
+          "asset": "DESK-19",
+          "detail": "qname=health.sync.example.net qtype=A result=NXDOMAIN"
+        },
+        {
+          "time": "12:03:00",
+          "source": "edr",
+          "asset": "DESK-19",
+          "detail": "process=DesktopAgent.exe publisher=Example Corp dst_domain=health.sync.example.net"
+        },
+        {
+          "time": "12:04:00",
+          "source": "dns",
+          "asset": "DESK-21",
+          "detail": "same qname and cadence observed after the same software rollout"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "The periodic queries match a deployed application on more than one managed host.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "The periodic queries match a deployed application on more than one managed host. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Verify signed binary, deployment record and resolver responses before any allowlisting.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Verify signed binary, deployment record and resolver responses before any allowlisting. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Treat as likely misconfiguration while tracking the unresolved domain and fixing health-check DNS.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Treat as likely misconfiguration while tracking the unresolved domain and fixing health-check DNS. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "The periodic queries match a deployed application on more than one managed host.",
+        "pivot": "Verify signed binary, deployment record and resolver responses before any allowlisting.",
+        "decision": "Treat as likely misconfiguration while tracking the unresolved domain and fixing health-check DNS.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s48",
+      "tier": "L1",
+      "name": "Shared Local Admin During Helpdesk Work",
+      "kind": "Windows",
+      "difficulty": "Starter",
+      "attack": "T1078",
+      "host": "DESKTOP-83",
+      "summary": "A helpdesk technician logs on using a local administrator at a surprising hour.",
+      "mission": "Corroborate a remote admin login against an approved incident ticket.",
+      "events": [
+        {
+          "time": "20:14:00",
+          "source": "windows",
+          "asset": "DESKTOP-83",
+          "detail": "event_id=4624 logon_type=10 account=.\\Administrator src=198.51.100.88"
+        },
+        {
+          "time": "20:14:14",
+          "source": "windows",
+          "asset": "DESKTOP-83",
+          "detail": "event_id=4672 account=.\\Administrator special_privileges=yes"
+        },
+        {
+          "time": "20:15:00",
+          "source": "it",
+          "asset": "TICKET",
+          "detail": "INC-776 overnight SSD recovery requested by device owner"
+        },
+        {
+          "time": "20:15:10",
+          "source": "edr",
+          "asset": "DESKTOP-83",
+          "detail": "process=mmc.exe parent=explorer.exe user=Administrator"
+        },
+        {
+          "time": "20:16:20",
+          "source": "rdp",
+          "asset": "198.51.100.88",
+          "detail": "host=HELPDESK-BRIDGE authenticated_operator=it-bob"
+        },
+        {
+          "time": "20:19:00",
+          "source": "it",
+          "asset": "TICKET",
+          "detail": "INC-776 includes emergency-access approval and asset=DESKTOP-83"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "The admin logon aligns with a documented helpdesk bridge and emergency request.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "The admin logon aligns with a documented helpdesk bridge and emergency request. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Confirm RDP source ownership, approval and that no unexpected descendant commands ran.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Confirm RDP source ownership, approval and that no unexpected descendant commands ran. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Document approved use and recommend individual break-glass accounts instead of shared credentials.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Document approved use and recommend individual break-glass accounts instead of shared credentials. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "The admin logon aligns with a documented helpdesk bridge and emergency request.",
+        "pivot": "Confirm RDP source ownership, approval and that no unexpected descendant commands ran.",
+        "decision": "Document approved use and recommend individual break-glass accounts instead of shared credentials.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s49",
+      "tier": "L2",
+      "name": "Token Replay Following Device Loss",
+      "kind": "Identity",
+      "difficulty": "Intermediate",
+      "attack": "T1528",
+      "host": "SAAS",
+      "summary": "A session token continues accessing files after the original device was reported missing.",
+      "mission": "Scope the token and identify actions that outlived expected device control.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "it",
+          "asset": "HELPDESK",
+          "detail": "device=LT-009 user=ellis report=lost"
+        },
+        {
+          "time": "08:15:00",
+          "source": "idp",
+          "asset": "ellis",
+          "detail": "session=ses-810 revoke_requested=true"
+        },
+        {
+          "time": "08:19:00",
+          "source": "saas",
+          "asset": "198.51.100.71",
+          "detail": "session=ses-810 user=ellis api=ListFiles result=success"
+        },
+        {
+          "time": "08:21:00",
+          "source": "saas",
+          "asset": "198.51.100.71",
+          "detail": "session=ses-810 user=ellis api=DownloadFile count=18"
+        },
+        {
+          "time": "08:23:00",
+          "source": "idp",
+          "asset": "ellis",
+          "detail": "new signin from managed_device=none user_agent=unknown"
+        },
+        {
+          "time": "08:26:00",
+          "source": "saas",
+          "asset": "198.51.100.71",
+          "detail": "session=ses-810 access=blocked after app_side_session_termination"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Application access continued after a revoke request; assess token propagation and files reached.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Application access continued after a revoke request; assess token propagation and files reached. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Correlate app session IDs, downloaded object IDs, original device and revocation effective time.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Correlate app session IDs, downloaded object IDs, original device and revocation effective time. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Coordinate approved application-side session kill and protect potentially exposed data.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Coordinate approved application-side session kill and protect potentially exposed data. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Application access continued after a revoke request; assess token propagation and files reached.",
+        "pivot": "Correlate app session IDs, downloaded object IDs, original device and revocation effective time.",
+        "decision": "Coordinate approved application-side session kill and protect potentially exposed data.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s50",
+      "tier": "L2",
+      "name": "AD CS Template Permission Drift",
+      "kind": "Identity",
+      "difficulty": "Intermediate",
+      "attack": "T1649",
+      "host": "PKI-CA",
+      "summary": "A certificate template becomes enrollable to a broader group just before an unexpected certificate issuance.",
+      "mission": "Trace template ACL change and certificate requester without assuming exploit success.",
+      "events": [
+        {
+          "time": "03:04:00",
+          "source": "windows",
+          "asset": "DC-02",
+          "detail": "event_id=5136 object=CN=UserAuthTemplate changed_attribute=nTSecurityDescriptor"
+        },
+        {
+          "time": "03:04:08",
+          "source": "windows",
+          "asset": "DC-02",
+          "detail": "actor=svc-legacy added_principal=DomainUsers right=Enroll"
+        },
+        {
+          "time": "03:05:20",
+          "source": "ca",
+          "asset": "PKI-CA",
+          "detail": "event_id=4886 template=UserAuthTemplate requester=legacy-job"
+        },
+        {
+          "time": "03:06:00",
+          "source": "ca",
+          "asset": "PKI-CA",
+          "detail": "event_id=4887 disposition=issued serial=00A140 template=UserAuthTemplate"
+        },
+        {
+          "time": "03:07:00",
+          "source": "idp",
+          "asset": "legacy-job",
+          "detail": "certificate_logon=success device=WS-UNMANAGED"
+        },
+        {
+          "time": "03:09:00",
+          "source": "it",
+          "asset": "ITSM",
+          "detail": "no approval found for UserAuthTemplate ACL change"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Enrollment permissions widened and an unapproved certificate was issued, requiring urgent scrutiny.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Enrollment permissions widened and an unapproved certificate was issued, requiring urgent scrutiny. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Collect template before/after ACL, certificate serial, requester and resulting logons.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Collect template before/after ACL, certificate serial, requester and resulting logons. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Escalate to identity/PKI owners for authorized template restriction and certificate invalidation.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Escalate to identity/PKI owners for authorized template restriction and certificate invalidation. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Enrollment permissions widened and an unapproved certificate was issued, requiring urgent scrutiny.",
+        "pivot": "Collect template before/after ACL, certificate serial, requester and resulting logons.",
+        "decision": "Escalate to identity/PKI owners for authorized template restriction and certificate invalidation.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s51",
+      "tier": "L2",
+      "name": "Unusual WinRM Administrative Chain",
+      "kind": "Lateral movement",
+      "difficulty": "Intermediate",
+      "attack": "T1021.006",
+      "host": "SERVER-OPS",
+      "summary": "Remote administration is used from an unfamiliar source followed by service creation.",
+      "mission": "Correlate user, WinRM session, commands and change approvals.",
+      "events": [
+        {
+          "time": "14:02:00",
+          "source": "windows",
+          "asset": "SERVER-OPS",
+          "detail": "event_id=4624 logon_type=3 account=ops-admin src=203.0.113.21"
+        },
+        {
+          "time": "14:02:12",
+          "source": "edr",
+          "asset": "SERVER-OPS",
+          "detail": "parent=wsmprovhost.exe child=powershell.exe command=Get-Service"
+        },
+        {
+          "time": "14:03:20",
+          "source": "windows",
+          "asset": "SERVER-OPS",
+          "detail": "event_id=7045 service=DiagConnect binary=C:\\ProgramData\\diag.exe"
+        },
+        {
+          "time": "14:04:00",
+          "source": "edr",
+          "asset": "SERVER-OPS",
+          "detail": "process=diag.exe signer=unknown outbound=198.51.100.18"
+        },
+        {
+          "time": "14:05:00",
+          "source": "asset",
+          "asset": "CMDB",
+          "detail": "203.0.113.21 not registered management subnet"
+        },
+        {
+          "time": "14:06:00",
+          "source": "it",
+          "asset": "ITSM",
+          "detail": "maintenance for SERVER-OPS scheduled tomorrow, not today"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Remote administrative execution and service creation came from an unapproved source.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Remote administrative execution and service creation came from an unapproved source. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Link session ID to process lineage, binary provenance and other touched hosts.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Link session ID to process lineage, binary provenance and other touched hosts. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Request urgent incident escalation and approved host/network containment.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Request urgent incident escalation and approved host/network containment. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Remote administrative execution and service creation came from an unapproved source.",
+        "pivot": "Link session ID to process lineage, binary provenance and other touched hosts.",
+        "decision": "Request urgent incident escalation and approved host/network containment.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s52",
+      "tier": "L2",
+      "name": "Beacon Hidden Behind CDN",
+      "kind": "Network",
+      "difficulty": "Intermediate",
+      "attack": "T1071.001",
+      "host": "WK-543",
+      "summary": "A low-volume HTTPS periodic connection reaches a CDN that also hosts normal traffic.",
+      "mission": "Avoid blocking shared infrastructure without endpoint causality.",
+      "events": [
+        {
+          "time": "16:10:00",
+          "source": "netflow",
+          "asset": "WK-543",
+          "detail": "dst=203.0.113.30 port=443 bytes_out=280 periodic=60s"
+        },
+        {
+          "time": "16:11:00",
+          "source": "netflow",
+          "asset": "WK-543",
+          "detail": "dst=203.0.113.30 port=443 bytes_out=281 periodic=60s"
+        },
+        {
+          "time": "16:12:00",
+          "source": "dns",
+          "asset": "WK-543",
+          "detail": "qname=update-check.example.net answer=203.0.113.30"
+        },
+        {
+          "time": "16:12:03",
+          "source": "edr",
+          "asset": "WK-543",
+          "detail": "process=apphost.exe parent=winword.exe dst=203.0.113.30"
+        },
+        {
+          "time": "16:14:00",
+          "source": "proxy",
+          "asset": "WK-543",
+          "detail": "sni=shared-cdn.example.net path=/status/client/321"
+        },
+        {
+          "time": "16:15:00",
+          "source": "asset",
+          "asset": "CMDB",
+          "detail": "winword.exe child apphost.exe not in approved software inventory"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "The process chain and cadence are suspicious; the shared CDN IP alone is not a block target.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "The process chain and cadence are suspicious; the shared CDN IP alone is not a block target. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Trace document provenance, apphost executable and other affected endpoints.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Trace document provenance, apphost executable and other affected endpoints. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Escalate for targeted host containment and request path/domain-specific controls.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Escalate for targeted host containment and request path/domain-specific controls. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "The process chain and cadence are suspicious; the shared CDN IP alone is not a block target.",
+        "pivot": "Trace document provenance, apphost executable and other affected endpoints.",
+        "decision": "Escalate for targeted host containment and request path/domain-specific controls.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s53",
+      "tier": "L2",
+      "name": "CloudTrail Data Events Disabled",
+      "kind": "Cloud",
+      "difficulty": "Intermediate",
+      "attack": "T1562.008",
+      "host": "BUCKET-RESEARCH",
+      "summary": "S3 object reads go dark after an administrative trail configuration change.",
+      "mission": "Establish whether missing logs mean no access or lost visibility.",
+      "events": [
+        {
+          "time": "05:00:00",
+          "source": "cloud",
+          "asset": "ACCOUNT-01",
+          "detail": "event=PutEventSelectors actor=ci-security role=AuditMaint"
+        },
+        {
+          "time": "05:00:01",
+          "source": "cloud",
+          "asset": "ACCOUNT-01",
+          "detail": "selector=DataResources s3 enabled=false trail=org-trail"
+        },
+        {
+          "time": "05:01:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "no approved change for object-data selector removal"
+        },
+        {
+          "time": "05:07:00",
+          "source": "cloud",
+          "asset": "BUCKET-RESEARCH",
+          "detail": "management_event=ListBucket actor=role-analyst"
+        },
+        {
+          "time": "05:12:00",
+          "source": "monitor",
+          "asset": "org-trail",
+          "detail": "data_event_count=0 previous_hour=812"
+        },
+        {
+          "time": "05:13:00",
+          "source": "cloud",
+          "asset": "ACCOUNT-01",
+          "detail": "role=AuditMaint session_source=203.0.113.44 non_corp=true"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Audit data events were explicitly disabled; missing reads cannot prove inactivity.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Audit data events were explicitly disabled; missing reads cannot prove inactivity. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Confirm selector diff, role session provenance and independent storage access records.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Confirm selector diff, role session provenance and independent storage access records. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Escalate loss of visibility and coordinate authorized restoration with preservation of control-plane evidence.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Escalate loss of visibility and coordinate authorized restoration with preservation of control-plane evidence. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Audit data events were explicitly disabled; missing reads cannot prove inactivity.",
+        "pivot": "Confirm selector diff, role session provenance and independent storage access records.",
+        "decision": "Escalate loss of visibility and coordinate authorized restoration with preservation of control-plane evidence.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s54",
+      "tier": "L2",
+      "name": "Container Escape Indicator Needs Validation",
+      "kind": "Cloud",
+      "difficulty": "Intermediate",
+      "attack": "T1611",
+      "host": "K8S-PROD",
+      "summary": "A pod runs privileged with a mounted host path during a routine cluster deployment.",
+      "mission": "Distinguish approved node maintenance from unexpected workload privilege.",
+      "events": [
+        {
+          "time": "11:01:00",
+          "source": "k8s",
+          "asset": "api-server",
+          "detail": "verb=create resource=pods namespace=kube-system name=node-inspector"
+        },
+        {
+          "time": "11:01:01",
+          "source": "k8s",
+          "asset": "api-server",
+          "detail": "user=system:serviceaccount:maintenance:ci-bot sourceIPs=203.0.113.61"
+        },
+        {
+          "time": "11:01:02",
+          "source": "k8s",
+          "asset": "pod=node-inspector",
+          "detail": "securityContext.privileged=true hostPath=/var/run"
+        },
+        {
+          "time": "11:04:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "CHG-902 for node diagnostics approved namespace=maintenance not kube-system"
+        },
+        {
+          "time": "11:04:20",
+          "source": "k8s",
+          "asset": "api-server",
+          "detail": "verb=get resource=secrets namespace=finance user=maintenance:ci-bot"
+        },
+        {
+          "time": "11:06:00",
+          "source": "edr",
+          "asset": "NODE-12",
+          "detail": "unexpected process=nsenter child=containerd-shim"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Privilege, unexpected namespace and secret access deviate from the documented deployment.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Privilege, unexpected namespace and secret access deviate from the documented deployment. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Inspect pod spec, admission logs, CI identity, node process activity and change scope.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Inspect pod spec, admission logs, CI identity, node process activity and change scope. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Treat as high priority; coordinate authorized token revocation, pod restriction and evidence capture.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Treat as high priority; coordinate authorized token revocation, pod restriction and evidence capture. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Privilege, unexpected namespace and secret access deviate from the documented deployment.",
+        "pivot": "Inspect pod spec, admission logs, CI identity, node process activity and change scope.",
+        "decision": "Treat as high priority; coordinate authorized token revocation, pod restriction and evidence capture.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s55",
+      "tier": "L2",
+      "name": "Mailbox Rule and OAuth Pivot",
+      "kind": "Email",
+      "difficulty": "Intermediate",
+      "attack": "T1114.003",
+      "host": "MAIL-365",
+      "summary": "A mailbox forwarding rule appears shortly after a third-party OAuth grant.",
+      "mission": "Reconstruct consent and actual forwarding impact.",
+      "events": [
+        {
+          "time": "09:03:00",
+          "source": "saas",
+          "asset": "tenant",
+          "detail": "operation=ConsentToApp app=CalendarSummaries scopes=Mail.ReadWrite"
+        },
+        {
+          "time": "09:05:00",
+          "source": "email",
+          "asset": "user=sandy",
+          "detail": "operation=New-InboxRule name=ReceiptsForward redirectTo=archive@example.net"
+        },
+        {
+          "time": "09:06:00",
+          "source": "email",
+          "asset": "user=sandy",
+          "detail": "rule_enabled=true matching=all"
+        },
+        {
+          "time": "09:07:00",
+          "source": "saas",
+          "asset": "tenant",
+          "detail": "app=CalendarSummaries api=ListMessages count=120"
+        },
+        {
+          "time": "09:08:00",
+          "source": "email",
+          "asset": "user=sandy",
+          "detail": "auto_forward_message_count=14 external=true"
+        },
+        {
+          "time": "09:09:00",
+          "source": "idp",
+          "asset": "user=sandy",
+          "detail": "sign_in_origin=unknown device=unmanaged MFA=not_challenged"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "An external rule and broad mail grant were followed by message access and forwarding.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "An external rule and broad mail grant were followed by message access and forwarding. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Preserve consent audit, rule definition, forwarded-message IDs and session details.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Preserve consent audit, rule definition, forwarded-message IDs and session details. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Coordinate approved rule disablement, OAuth grant revocation and recipient-impact assessment.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Coordinate approved rule disablement, OAuth grant revocation and recipient-impact assessment. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "An external rule and broad mail grant were followed by message access and forwarding.",
+        "pivot": "Preserve consent audit, rule definition, forwarded-message IDs and session details.",
+        "decision": "Coordinate approved rule disablement, OAuth grant revocation and recipient-impact assessment.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s56",
+      "tier": "L2",
+      "name": "Insider Bulk Archive or Migration",
+      "kind": "Data",
+      "difficulty": "Intermediate",
+      "attack": "T1537",
+      "host": "FILE-SHARE",
+      "summary": "A large archive appears on an engineering workstation a day before a planned migration.",
+      "mission": "Avoid labeling staging as exfiltration without transfer evidence.",
+      "events": [
+        {
+          "time": "18:00:00",
+          "source": "edr",
+          "asset": "ENG-88",
+          "detail": "process=7zip.exe archive=design-export.7z size=1.8GB"
+        },
+        {
+          "time": "18:03:00",
+          "source": "edr",
+          "asset": "ENG-88",
+          "detail": "source=\\\\filesrv\\team-data files=1240 action=read"
+        },
+        {
+          "time": "18:08:00",
+          "source": "proxy",
+          "asset": "ENG-88",
+          "detail": "dest=share-migration.example.org upload_bytes=0"
+        },
+        {
+          "time": "18:10:00",
+          "source": "it",
+          "asset": "ITSM",
+          "detail": "MIG-420 approved dry-run archive on ENG-88 tomorrow"
+        },
+        {
+          "time": "18:11:00",
+          "source": "dlp",
+          "asset": "ENG-88",
+          "detail": "archive=design-export.7z pending_scan=true"
+        },
+        {
+          "time": "18:12:00",
+          "source": "vpn",
+          "asset": "ENG-88",
+          "detail": "no external VPN session observed after archive creation"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Bulk staging is confirmed but outbound transfer is not demonstrated by shown evidence.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Bulk staging is confirmed but outbound transfer is not demonstrated by shown evidence. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Validate operator approval, archive destination, object contents and data-loss checks.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Validate operator approval, archive destination, object contents and data-loss checks. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Keep the case open for scoping and DLP review without claiming confirmed exfiltration.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Keep the case open for scoping and DLP review without claiming confirmed exfiltration. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Bulk staging is confirmed but outbound transfer is not demonstrated by shown evidence.",
+        "pivot": "Validate operator approval, archive destination, object contents and data-loss checks.",
+        "decision": "Keep the case open for scoping and DLP review without claiming confirmed exfiltration.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s57",
+      "tier": "L2",
+      "name": "False Negatives After Forwarder Update",
+      "kind": "Detection",
+      "difficulty": "Intermediate",
+      "attack": "T1562",
+      "host": "SIEM",
+      "summary": "A detection volume collapses after a forwarder update while raw endpoint events still exist.",
+      "mission": "Evaluate parser/schema health rather than assuming attacker inactivity.",
+      "events": [
+        {
+          "time": "13:00:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "CHG-700 forwarder update version=7.8 deployment=all-windows"
+        },
+        {
+          "time": "13:05:00",
+          "source": "siem",
+          "asset": "RULE-ADMIN",
+          "detail": "detections=0 baseline_per_hour=32"
+        },
+        {
+          "time": "13:06:00",
+          "source": "forwarder",
+          "asset": "WIN-SRV-01",
+          "detail": "raw event_id=4732 group=LocalAdmins user=svc-test"
+        },
+        {
+          "time": "13:06:01",
+          "source": "siem",
+          "asset": "WIN-SRV-01",
+          "detail": "normalized field=EventCode value=null old_field=event_id"
+        },
+        {
+          "time": "13:07:00",
+          "source": "test",
+          "asset": "RULE-ADMIN",
+          "detail": "fixture=known-positive expected=alert actual=none"
+        },
+        {
+          "time": "13:10:00",
+          "source": "it",
+          "asset": "SOC",
+          "detail": "forwarder rollback approved; canary alert confirmed after rollback"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Parser changed the field the rule requires, causing a missed known-positive.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Parser changed the field the rule requires, causing a missed known-positive. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Compare raw/normalized field maps and replay positive/benign fixtures.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Compare raw/normalized field maps and replay positive/benign fixtures. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Restore detection coverage under change control and track the blind window.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Restore detection coverage under change control and track the blind window. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Parser changed the field the rule requires, causing a missed known-positive.",
+        "pivot": "Compare raw/normalized field maps and replay positive/benign fixtures.",
+        "decision": "Restore detection coverage under change control and track the blind window.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s58",
+      "tier": "L3",
+      "name": "Rare Kerberos Delegation Modification",
+      "kind": "Identity",
+      "difficulty": "Advanced",
+      "attack": "T1558",
+      "host": "DC-FLEET",
+      "summary": "A delegation setting changes on a high-value service followed by ticket requests from a new host.",
+      "mission": "Assess the privilege path and validate intended delegation scope.",
+      "events": [
+        {
+          "time": "02:11:00",
+          "source": "windows",
+          "asset": "DC-01",
+          "detail": "event_id=5136 object=CN=PAYMENTS-SVC changed=msDS-AllowedToDelegateTo"
+        },
+        {
+          "time": "02:12:00",
+          "source": "windows",
+          "asset": "DC-01",
+          "detail": "actor=svc-ops source_host=LAB-CLIENT"
+        },
+        {
+          "time": "02:13:00",
+          "source": "windows",
+          "asset": "DC-02",
+          "detail": "event_id=4769 requester=svc-ops service=HTTP/payments"
+        },
+        {
+          "time": "02:14:00",
+          "source": "edr",
+          "asset": "LAB-CLIENT",
+          "detail": "binary=service-helper.exe signer=unknown kerberos_tickets=7"
+        },
+        {
+          "time": "02:15:00",
+          "source": "it",
+          "asset": "ITSM",
+          "detail": "delegation changes freeze enforced for PAYMENTS-SVC"
+        },
+        {
+          "time": "02:18:00",
+          "source": "windows",
+          "asset": "DC-01",
+          "detail": "event_id=5136 object=PAYMENTS-SVC actor=svc-ops delegation_set_still_present"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "A sensitive delegation attribute changed outside the freeze with new ticket requests.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "A sensitive delegation attribute changed outside the freeze with new ticket requests. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Verify directory before/after attributes, actor logon source, SPN and authorized service flows.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Verify directory before/after attributes, actor logon source, SPN and authorized service flows. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Coordinate urgent identity response and rollback only through approved AD owners.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Coordinate urgent identity response and rollback only through approved AD owners. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "A sensitive delegation attribute changed outside the freeze with new ticket requests.",
+        "pivot": "Verify directory before/after attributes, actor logon source, SPN and authorized service flows.",
+        "decision": "Coordinate urgent identity response and rollback only through approved AD owners.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s59",
+      "tier": "L3",
+      "name": "Detection Coverage Eroded by Exception",
+      "kind": "Detection engineering",
+      "difficulty": "Advanced",
+      "attack": "T1562.001",
+      "host": "DETECTION-REPO",
+      "summary": "A global allowlist added for one noisy maintenance host excludes a malicious test elsewhere.",
+      "mission": "Demonstrate the exception has exceeded its intended scope.",
+      "events": [
+        {
+          "time": "10:00:00",
+          "source": "git",
+          "asset": "DETECTION-REPO",
+          "detail": "commit=ab129 filter=parent_process:updater.exe scope=*"
+        },
+        {
+          "time": "10:01:00",
+          "source": "ci",
+          "asset": "DETECTION-REPO",
+          "detail": "unit_test=benign-negative PASS"
+        },
+        {
+          "time": "10:02:00",
+          "source": "test",
+          "asset": "WK-100",
+          "detail": "fixture=known-positive parent_process=updater.exe actual_alert=none"
+        },
+        {
+          "time": "10:03:00",
+          "source": "test",
+          "asset": "WK-101",
+          "detail": "fixture=known-positive parent_process=updater.exe actual_alert=none"
+        },
+        {
+          "time": "10:04:00",
+          "source": "siem",
+          "asset": "RULE-742",
+          "detail": "suppressed_count=122 new_scope=all_hosts"
+        },
+        {
+          "time": "10:07:00",
+          "source": "git",
+          "asset": "DETECTION-REPO",
+          "detail": "issue=SEC-458 requests exception restricted to asset=BUILD-01"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "A fleet-wide exception broke a known-positive detection on unrelated hosts.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "A fleet-wide exception broke a known-positive detection on unrelated hosts. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Diff rule semantics, check suppression keys and replay positive/negative suites.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Diff rule semantics, check suppression keys and replay positive/negative suites. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Restore scoped exception, assign detector owner and log a coverage regression.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Restore scoped exception, assign detector owner and log a coverage regression. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "A fleet-wide exception broke a known-positive detection on unrelated hosts.",
+        "pivot": "Diff rule semantics, check suppression keys and replay positive/negative suites.",
+        "decision": "Restore scoped exception, assign detector owner and log a coverage regression.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s60",
+      "tier": "L3",
+      "name": "Identity Hunt Through OAuth Device Code",
+      "kind": "Identity",
+      "difficulty": "Advanced",
+      "attack": "T1528",
+      "host": "IDP",
+      "summary": "Device-code sign-ins rise from a non-standard app and continue after password rotation.",
+      "mission": "Use session provenance and API evidence to evaluate device-code abuse.",
+      "events": [
+        {
+          "time": "17:01:00",
+          "source": "idp",
+          "asset": "user=ken",
+          "detail": "auth_flow=device_code client_id=unregistered-app result=success"
+        },
+        {
+          "time": "17:03:00",
+          "source": "idp",
+          "asset": "user=ken",
+          "detail": "client_app=unknown device=unmanaged token_family=F-34"
+        },
+        {
+          "time": "17:05:00",
+          "source": "saas",
+          "asset": "user=ken",
+          "detail": "api=ListFiles client_id=unregistered-app count=70"
+        },
+        {
+          "time": "17:10:00",
+          "source": "it",
+          "asset": "HELPDESK",
+          "detail": "user=ken reports unexpected browser verification page"
+        },
+        {
+          "time": "17:12:00",
+          "source": "idp",
+          "asset": "user=ken",
+          "detail": "password_reset=true refresh_tokens_active=true"
+        },
+        {
+          "time": "17:13:00",
+          "source": "saas",
+          "asset": "user=ken",
+          "detail": "api=GetFile count=12 token_family=F-34"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Non-standard app tokens accessed files and remained usable despite password reset.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Non-standard app tokens accessed files and remained usable despite password reset. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Trace client ID, consent scope, token family and requested resources across services.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Trace client ID, consent scope, token family and requested resources across services. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Recommend approved session/token revocation and containment of unauthorized OAuth app.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Recommend approved session/token revocation and containment of unauthorized OAuth app. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Non-standard app tokens accessed files and remained usable despite password reset.",
+        "pivot": "Trace client ID, consent scope, token family and requested resources across services.",
+        "decision": "Recommend approved session/token revocation and containment of unauthorized OAuth app.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s61",
+      "tier": "L3",
+      "name": "Supply Chain Signed Package Drift",
+      "kind": "Endpoint",
+      "difficulty": "Advanced",
+      "attack": "T1195.002",
+      "host": "BUILD-FLEET",
+      "summary": "A signed update runs with new network behaviors despite certificate validity.",
+      "mission": "Determine whether the deployment artifact and host behavior match expected release.",
+      "events": [
+        {
+          "time": "05:00:00",
+          "source": "ci",
+          "asset": "BUILD-SYSTEM",
+          "detail": "release=AgentUpdater-3.2 artifact_sha=AB22 signature=valid"
+        },
+        {
+          "time": "05:12:00",
+          "source": "edr",
+          "asset": "BUILD-09",
+          "detail": "process=AgentUpdater.exe file_sha=AB22 signer=trusted"
+        },
+        {
+          "time": "05:12:20",
+          "source": "edr",
+          "asset": "BUILD-09",
+          "detail": "AgentUpdater.exe child=powershell.exe path=C:\\Temp\\sync.ps1"
+        },
+        {
+          "time": "05:13:00",
+          "source": "dns",
+          "asset": "BUILD-09",
+          "detail": "qname=telemetry-node.example.net first_seen=true"
+        },
+        {
+          "time": "05:14:00",
+          "source": "asset",
+          "asset": "SOFTWARE-CATALOG",
+          "detail": "expected release sha=AA11 previous signed build=3.1"
+        },
+        {
+          "time": "05:15:00",
+          "source": "ci",
+          "asset": "BUILD-SYSTEM",
+          "detail": "release=3.2 provenance attestation missing approval for sha=AB22"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "A valid signature coexists with a hash/provenance discrepancy and unexpected process activity.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "A valid signature coexists with a hash/provenance discrepancy and unexpected process activity. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Verify build attestation, repository tag, signing provenance and fleet spread.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Verify build attestation, repository tag, signing provenance and fleet spread. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Escalate supply-chain compromise suspicion and pause rollout only with authorized change owner.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Escalate supply-chain compromise suspicion and pause rollout only with authorized change owner. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "A valid signature coexists with a hash/provenance discrepancy and unexpected process activity.",
+        "pivot": "Verify build attestation, repository tag, signing provenance and fleet spread.",
+        "decision": "Escalate supply-chain compromise suspicion and pause rollout only with authorized change owner.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s62",
+      "tier": "L3",
+      "name": "Insufficient Audit During Recovery",
+      "kind": "Forensics",
+      "difficulty": "Advanced",
+      "attack": "T1070",
+      "host": "RECOVERY-ENV",
+      "summary": "Recovery starts while endpoint and cloud audit retention windows are about to expire.",
+      "mission": "Prioritize evidence preservation under storage and business constraints.",
+      "events": [
+        {
+          "time": "09:00:00",
+          "source": "incident",
+          "asset": "IR-LEAD",
+          "detail": "phase=recovery services=payments rto=2h"
+        },
+        {
+          "time": "09:02:00",
+          "source": "edr",
+          "asset": "NODE-19",
+          "detail": "sensor_status=offline last_seen=08:55 UTC"
+        },
+        {
+          "time": "09:03:00",
+          "source": "cloud",
+          "asset": "ACCOUNT-01",
+          "detail": "CloudTrail_retention_hours=24 expires_soon=true"
+        },
+        {
+          "time": "09:05:00",
+          "source": "storage",
+          "asset": "EVIDENCE-VAULT",
+          "detail": "immutable_export_ready=true approved_by=IR-LEAD"
+        },
+        {
+          "time": "09:07:00",
+          "source": "it",
+          "asset": "OPS",
+          "detail": "restore_requested pending_evidence_snapshot=true"
+        },
+        {
+          "time": "09:12:00",
+          "source": "incident",
+          "asset": "IR-LEAD",
+          "detail": "approval=export_critical_logs_then_restore priority=high"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Recovery pressures coexist with known collection gaps and imminent log loss.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Recovery pressures coexist with known collection gaps and imminent log loss. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Export authorized volatile/expiring evidence and record chain of custody and sensor gaps.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Export authorized volatile/expiring evidence and record chain of custody and sensor gaps. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Coordinate restoration after evidence safeguard and document unknowns that remain.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Coordinate restoration after evidence safeguard and document unknowns that remain. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Recovery pressures coexist with known collection gaps and imminent log loss.",
+        "pivot": "Export authorized volatile/expiring evidence and record chain of custody and sensor gaps.",
+        "decision": "Coordinate restoration after evidence safeguard and document unknowns that remain.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s63",
+      "tier": "L3",
+      "name": "Multi-Tenant CI Role Assumption",
+      "kind": "Cloud",
+      "difficulty": "Advanced",
+      "attack": "T1098",
+      "host": "AWS-ORG",
+      "summary": "A build role assumes into a production account, then changes a secret policy not in the pipeline plan.",
+      "mission": "Reconstruct the trust chain across AWS accounts and pipeline approvals.",
+      "events": [
+        {
+          "time": "02:01:00",
+          "source": "cloud",
+          "asset": "DEV-ACCOUNT",
+          "detail": "event=AssumeRole role=ProdDeploy by=ci-build session=job-180"
+        },
+        {
+          "time": "02:01:02",
+          "source": "cloud",
+          "asset": "PROD-ACCOUNT",
+          "detail": "sourceIdentity=job-180 principal=assumed-role/ProdDeploy"
+        },
+        {
+          "time": "02:02:00",
+          "source": "ci",
+          "asset": "BUILD-180",
+          "detail": "pipeline=lint-only approval=none"
+        },
+        {
+          "time": "02:03:00",
+          "source": "cloud",
+          "asset": "PROD-ACCOUNT",
+          "detail": "event=PutResourcePolicy resource=secret/prod-api-key by=ProdDeploy"
+        },
+        {
+          "time": "02:03:10",
+          "source": "cloud",
+          "asset": "PROD-ACCOUNT",
+          "detail": "policy_principal=arn:aws:iam::111111111111:root"
+        },
+        {
+          "time": "02:04:00",
+          "source": "cloud",
+          "asset": "PROD-ACCOUNT",
+          "detail": "event=GetSecretValue resource=secret/prod-api-key by=ProdDeploy"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "A lint-only CI job gained production privileges and widened a secret policy.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "A lint-only CI job gained production privileges and widened a secret policy. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Follow STS role chain, trust policy, build logs, secret policy diff and access use.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Follow STS role chain, trust policy, build logs, secret policy diff and access use. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Initiate incident escalation and request authorized role/session restriction and secret rotation.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Initiate incident escalation and request authorized role/session restriction and secret rotation. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "A lint-only CI job gained production privileges and widened a secret policy.",
+        "pivot": "Follow STS role chain, trust policy, build logs, secret policy diff and access use.",
+        "decision": "Initiate incident escalation and request authorized role/session restriction and secret rotation.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s64",
+      "tier": "L3",
+      "name": "Suspicious DNS Sinkhole After Migration",
+      "kind": "Threat hunting",
+      "difficulty": "Advanced",
+      "attack": "T1071.004",
+      "host": "DNS-FLEET",
+      "summary": "DNS sinkhole hits spike after enterprise domain migration, obscuring unrelated malicious queries.",
+      "mission": "Keep hypotheses separate and avoid burying a true beacon in migration noise.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "CHG-505 DNS migration from legacy zone to new tenant"
+        },
+        {
+          "time": "08:01:00",
+          "source": "dns",
+          "asset": "ENG-01",
+          "detail": "qname=legacy-api.example.net response=sinkhole result=blocked"
+        },
+        {
+          "time": "08:02:00",
+          "source": "dns",
+          "asset": "ENG-02",
+          "detail": "qname=legacy-api.example.net response=sinkhole result=blocked"
+        },
+        {
+          "time": "08:02:10",
+          "source": "dns",
+          "asset": "ENG-19",
+          "detail": "qname=unique-long-subdomain.example.net response=sinkhole"
+        },
+        {
+          "time": "08:03:20",
+          "source": "edr",
+          "asset": "ENG-19",
+          "detail": "process=script-host.exe signer=unknown made_dns_queries=420"
+        },
+        {
+          "time": "08:05:00",
+          "source": "dns",
+          "asset": "ENG-19",
+          "detail": "unique-long-subdomain.example.net not in migration manifest"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "Most sinkhole activity reflects migration, but one unmatched domain and process need investigation.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "Most sinkhole activity reflects migration, but one unmatched domain and process need investigation. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Cluster DNS by process/domain and compare against the migration allowlist.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Cluster DNS by process/domain and compare against the migration allowlist. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Separate benign-change tuning from a targeted hunt on ENG-19, preserving exceptions as scoped.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Separate benign-change tuning from a targeted hunt on ENG-19, preserving exceptions as scoped. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "Most sinkhole activity reflects migration, but one unmatched domain and process need investigation.",
+        "pivot": "Cluster DNS by process/domain and compare against the migration allowlist.",
+        "decision": "Separate benign-change tuning from a targeted hunt on ENG-19, preserving exceptions as scoped.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
+    },
+    {
+      "id": "s65",
+      "tier": "L3",
+      "name": "Incident Containment Breaks a Critical Workflow",
+      "kind": "Response",
+      "difficulty": "Advanced",
+      "attack": "T1486",
+      "host": "WAREHOUSE",
+      "summary": "A containment command is proposed for a suspicious host that also runs a time-critical logistics controller.",
+      "mission": "Evaluate availability risk, alternatives and authorization before action.",
+      "events": [
+        {
+          "time": "04:00:00",
+          "source": "edr",
+          "asset": "WAREHOUSE-01",
+          "detail": "process=unknown-updater.exe file_changes=500 in_2m"
+        },
+        {
+          "time": "04:02:00",
+          "source": "siem",
+          "asset": "WAREHOUSE-01",
+          "detail": "rule=mass_file_modifications priority=high"
+        },
+        {
+          "time": "04:03:00",
+          "source": "cmdb",
+          "asset": "WAREHOUSE-01",
+          "detail": "service=WarehouseController operational_criticality=high"
+        },
+        {
+          "time": "04:04:00",
+          "source": "ops",
+          "asset": "WAREHOUSE-01",
+          "detail": "estimated isolation impact=dispatch_pause"
+        },
+        {
+          "time": "04:05:00",
+          "source": "incident",
+          "asset": "IR-LEAD",
+          "detail": "approved action=pause outbound egress while preserving SCADA service"
+        },
+        {
+          "time": "04:06:00",
+          "source": "edr",
+          "asset": "WAREHOUSE-01",
+          "detail": "file_modification slowed app=warehouse_export after scheduled batch"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What conclusion is supported by the presented evidence?",
+          "options": [
+            "High-volume writes are concerning but may be batch processing; full isolation has business consequences.",
+            "The alert is definitely a confirmed compromise and all affected assets are already identified.",
+            "No investigation is necessary because the source has a recognizable name."
+          ],
+          "answer": 0,
+          "why": "High-volume writes are concerning but may be batch processing; full isolation has business consequences. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "Which investigation pivot is most useful next?",
+          "options": [
+            "Correlate file paths, process signer, app schedule and actual encryption indicators.",
+            "Delete the earliest matching log lines to reduce noise.",
+            "Search for a single matching IP only and ignore identities, timestamps or asset context."
+          ],
+          "answer": 0,
+          "why": "Correlate file paths, process signer, app schedule and actual encryption indicators. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        },
+        {
+          "prompt": "What is the most defensible next action?",
+          "options": [
+            "Follow IR-lead-approved constrained containment while continuously validating impact and evidence.",
+            "Apply broad irreversible blocking or deletion immediately without authorization.",
+            "Close the ticket with a generic statement and no evidence or accountable owner."
+          ],
+          "answer": 0,
+          "why": "Follow IR-lead-approved constrained containment while continuously validating impact and evidence. This is grounded in the displayed records; the alternatives overclaim certainty or bypass authorized SOC procedure."
+        }
+      ],
+      "debrief": {
+        "observation": "High-volume writes are concerning but may be batch processing; full isolation has business consequences.",
+        "pivot": "Correlate file paths, process signer, app schedule and actual encryption indicators.",
+        "decision": "Follow IR-lead-approved constrained containment while continuously validating impact and evidence.",
+        "uncertainty": "This is a synthetic, deliberately limited event set. Confirm collection coverage, entity attribution and approvals before claiming impact in a real environment."
+      }
     }
   ],
   "runbooks": [
@@ -8352,6 +12565,240 @@ export const DATA = {
         "Report active owners and dependencies across teams",
         "Commit next decision/update time without guessing resolution",
         "Maintain durable decision log and approval trail"
+      ]
+    },
+    {
+      "id": "r47",
+      "tier": "L1",
+      "title": "Verify first-hour shift readiness",
+      "steps": [
+        "Read handover notes and identify any ongoing major incidents.",
+        "Check source freshness for EDR, Windows, VPN, SaaS, cloud and firewall.",
+        "Confirm on-call owners, escalation routes, SLAs and change windows.",
+        "Sample canary events and confirm normalized fields still populate.",
+        "Prioritize tickets by asset impact, active risk and SLA.",
+        "Record coverage gaps and next review time in the shift log."
+      ]
+    },
+    {
+      "id": "r48",
+      "tier": "L1",
+      "title": "Investigate failed authentication burst",
+      "steps": [
+        "Identify the target account(s), time interval and relevant authentication endpoint.",
+        "Group failures by source IP, user and status/substatus or reason codes.",
+        "Look for successful sign-ins and MFA outcomes around the same period.",
+        "Check VPN pool, corporate proxy and password-change context.",
+        "Assess scope across users and devices and owner-confirm via trusted channel if needed.",
+        "Record threat hypothesis, alternatives and escalation recommendation."
+      ]
+    },
+    {
+      "id": "r49",
+      "tier": "L1",
+      "title": "Investigate suspicious email click",
+      "steps": [
+        "Save message ID, headers, sender alignment and recipient scope.",
+        "Trace redirect chain and effective destination from secure mail/proxy logs.",
+        "Check whether the user supplied credentials or downloaded anything.",
+        "Pivot to EDR process, file and browser evidence using UTC timestamps.",
+        "Coordinate safe mail purge, session reset or domain restriction under policy.",
+        "Record completed actions, affected identities and remaining unknowns."
+      ]
+    },
+    {
+      "id": "r50",
+      "tier": "L1",
+      "title": "Produce a defensible alert closure",
+      "steps": [
+        "Summarize exact behavior the detection matched and time window.",
+        "Identify at least two independent sources that support an alternative explanation.",
+        "Confirm data source coverage and compare against historical baseline.",
+        "Link approved change, ownership or software inventory record if applicable.",
+        "State limits and any narrowly-scoped tuning request.",
+        "Write who verified the result and next review trigger."
+      ]
+    },
+    {
+      "id": "r51",
+      "tier": "L1",
+      "title": "Check endpoint sensor blind spots",
+      "steps": [
+        "Compare EDR last-seen to actual workstation uptime.",
+        "Check agent state, policy assignment, queue/backlog and known maintenance.",
+        "Search for independent Windows or network evidence during outage.",
+        "Mark investigation confidence lower during uncovered interval.",
+        "Escalate sensor repair to an authorized endpoint owner.",
+        "Record restored coverage and run a known-positive canary."
+      ]
+    },
+    {
+      "id": "r52",
+      "tier": "L2",
+      "title": "Contain suspected stolen OAuth token",
+      "steps": [
+        "Identify tenant, client ID, affected account, scopes and session family.",
+        "Preserve sign-in, consent, OAuth grant and application activity logs.",
+        "Determine effective revocation methods for the specific app/provider.",
+        "Obtain incident authority for session, app grant and access restrictions.",
+        "Review linked mailbox rules, file access and sensitive API calls.",
+        "Validate revocation and monitor for re-issuance and related identities."
+      ]
+    },
+    {
+      "id": "r53",
+      "tier": "L2",
+      "title": "Investigate suspected AD CS escalation",
+      "steps": [
+        "Locate certificate template change, CA approval and enrollment logs.",
+        "Resolve requester identity, source host, serial and template properties.",
+        "Map newly available enrollment principals and dangerous authentication settings.",
+        "Correlate certificate-based logons and any downstream privilege.",
+        "Preserve affected CA configuration and change approval record.",
+        "Coordinate rollback/certificate revocation with PKI owners under incident policy."
+      ]
+    },
+    {
+      "id": "r54",
+      "tier": "L2",
+      "title": "Scope RMM abuse",
+      "steps": [
+        "Identify the RMM product, service creation timestamp and signer.",
+        "Trace installing process, account and remote relay domains.",
+        "Compare deployment inventory with helpdesk ticket and intended scope.",
+        "Examine unattended-access setting and outbound remote session metadata.",
+        "Determine affected hosts and whether credentials or data were accessed.",
+        "Get approval before disabling critical remote support tooling."
+      ]
+    },
+    {
+      "id": "r55",
+      "tier": "L2",
+      "title": "Cloud audit trail outage response",
+      "steps": [
+        "Confirm which event types, regions, resources and accounts are in scope.",
+        "Review selector and integration changes with timestamps and actor session.",
+        "Preserve management-plane configuration change records.",
+        "Cross-check storage, workload or provider-side independent logs.",
+        "Restore intended collection under infrastructure change control.",
+        "Estimate blind-window uncertainty and assign follow-up threat hunt."
+      ]
+    },
+    {
+      "id": "r56",
+      "tier": "L2",
+      "title": "Investigate suspected lateral movement",
+      "steps": [
+        "Correlate source logon with target 4624/4672 and network connections.",
+        "Look for service creation, remote scheduled tasks and PowerShell remoting.",
+        "Map source/target roles, service accounts and approved admin tooling.",
+        "Check for new credentials, persistence, file copy or access expansion.",
+        "Create host/identity graph with stable timestamps and IDs.",
+        "Escalate multi-host incident and propose coordinated containment."
+      ]
+    },
+    {
+      "id": "r57",
+      "tier": "L2",
+      "title": "Document data-access impact",
+      "steps": [
+        "List objects, databases or files that have access records.",
+        "Separate metadata listing, read, download, archive and outbound transfer.",
+        "Record tenant/account/session identity and relevant destination.",
+        "Estimate sensitivity and affected population with data owners.",
+        "Note missing event sources and uncertainty of transfer claims.",
+        "Pass impact facts to authorized privacy/legal teams without inventing notification decisions."
+      ]
+    },
+    {
+      "id": "r58",
+      "tier": "L3",
+      "title": "Ship detection with regression controls",
+      "steps": [
+        "Write behavior, prerequisites and expected benign patterns.",
+        "Map event sources to actual available fields and ingestion health.",
+        "Create exact known-positive and representative negative fixtures.",
+        "Test converted SPL/KQL query and alert thresholds on target environment.",
+        "Check latency, cardinality, false-positive volume and exception boundaries.",
+        "Version rule and deployment, assign owner, and schedule retest."
+      ]
+    },
+    {
+      "id": "r59",
+      "tier": "L3",
+      "title": "Test suppression blast radius",
+      "steps": [
+        "Record why the suppression is needed and its proposed expiry.",
+        "Enumerate all covered assets, identities, process patterns and time windows.",
+        "Run positives both inside and outside intended exception scope.",
+        "Run benign baseline and compare analyst workload and latency.",
+        "Require reviewer approval for high-risk global exceptions.",
+        "Deploy scoped policy with rollback and canary results."
+      ]
+    },
+    {
+      "id": "r60",
+      "tier": "L3",
+      "title": "Run a hypothesis-driven hunt",
+      "steps": [
+        "Write a behavior-based hypothesis with explicit expected signals.",
+        "Define population, baseline timeframe and data source limits.",
+        "Build entity-scoped queries using stable identifiers and UTC.",
+        "Check competing explanations and outliers by peer group.",
+        "Decide supported, refuted or unresolved with cited event IDs.",
+        "Create a detection engineering ticket for repeatable patterns and identified blind spots."
+      ]
+    },
+    {
+      "id": "r61",
+      "tier": "L3",
+      "title": "Handle critical restoration trade-off",
+      "steps": [
+        "Confirm business RTO/RPO and named incident commander.",
+        "Identify volatile and soon-to-expire evidence and preservation approvals.",
+        "Determine least disruptive acquisition compatible with recovery.",
+        "Track containment, isolation and dependency effects for critical services.",
+        "Document what cannot be preserved and confidence consequences.",
+        "Validate service recovery and detection coverage after restart."
+      ]
+    },
+    {
+      "id": "r62",
+      "tier": "L3",
+      "title": "Cloud privilege escalation hunting",
+      "steps": [
+        "Enumerate trust policy, privileged role assignments and STS role sessions.",
+        "Correlate principal origin, source identity and target account actions.",
+        "Review high-risk policy, KMS, Secrets Manager and audit configuration changes.",
+        "Map suspicious access back to CI/CD jobs and workload identities.",
+        "Find blast radius across accounts and regions.",
+        "Recommend least-privilege corrections and replay tests with owners."
+      ]
+    },
+    {
+      "id": "r63",
+      "tier": "L3",
+      "title": "Threat hunt after identity containment",
+      "steps": [
+        "Record the initial access account, affected apps and suspected token families.",
+        "Search related principals and devices for similar authentication flows.",
+        "Pivot from identity to endpoint and cloud activity within precise time windows.",
+        "Check new OAuth grants, mailbox rules and privileged role elevation.",
+        "Validate session revocation and investigate continued resource access.",
+        "Publish hunt outcomes, uncertainty and missing telemetry to incident leadership."
+      ]
+    },
+    {
+      "id": "r64",
+      "tier": "L3",
+      "title": "Audit a purple-team scenario end to end",
+      "steps": [
+        "Define scope, safe authorized objectives and pre-approved rollback.",
+        "List expected source events, detector ID and analyst routing.",
+        "Record observed telemetry and whether query/alert fired.",
+        "Measure acknowledgement, triage and containment decisions.",
+        "Write root causes for misses in logging, mapping, threshold or operational workflow.",
+        "Assign fixes and retest until measurable outcome is reached."
       ]
     }
   ],
@@ -9123,6 +13570,162 @@ export const DATA = {
     {
       "term": "Inference",
       "definition": "An explanation drawn from observations that may remain uncertain."
+    },
+    {
+      "term": "Account lockout",
+      "definition": "A policy-controlled restriction after failed authentication; it can arise from attack traffic or stale saved credentials."
+    },
+    {
+      "term": "Access token",
+      "definition": "A credential granting a client a defined resource scope for a limited lifetime."
+    },
+    {
+      "term": "ASN",
+      "definition": "Autonomous System Number that identifies an internet routing organization, not an individual attacker."
+    },
+    {
+      "term": "Audit blind window",
+      "definition": "An interval during which expected logs were not collected or retained, limiting negative conclusions."
+    },
+    {
+      "term": "Baseline cohort",
+      "definition": "A peer group of similar users, servers or workloads used to interpret anomalous behavior."
+    },
+    {
+      "term": "Case attribution",
+      "definition": "The evidence-supported link between an event and an identity, device, process or business activity."
+    },
+    {
+      "term": "Certificate template",
+      "definition": "An Active Directory Certificate Services definition controlling issuance requirements and enrollment rights."
+    },
+    {
+      "term": "Correlation key",
+      "definition": "A stable identifier used to link related events across systems, such as session or process GUID."
+    },
+    {
+      "term": "Credential replay",
+      "definition": "Use of an existing credential or token in another session, not necessarily requiring password knowledge."
+    },
+    {
+      "term": "Detection blind spot",
+      "definition": "A behavior or environment condition not covered by available telemetry or detection logic."
+    },
+    {
+      "term": "Detection SLO",
+      "definition": "An agreed quantitative target for log freshness, alert latency or known-positive detection reliability."
+    },
+    {
+      "term": "Device compliance",
+      "definition": "A management assessment of endpoint policy state, not proof that its user session is trustworthy."
+    },
+    {
+      "term": "Domain fronting",
+      "definition": "Routing traffic via shared infrastructure where network-level names and backend destination may differ."
+    },
+    {
+      "term": "Effective permission",
+      "definition": "What an identity can actually do after combining roles, policy and resource access controls."
+    },
+    {
+      "term": "Event 4698",
+      "definition": "Windows Security auditing event for scheduled task creation when applicable audit settings are enabled."
+    },
+    {
+      "term": "Event 4740",
+      "definition": "Windows Security auditing event indicating an account was locked out."
+    },
+    {
+      "term": "Event 4887",
+      "definition": "Windows CA auditing event for a certificate request approved and certificate issued, when enabled."
+    },
+    {
+      "term": "Event 5136",
+      "definition": "Directory Service Changes auditing event for directory object modifications when configured."
+    },
+    {
+      "term": "Field drift",
+      "definition": "A change in normalized field names or types that can break searches or detections."
+    },
+    {
+      "term": "Fingerprint collision risk",
+      "definition": "The limitation of treating a coarse fingerprint shared by many clients as a unique identity."
+    },
+    {
+      "term": "Golden Ticket",
+      "definition": "An adversarial forged Kerberos TGT concept; detection requires multiple correlated observations."
+    },
+    {
+      "term": "Host path",
+      "definition": "A Kubernetes volume mechanism mounting files from a cluster node into a pod."
+    },
+    {
+      "term": "Immutability",
+      "definition": "A retention property that prevents unauthorized alteration of saved evidence under defined controls."
+    },
+    {
+      "term": "Known negative",
+      "definition": "A benign fixture expected not to trigger a particular detection."
+    },
+    {
+      "term": "Known positive",
+      "definition": "A controlled behavioral fixture expected to trigger a particular detection."
+    },
+    {
+      "term": "Logon ID",
+      "definition": "A locally scoped Windows session identifier useful for linking associated security events."
+    },
+    {
+      "term": "OAuth scope",
+      "definition": "A named permission requested by a client to access a resource or API."
+    },
+    {
+      "term": "Out-of-band verification",
+      "definition": "Contact using an independently trusted channel, separate from the potentially compromised message or session."
+    },
+    {
+      "term": "Process GUID",
+      "definition": "A process identifier that can be more stable than a recycled numeric PID within its producer's scope."
+    },
+    {
+      "term": "Query cardinality",
+      "definition": "The number of distinct values or joins considered, affecting cost and false correlation risk."
+    },
+    {
+      "term": "Response decision log",
+      "definition": "A timestamped record of operational decisions, approvers, trade-offs and follow-up checkpoints."
+    },
+    {
+      "term": "Session issuer",
+      "definition": "The role or original identity responsible for creating an assumed-role session in cloud identity systems."
+    },
+    {
+      "term": "Source identity",
+      "definition": "A provenance indicator passed into certain cloud role sessions; inspect its trust and enforcement rules."
+    },
+    {
+      "term": "Suppression blast radius",
+      "definition": "The range of alerts and assets excluded by a detection exception."
+    },
+    {
+      "term": "Telemetry parity",
+      "definition": "Comparable security observability across protocols, operating systems, regions and deployment types."
+    },
+    {
+      "term": "Time-to-detect",
+      "definition": "Duration from relevant observable behavior to actionable alert or analyst recognition."
+    },
+    {
+      "term": "Token family",
+      "definition": "A set of linked auth/session tokens issued under a shared client or session context, where vendor data permits."
+    },
+    {
+      "term": "Triage pivot",
+      "definition": "A specific next evidence search linked to an observed entity, signal or hypothesis."
+    },
+    {
+      "term": "WinRM",
+      "definition": "Windows Remote Management, a legitimate administration channel that can also be abused for remote execution."
     }
   ],
   "questions": [
@@ -10893,6 +15496,526 @@ export const DATA = {
       ],
       "answer": 1,
       "why": "Assigned, testable actions reduce recurrence."
+    },
+    {
+      "id": "q137",
+      "tier": "Foundation",
+      "question": "Which field is NOT part of a conventional network five-tuple?",
+      "options": [
+        "User display name",
+        "Source IP",
+        "Destination IP",
+        "Transport protocol"
+      ],
+      "answer": 0,
+      "why": "The five-tuple covers two IPs, two ports and transport protocol; user identity is derived from other telemetry."
+    },
+    {
+      "id": "q138",
+      "tier": "Foundation",
+      "question": "Why might the same IP address map to different endpoints over a day?",
+      "options": [
+        "DHCP or NAT and changes over time",
+        "IP addresses are immutable IDs",
+        "DNS always proves who used an IP",
+        "All devices have the same MAC"
+      ],
+      "answer": 0,
+      "why": "IP attribution must be time-bounded and account for translation and leases."
+    },
+    {
+      "id": "q139",
+      "tier": "Foundation",
+      "question": "Which DNS record generally returns an IPv6 address?",
+      "options": [
+        "AAAA",
+        "A",
+        "MX",
+        "TXT"
+      ],
+      "answer": 0,
+      "why": "AAAA records answer IPv6 addresses; A records are IPv4."
+    },
+    {
+      "id": "q140",
+      "tier": "Foundation",
+      "question": "Which property is most valuable when reconstructing an event chronology?",
+      "options": [
+        "Timestamps normalized with timezone and collection delays",
+        "Alphabetical process name",
+        "Vendor severity alone",
+        "Filename extension"
+      ],
+      "answer": 0,
+      "why": "Clock skew and ingestion delays can invert apparent sequences."
+    },
+    {
+      "id": "q141",
+      "tier": "Foundation",
+      "question": "Which HTTP observation alone proves exploitation?",
+      "options": [
+        "None of a single 200 or 403 status proves exploitation",
+        "Any 403",
+        "Any 200",
+        "A HEAD request"
+      ],
+      "answer": 0,
+      "why": "Response status must be paired with application behavior, authentication, content and impact."
+    },
+    {
+      "id": "q142",
+      "tier": "Foundation",
+      "question": "What can a TLS certificate tell a defender?",
+      "options": [
+        "Declared certificate identity and validation chain",
+        "That application content was benign",
+        "That the server is not compromised",
+        "That every request has identical user intent"
+      ],
+      "answer": 0,
+      "why": "TLS protects transport but does not guarantee application integrity."
+    },
+    {
+      "id": "q143",
+      "tier": "Foundation",
+      "question": "Which source ties a VPN IP to a user at the right moment?",
+      "options": [
+        "Time-bounded VPN session mapping",
+        "Current DNS A record",
+        "Public ASN only",
+        "Any packet source port"
+      ],
+      "answer": 0,
+      "why": "Assignment must be associated with the event time and account."
+    },
+    {
+      "id": "q144",
+      "tier": "Foundation",
+      "question": "What does a Windows 4624 logon type 10 usually represent?",
+      "options": [
+        "RemoteInteractive, commonly RDP",
+        "Network share access",
+        "Service start",
+        "Batch job"
+      ],
+      "answer": 0,
+      "why": "RemoteInteractive is typically RDP; confirm source and target."
+    },
+    {
+      "id": "q145",
+      "tier": "Foundation",
+      "question": "Which is a common limitation of a Windows PID?",
+      "options": [
+        "PIDs can be reused after process exit",
+        "It is globally unique forever",
+        "It identifies the human operator",
+        "It always matches a network flow ID"
+      ],
+      "answer": 0,
+      "why": "Use creation time and stable process identifiers to disambiguate."
+    },
+    {
+      "id": "q146",
+      "tier": "Foundation",
+      "question": "What is a Kerberos TGT for?",
+      "options": [
+        "Obtaining service tickets from the KDC",
+        "Connecting directly to every TCP port",
+        "Signing DNS zones",
+        "Storing user password hashes on a web server"
+      ],
+      "answer": 0,
+      "why": "The TGT is used in Kerberos exchanges to request service tickets."
+    },
+    {
+      "id": "q147",
+      "tier": "L1",
+      "question": "A detection shows 'impossible travel' across two corporate egress proxies. Best next step?",
+      "options": [
+        "Verify device, token and proxy attribution",
+        "Immediately claim session hijack",
+        "Block both countries without approval",
+        "Ignore future logins"
+      ],
+      "answer": 0,
+      "why": "Secure access services can move apparent geography without user movement."
+    },
+    {
+      "id": "q148",
+      "tier": "L1",
+      "question": "An email has SPF pass but DMARC fail. What may explain this?",
+      "options": [
+        "SPF domain lacks From-domain alignment",
+        "SPF always authenticates the From address",
+        "DKIM must be cryptographically broken",
+        "The mail was never delivered"
+      ],
+      "answer": 0,
+      "why": "DMARC evaluates alignment, not just SPF pass."
+    },
+    {
+      "id": "q149",
+      "tier": "L1",
+      "question": "What is the correct interpretation of one 4625 event?",
+      "options": [
+        "A failed logon that requires account/source context",
+        "Confirmed brute force",
+        "Confirmed lateral movement",
+        "Confirmed malware execution"
+      ],
+      "answer": 0,
+      "why": "Frequency, source/target and status codes determine the hypothesis."
+    },
+    {
+      "id": "q150",
+      "tier": "L1",
+      "question": "An EDR report shows a valid file signature. What follows?",
+      "options": [
+        "Investigate provenance and actual behavior",
+        "Close as benign",
+        "Assume enterprise policy approved it",
+        "Assume the publisher can never be compromised"
+      ],
+      "answer": 0,
+      "why": "Signature validity is only one evidence point."
+    },
+    {
+      "id": "q151",
+      "tier": "L1",
+      "question": "A user deleted a suspicious email. What is still needed?",
+      "options": [
+        "Scope delivery and any click/credential or endpoint actions",
+        "No further action",
+        "Only a screenshot of the subject",
+        "A broad domain block without verification"
+      ],
+      "answer": 0,
+      "why": "Mail deletion is not equivalent to stopping token or credential abuse."
+    },
+    {
+      "id": "q152",
+      "tier": "L1",
+      "question": "How should a false-positive closure be documented?",
+      "options": [
+        "With evidence of the benign cause and reproducible pivots",
+        "With 'looks OK'",
+        "Without timestamps",
+        "By erasing events from the ticket"
+      ],
+      "answer": 0,
+      "why": "A closure needs accountable evidence, not the absence of fear."
+    },
+    {
+      "id": "q153",
+      "tier": "L1",
+      "question": "A WAF blocked SQL injection-shaped traffic. What can be concluded?",
+      "options": [
+        "That particular request was blocked by that control",
+        "The entire application cannot be vulnerable",
+        "The source IP is a human attacker",
+        "All other paths were tested"
+      ],
+      "answer": 0,
+      "why": "WAF action does not prove exploit impact or complete control coverage."
+    },
+    {
+      "id": "q154",
+      "tier": "L1",
+      "question": "An empty SIEM result should first trigger what check?",
+      "options": [
+        "Confirm time range, field mapping and ingestion health",
+        "Close as no attack",
+        "Increase asset risk score to critical",
+        "Disable alerting"
+      ],
+      "answer": 0,
+      "why": "Query misses and telemetry gaps must be ruled out."
+    },
+    {
+      "id": "q155",
+      "tier": "L1",
+      "question": "A suspicious user account has MFA approved after many denials. What is safest?",
+      "options": [
+        "Escalate with trusted out-of-band user verification",
+        "Assume legitimate approval",
+        "Post the user's secret in the ticket",
+        "Ignore because MFA worked"
+      ],
+      "answer": 0,
+      "why": "MFA fatigue can involve an unintended user approval."
+    },
+    {
+      "id": "q156",
+      "tier": "L1",
+      "question": "A new executable connects to a CDN. What is the best first pivot?",
+      "options": [
+        "Process tree and DNS domain/path context",
+        "Block the CDN IP globally",
+        "Delete system DNS cache",
+        "Declare benign because CDN"
+      ],
+      "answer": 0,
+      "why": "Shared infrastructure needs endpoint attribution."
+    },
+    {
+      "id": "q157",
+      "tier": "L2",
+      "question": "What is the most precise evidence for a process ancestor chain?",
+      "options": [
+        "Stable process GUIDs with host and timestamps",
+        "PID alone",
+        "Filename alone",
+        "Hash alone"
+      ],
+      "answer": 0,
+      "why": "Process IDs recycle; unique IDs and start times maintain lineage."
+    },
+    {
+      "id": "q158",
+      "tier": "L2",
+      "question": "How do you treat large GetObject counts in cloud logs?",
+      "options": [
+        "Confirmed object access that may need egress corroboration",
+        "Automatic exfiltration proof",
+        "No security relevance",
+        "Guaranteed attacker access"
+      ],
+      "answer": 0,
+      "why": "Downloads/reads are not equal to confirmed outside transfer."
+    },
+    {
+      "id": "q159",
+      "tier": "L2",
+      "question": "What can cause a detection to stop firing?",
+      "options": [
+        "Schema drift or sensor failure, as well as activity change",
+        "Only attacker evasion",
+        "Only analyst tuning",
+        "Only timezone changes"
+      ],
+      "answer": 0,
+      "why": "Always test ingestion and known positives when volume shifts unexpectedly."
+    },
+    {
+      "id": "q160",
+      "tier": "L2",
+      "question": "A new 7045 service event appears during maintenance. Which check matters?",
+      "options": [
+        "Binary path and approving change ticket",
+        "Number of letters in service name",
+        "Whether service name looks technical",
+        "Host desktop wallpaper"
+      ],
+      "answer": 0,
+      "why": "Legitimate service installs happen; provenance and authorization matter."
+    },
+    {
+      "id": "q161",
+      "tier": "L2",
+      "question": "An OAuth grant exists and a mailbox forwarding rule is created. What next?",
+      "options": [
+        "Trace consent actor, token/session, rule and forwarded messages",
+        "Assume all mail was stolen",
+        "Delete the whole mailbox",
+        "Ignore as cloud normality"
+      ],
+      "answer": 0,
+      "why": "Sequence and object scope define observed impact."
+    },
+    {
+      "id": "q162",
+      "tier": "L2",
+      "question": "How should you handle a critical asset that may require isolation?",
+      "options": [
+        "Weigh confirmed risk, business interruption and approval",
+        "Unplug first and document later",
+        "Only ask the endpoint user",
+        "Never isolate critical systems"
+      ],
+      "answer": 0,
+      "why": "Containment decisions have technical and operational trade-offs."
+    },
+    {
+      "id": "q163",
+      "tier": "L2",
+      "question": "Which artifact best supports Kerberos delegation-change analysis?",
+      "options": [
+        "Directory object attribute diff and changer identity",
+        "HTTP user agent",
+        "Browser cache size",
+        "MAC OUI alone"
+      ],
+      "answer": 0,
+      "why": "Delegation changes require target attribute and accountable actor context."
+    },
+    {
+      "id": "q164",
+      "tier": "L2",
+      "question": "Which statement about a ZIP created from sensitive files is correct?",
+      "options": [
+        "Staging is shown, but outbound transfer needs independent evidence",
+        "Exfiltration is proven",
+        "The ZIP cannot contain sensitive data",
+        "No security event occurred"
+      ],
+      "answer": 0,
+      "why": "Staging and exfiltration are distinct actions."
+    },
+    {
+      "id": "q165",
+      "tier": "L2",
+      "question": "A container has privileged=true. What is the strongest follow-up?",
+      "options": [
+        "Check pod spec, admission identity, host mounts and authorized job",
+        "Assume host escape occurred",
+        "Treat all privileged pods as safe",
+        "Disable entire cluster without approval"
+      ],
+      "answer": 0,
+      "why": "Privilege is dangerous configuration, but intent and impact require additional evidence."
+    },
+    {
+      "id": "q166",
+      "tier": "L2",
+      "question": "What should a multi-source timeline preserve?",
+      "options": [
+        "Source timestamps, normalized UTC and raw event pointers",
+        "Only screenshots",
+        "One log type",
+        "Sorted alerts without context"
+      ],
+      "answer": 0,
+      "why": "Source-aware linkage supports reproducibility and uncertainty handling."
+    },
+    {
+      "id": "q167",
+      "tier": "L3",
+      "question": "What is a known-positive fixture in detection testing?",
+      "options": [
+        "A controlled event that should generate an expected alert",
+        "An arbitrary production alert",
+        "Any empty search result",
+        "A list of vendor signatures"
+      ],
+      "answer": 0,
+      "why": "Positive fixtures catch regressions in detection behavior."
+    },
+    {
+      "id": "q168",
+      "tier": "L3",
+      "question": "What does a green Sigma syntax check prove?",
+      "options": [
+        "Rule structure parses, not that backend detection works",
+        "Every SIEM will alert correctly",
+        "All fields exist in the deployment",
+        "The incident is contained"
+      ],
+      "answer": 0,
+      "why": "Conversion and target tests are still required."
+    },
+    {
+      "id": "q169",
+      "tier": "L3",
+      "question": "How should rule exceptions be tested?",
+      "options": [
+        "Against positive and benign cases inside and outside the intended scope",
+        "Only a negative fixture",
+        "Only source-code formatting",
+        "Only one host's alerts"
+      ],
+      "answer": 0,
+      "why": "Scoping errors can suppress true positives in other assets."
+    },
+    {
+      "id": "q170",
+      "tier": "L3",
+      "question": "Why is a simple username join risky in threat hunting?",
+      "options": [
+        "Username reuse and mismatched time windows can fabricate correlations",
+        "Usernames never repeat",
+        "KQL cannot join tables",
+        "All identities are unique by display name"
+      ],
+      "answer": 0,
+      "why": "Use stable IDs and time-bounded joins."
+    },
+    {
+      "id": "q171",
+      "tier": "L3",
+      "question": "What is a detection coverage SLO?",
+      "options": [
+        "Measurable readiness such as telemetry freshness and alert latency",
+        "Total number of open SOC tickets",
+        "Maximum CPU frequency",
+        "An arbitrary alert severity"
+      ],
+      "answer": 0,
+      "why": "Coverage must include measurable data health and detection outcomes."
+    },
+    {
+      "id": "q172",
+      "tier": "L3",
+      "question": "What does a hunt ending unresolved mean?",
+      "options": [
+        "Evidence or coverage was insufficient; document limitations and next checks",
+        "The threat is confirmed absent",
+        "The hunt should be deleted",
+        "All hits are false positives"
+      ],
+      "answer": 0,
+      "why": "Unresolved is a legitimate evidence-based result."
+    },
+    {
+      "id": "q173",
+      "tier": "L3",
+      "question": "A signed update behaves unexpectedly. Which evidence should be compared?",
+      "options": [
+        "Release attestation, expected hash, parent-child behavior and spread",
+        "Only publisher name",
+        "Only file extension",
+        "Only the date in the filename"
+      ],
+      "answer": 0,
+      "why": "Signatures and provenance are different controls."
+    },
+    {
+      "id": "q174",
+      "tier": "L3",
+      "question": "What belongs in an incident decision log?",
+      "options": [
+        "Time, decision, approver, alternatives, risk and next checkpoint",
+        "Only screenshot filenames",
+        "Only meeting attendees",
+        "Only severity number"
+      ],
+      "answer": 0,
+      "why": "Decision traceability matters when many teams act under pressure."
+    },
+    {
+      "id": "q175",
+      "tier": "L3",
+      "question": "A cloud data feed falls silent after a role change. What is the best reading?",
+      "options": [
+        "A visibility failure until the feed is validated",
+        "No cloud activity occurred",
+        "All objects were deleted",
+        "The CSP disabled logging universally"
+      ],
+      "answer": 0,
+      "why": "Absence of logs must be scoped against collection policy and provider constraints."
+    },
+    {
+      "id": "q176",
+      "tier": "L3",
+      "question": "What proves purple-team defensive success?",
+      "options": [
+        "Observed telemetry, fired detection, analyst handling and tested improvements",
+        "Red team achieved access",
+        "One presentation slide",
+        "An unreviewed rule change"
+      ],
+      "answer": 0,
+      "why": "Defense must work through the operational chain, not just generate an event."
     }
   ],
   "queries": [
@@ -11093,6 +16216,78 @@ export const DATA = {
       "title": "Detection regression evidence",
       "code": "index=security_tests test_type=\"known_positive\" | stats count by detector, expected, actual",
       "meaning": "Keep fixed fixtures so rule changes are evaluated against expected behavior."
+    },
+    {
+      "language": "KQL",
+      "title": "Process ancestry: suspicious child",
+      "code": "DeviceProcessEvents\n| where Timestamp > ago(24h)\n| where InitiatingProcessFileName =~ \"winword.exe\"\n| project Timestamp,DeviceName,FileName,ProcessCommandLine,InitiatingProcessFileName",
+      "meaning": "Defender XDR table/fields must be available; investigate child lineage rather than assuming maliciousness."
+    },
+    {
+      "language": "KQL",
+      "title": "Endpoint network pivot",
+      "code": "DeviceNetworkEvents\n| where Timestamp > ago(24h)\n| where RemotePort == 443\n| summarize Connections=count() by DeviceName,InitiatingProcessFileName,RemoteUrl",
+      "meaning": "Group egress by process and host; validate URL availability and shared CDN context."
+    },
+    {
+      "language": "KQL",
+      "title": "Uncommon service account device",
+      "code": "DeviceLogonEvents\n| where Timestamp > ago(7d)\n| where AccountName has \"svc\"\n| summarize Devices=dcount(DeviceName),Hosts=make_set(DeviceName,20) by AccountName",
+      "meaning": "Use organization-specific identity classification and expected workload host inventory."
+    },
+    {
+      "language": "KQL",
+      "title": "Suspicious email rule activity",
+      "code": "CloudAppEvents\n| where Timestamp > ago(7d)\n| where ActionType has \"Inbox\"\n| project Timestamp,AccountDisplayName,ActionType,RawEventData",
+      "meaning": "The connector’s ActionType values may differ; inspect real schemas before production deployment."
+    },
+    {
+      "language": "KQL",
+      "title": "Device process rarity",
+      "code": "DeviceProcessEvents\n| where Timestamp > ago(14d)\n| summarize HostCount=dcount(DeviceName),Occurrences=count() by FileName\n| where HostCount < 3",
+      "meaning": "Rarity only builds a hunt lead; combine with signer, parent and actual business role."
+    },
+    {
+      "language": "KQL",
+      "title": "Cloud control plane change",
+      "code": "AzureActivity\n| where TimeGenerated > ago(7d)\n| where OperationNameValue has_any (\"write\",\"delete\")\n| project TimeGenerated,Caller,ResourceId,OperationNameValue,ActivityStatusValue",
+      "meaning": "Illustrative Azure Activity query; narrow with resource type and approved deployment records."
+    },
+    {
+      "language": "SPL",
+      "title": "Account lockout investigation",
+      "code": "index=wineventlog EventCode=4740 earliest=-48h\n| stats count by TargetUserName, CallerComputerName\n| sort - count",
+      "meaning": "Field names are TA-dependent; correlate 4625 and password reset windows."
+    },
+    {
+      "language": "SPL",
+      "title": "New services by host",
+      "code": "index=windows sourcetype=\"WinEventLog:System\" EventCode=7045 earliest=-7d\n| stats values(ServiceName) as services count by host\n| sort - count",
+      "meaning": "Service installs can be routine; pair with management tools and binary provenance."
+    },
+    {
+      "language": "SPL",
+      "title": "DNS outliers by host",
+      "code": "index=dns earliest=-24h\n| stats dc(query) as unique_queries count by src\n| sort - unique_queries",
+      "meaning": "Unique DNS labels can reflect legitimate software; compare cohort baseline and process telemetry."
+    },
+    {
+      "language": "SPL",
+      "title": "Check SIEM collection drift",
+      "code": "index=_internal source=*metrics.log* group=per_sourcetype_thruput earliest=-24h\n| timechart span=1h sum(kb) by series",
+      "meaning": "Internal metrics availability and labels depend on Splunk deployment; use to detect ingestion drops."
+    },
+    {
+      "language": "SPL",
+      "title": "New scheduled tasks",
+      "code": "index=windows EventCode=4698 earliest=-7d\n| table _time host SubjectUserName TaskName TaskContent\n| sort - _time",
+      "meaning": "Enable relevant Windows audit policy; correlate task XML, process and owner approval."
+    },
+    {
+      "language": "SPL",
+      "title": "Correlate privileged group changes",
+      "code": "index=windows (EventCode=4728 OR EventCode=4732 OR EventCode=4756) earliest=-7d\n| stats count values(MemberName) as members by host TargetUserName SubjectUserName",
+      "meaning": "Audit scope and parser field names vary; tie to ticketed group membership changes."
     }
   ],
   "references": [
@@ -11175,6 +16370,16 @@ export const DATA = {
       "name": "MITRE ATT&CK Enterprise tactics",
       "url": "https://attack.mitre.org/tactics/enterprise/",
       "desc": "Official tactics, techniques and defensive terminology; refresh mappings against the current version."
+    },
+    {
+      "name": "Microsoft Defender DeviceProcessEvents schema",
+      "url": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceprocessevents-table",
+      "desc": "Field names and process lineage caveats for advanced hunting."
+    },
+    {
+      "name": "Microsoft Windows event 4740",
+      "url": "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4740",
+      "desc": "Account lockout audit fields and investigation context."
     }
   ],
   "drills": [
@@ -11456,6 +16661,420 @@ export const DATA = {
       "solution": "case=s42 AND source=edr",
       "hint": "Constrain to case=s42 and source=edr.",
       "lesson": "Pair local commands with forwarded security logs."
+    },
+    {
+      "id": "d32",
+      "tier": "L1",
+      "title": "Find all VPN evidence for The Expired VPN Credential",
+      "task": "Retrieve the vpn events from case s43 and zero unrelated rows.",
+      "solution": "case=s43 AND source=vpn",
+      "hint": "Filter case s43 and the vpn telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d33",
+      "tier": "L1",
+      "title": "Reconstruct the complete The Expired VPN Credential timeline",
+      "task": "Retrieve all events from case s43 and zero unrelated rows.",
+      "solution": "case=s43",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d34",
+      "tier": "L1",
+      "title": "Find all EMAIL evidence for Misdelivered Finance Attachment",
+      "task": "Retrieve the email events from case s44 and zero unrelated rows.",
+      "solution": "case=s44 AND source=email",
+      "hint": "Filter case s44 and the email telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d35",
+      "tier": "L1",
+      "title": "Reconstruct the complete Misdelivered Finance Attachment timeline",
+      "task": "Retrieve all events from case s44 and zero unrelated rows.",
+      "solution": "case=s44",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d36",
+      "tier": "L1",
+      "title": "Find all IDP evidence for Misleading Geo Anomaly",
+      "task": "Retrieve the idp events from case s45 and zero unrelated rows.",
+      "solution": "case=s45 AND source=idp",
+      "hint": "Filter case s45 and the idp telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d37",
+      "tier": "L1",
+      "title": "Reconstruct the complete Misleading Geo Anomaly timeline",
+      "task": "Retrieve all events from case s45 and zero unrelated rows.",
+      "solution": "case=s45",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d38",
+      "tier": "L1",
+      "title": "Find all EDR evidence for New Scheduled Job On Jump Host",
+      "task": "Retrieve the edr events from case s46 and zero unrelated rows.",
+      "solution": "case=s46 AND source=edr",
+      "hint": "Filter case s46 and the edr telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d39",
+      "tier": "L1",
+      "title": "Reconstruct the complete New Scheduled Job On Jump Host timeline",
+      "task": "Retrieve all events from case s46 and zero unrelated rows.",
+      "solution": "case=s46",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d40",
+      "tier": "L1",
+      "title": "Find all DNS evidence for DNS Resolver Failure or Beacon",
+      "task": "Retrieve the dns events from case s47 and zero unrelated rows.",
+      "solution": "case=s47 AND source=dns",
+      "hint": "Filter case s47 and the dns telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d41",
+      "tier": "L1",
+      "title": "Reconstruct the complete DNS Resolver Failure or Beacon timeline",
+      "task": "Retrieve all events from case s47 and zero unrelated rows.",
+      "solution": "case=s47",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d42",
+      "tier": "L1",
+      "title": "Find all WINDOWS evidence for Shared Local Admin During Helpdesk Work",
+      "task": "Retrieve the windows events from case s48 and zero unrelated rows.",
+      "solution": "case=s48 AND source=windows",
+      "hint": "Filter case s48 and the windows telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d43",
+      "tier": "L1",
+      "title": "Reconstruct the complete Shared Local Admin During Helpdesk Work timeline",
+      "task": "Retrieve all events from case s48 and zero unrelated rows.",
+      "solution": "case=s48",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d44",
+      "tier": "L2",
+      "title": "Find all IDP evidence for Token Replay Following Device Loss",
+      "task": "Retrieve the idp events from case s49 and zero unrelated rows.",
+      "solution": "case=s49 AND source=idp",
+      "hint": "Filter case s49 and the idp telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d45",
+      "tier": "L2",
+      "title": "Reconstruct the complete Token Replay Following Device Loss timeline",
+      "task": "Retrieve all events from case s49 and zero unrelated rows.",
+      "solution": "case=s49",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d46",
+      "tier": "L2",
+      "title": "Find all WINDOWS evidence for AD CS Template Permission Drift",
+      "task": "Retrieve the windows events from case s50 and zero unrelated rows.",
+      "solution": "case=s50 AND source=windows",
+      "hint": "Filter case s50 and the windows telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d47",
+      "tier": "L2",
+      "title": "Reconstruct the complete AD CS Template Permission Drift timeline",
+      "task": "Retrieve all events from case s50 and zero unrelated rows.",
+      "solution": "case=s50",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d48",
+      "tier": "L2",
+      "title": "Find all WINDOWS evidence for Unusual WinRM Administrative Chain",
+      "task": "Retrieve the windows events from case s51 and zero unrelated rows.",
+      "solution": "case=s51 AND source=windows",
+      "hint": "Filter case s51 and the windows telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d49",
+      "tier": "L2",
+      "title": "Reconstruct the complete Unusual WinRM Administrative Chain timeline",
+      "task": "Retrieve all events from case s51 and zero unrelated rows.",
+      "solution": "case=s51",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d50",
+      "tier": "L2",
+      "title": "Find all NETFLOW evidence for Beacon Hidden Behind CDN",
+      "task": "Retrieve the netflow events from case s52 and zero unrelated rows.",
+      "solution": "case=s52 AND source=netflow",
+      "hint": "Filter case s52 and the netflow telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d51",
+      "tier": "L2",
+      "title": "Reconstruct the complete Beacon Hidden Behind CDN timeline",
+      "task": "Retrieve all events from case s52 and zero unrelated rows.",
+      "solution": "case=s52",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d52",
+      "tier": "L2",
+      "title": "Find all CLOUD evidence for CloudTrail Data Events Disabled",
+      "task": "Retrieve the cloud events from case s53 and zero unrelated rows.",
+      "solution": "case=s53 AND source=cloud",
+      "hint": "Filter case s53 and the cloud telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d53",
+      "tier": "L2",
+      "title": "Reconstruct the complete CloudTrail Data Events Disabled timeline",
+      "task": "Retrieve all events from case s53 and zero unrelated rows.",
+      "solution": "case=s53",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d54",
+      "tier": "L2",
+      "title": "Find all K8S evidence for Container Escape Indicator Needs Validation",
+      "task": "Retrieve the k8s events from case s54 and zero unrelated rows.",
+      "solution": "case=s54 AND source=k8s",
+      "hint": "Filter case s54 and the k8s telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d55",
+      "tier": "L2",
+      "title": "Reconstruct the complete Container Escape Indicator Needs Validation timeline",
+      "task": "Retrieve all events from case s54 and zero unrelated rows.",
+      "solution": "case=s54",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d56",
+      "tier": "L2",
+      "title": "Find all SAAS evidence for Mailbox Rule and OAuth Pivot",
+      "task": "Retrieve the saas events from case s55 and zero unrelated rows.",
+      "solution": "case=s55 AND source=saas",
+      "hint": "Filter case s55 and the saas telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d57",
+      "tier": "L2",
+      "title": "Reconstruct the complete Mailbox Rule and OAuth Pivot timeline",
+      "task": "Retrieve all events from case s55 and zero unrelated rows.",
+      "solution": "case=s55",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d58",
+      "tier": "L2",
+      "title": "Find all EDR evidence for Insider Bulk Archive or Migration",
+      "task": "Retrieve the edr events from case s56 and zero unrelated rows.",
+      "solution": "case=s56 AND source=edr",
+      "hint": "Filter case s56 and the edr telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d59",
+      "tier": "L2",
+      "title": "Reconstruct the complete Insider Bulk Archive or Migration timeline",
+      "task": "Retrieve all events from case s56 and zero unrelated rows.",
+      "solution": "case=s56",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d60",
+      "tier": "L2",
+      "title": "Find all SIEM evidence for False Negatives After Forwarder Update",
+      "task": "Retrieve the siem events from case s57 and zero unrelated rows.",
+      "solution": "case=s57 AND source=siem",
+      "hint": "Filter case s57 and the siem telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d61",
+      "tier": "L2",
+      "title": "Reconstruct the complete False Negatives After Forwarder Update timeline",
+      "task": "Retrieve all events from case s57 and zero unrelated rows.",
+      "solution": "case=s57",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d62",
+      "tier": "L3",
+      "title": "Find all WINDOWS evidence for Rare Kerberos Delegation Modification",
+      "task": "Retrieve the windows events from case s58 and zero unrelated rows.",
+      "solution": "case=s58 AND source=windows",
+      "hint": "Filter case s58 and the windows telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d63",
+      "tier": "L3",
+      "title": "Reconstruct the complete Rare Kerberos Delegation Modification timeline",
+      "task": "Retrieve all events from case s58 and zero unrelated rows.",
+      "solution": "case=s58",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d64",
+      "tier": "L3",
+      "title": "Find all GIT evidence for Detection Coverage Eroded by Exception",
+      "task": "Retrieve the git events from case s59 and zero unrelated rows.",
+      "solution": "case=s59 AND source=git",
+      "hint": "Filter case s59 and the git telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d65",
+      "tier": "L3",
+      "title": "Reconstruct the complete Detection Coverage Eroded by Exception timeline",
+      "task": "Retrieve all events from case s59 and zero unrelated rows.",
+      "solution": "case=s59",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d66",
+      "tier": "L3",
+      "title": "Find all IDP evidence for Identity Hunt Through OAuth Device Code",
+      "task": "Retrieve the idp events from case s60 and zero unrelated rows.",
+      "solution": "case=s60 AND source=idp",
+      "hint": "Filter case s60 and the idp telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d67",
+      "tier": "L3",
+      "title": "Reconstruct the complete Identity Hunt Through OAuth Device Code timeline",
+      "task": "Retrieve all events from case s60 and zero unrelated rows.",
+      "solution": "case=s60",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d68",
+      "tier": "L3",
+      "title": "Find all CI evidence for Supply Chain Signed Package Drift",
+      "task": "Retrieve the ci events from case s61 and zero unrelated rows.",
+      "solution": "case=s61 AND source=ci",
+      "hint": "Filter case s61 and the ci telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d69",
+      "tier": "L3",
+      "title": "Reconstruct the complete Supply Chain Signed Package Drift timeline",
+      "task": "Retrieve all events from case s61 and zero unrelated rows.",
+      "solution": "case=s61",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d70",
+      "tier": "L3",
+      "title": "Find all INCIDENT evidence for Insufficient Audit During Recovery",
+      "task": "Retrieve the incident events from case s62 and zero unrelated rows.",
+      "solution": "case=s62 AND source=incident",
+      "hint": "Filter case s62 and the incident telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d71",
+      "tier": "L3",
+      "title": "Reconstruct the complete Insufficient Audit During Recovery timeline",
+      "task": "Retrieve all events from case s62 and zero unrelated rows.",
+      "solution": "case=s62",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d72",
+      "tier": "L3",
+      "title": "Find all CLOUD evidence for Multi-Tenant CI Role Assumption",
+      "task": "Retrieve the cloud events from case s63 and zero unrelated rows.",
+      "solution": "case=s63 AND source=cloud",
+      "hint": "Filter case s63 and the cloud telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d73",
+      "tier": "L3",
+      "title": "Reconstruct the complete Multi-Tenant CI Role Assumption timeline",
+      "task": "Retrieve all events from case s63 and zero unrelated rows.",
+      "solution": "case=s63",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d74",
+      "tier": "L3",
+      "title": "Find all DNS evidence for Suspicious DNS Sinkhole After Migration",
+      "task": "Retrieve the dns events from case s64 and zero unrelated rows.",
+      "solution": "case=s64 AND source=dns",
+      "hint": "Filter case s64 and the dns telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d75",
+      "tier": "L3",
+      "title": "Reconstruct the complete Suspicious DNS Sinkhole After Migration timeline",
+      "task": "Retrieve all events from case s64 and zero unrelated rows.",
+      "solution": "case=s64",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d76",
+      "tier": "L3",
+      "title": "Find all EDR evidence for Incident Containment Breaks a Critical Workflow",
+      "task": "Retrieve the edr events from case s65 and zero unrelated rows.",
+      "solution": "case=s65 AND source=edr",
+      "hint": "Filter case s65 and the edr telemetry source.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
+    },
+    {
+      "id": "d77",
+      "tier": "L3",
+      "title": "Reconstruct the complete Incident Containment Breaks a Critical Workflow timeline",
+      "task": "Retrieve all events from case s65 and zero unrelated rows.",
+      "solution": "case=s65",
+      "hint": "Use the case identifier to retrieve every sensor involved, not a single alert type.",
+      "lesson": "Case and sensor scoping helps you distinguish a hypothesis-specific slice from the complete incident chronology; show exactly which records support each conclusion."
     }
   ],
   "atlas": [
@@ -11682,6 +17301,104 @@ export const DATA = {
       "title": "Behavior mapping",
       "description": "Technique mapping is a vocabulary; validate actual detection coverage separately.",
       "pivots": "Purple-team exercise • fixtures"
+    },
+    {
+      "category": "Windows",
+      "code": "4740",
+      "title": "Account locked out",
+      "description": "Correlate caller computer, target user and prior failed logons; status alone does not identify attacker.",
+      "pivots": "4625, VPN activity, password changes"
+    },
+    {
+      "category": "Windows",
+      "code": "5136",
+      "title": "Directory object modified",
+      "description": "With Directory Service Changes audit enabled, reconstruct attribute and owner changes, especially delegation and group ACLs.",
+      "pivots": "5137, 4662, object before/after state"
+    },
+    {
+      "category": "Windows",
+      "code": "4887",
+      "title": "Certificate issued",
+      "description": "CA issuance event can support investigation of unusual authentication certificates; logging must be enabled.",
+      "pivots": "4886, requester, template, certificate serial"
+    },
+    {
+      "category": "Windows",
+      "code": "4104",
+      "title": "PowerShell script block",
+      "description": "Script block recording depends on policy; code fragments may be benign admin scripts.",
+      "pivots": "4103, EDR command line, file writes"
+    },
+    {
+      "category": "Network",
+      "code": "DHCP LEASE",
+      "title": "Endpoint attribution",
+      "description": "IP ownership can change; resolve host and user to the exact UTC interval.",
+      "pivots": "VPN address pool, NAC, NAT translation"
+    },
+    {
+      "category": "Network",
+      "code": "DNS NXDOMAIN",
+      "title": "Failed DNS resolution",
+      "description": "Frequency and unusual domains are leads, not independent proof of command and control.",
+      "pivots": "Endpoint process, DNS qtype, deployment changes"
+    },
+    {
+      "category": "Cloud",
+      "code": "STS ASSUME ROLE",
+      "title": "Assumed cloud identity",
+      "description": "Trace original caller, role trust, source identity and downstream actions across accounts.",
+      "pivots": "CloudTrail userIdentity, session issuer, accessKeyId"
+    },
+    {
+      "category": "Cloud",
+      "code": "S3 DATA EVENT",
+      "title": "Object read audit",
+      "description": "Reads indicate access under collection policy, not necessarily external transfer.",
+      "pivots": "S3 data events, CloudTrail, proxy egress"
+    },
+    {
+      "category": "Cloud",
+      "code": "AUDIT SELECTOR",
+      "title": "Collection configuration",
+      "description": "A trail's event selectors decide which data calls are collected; disablement creates blind windows.",
+      "pivots": "PutEventSelectors, organization trail health"
+    },
+    {
+      "category": "Identity",
+      "code": "OAUTH CONSENT",
+      "title": "App grant",
+      "description": "App permissions may enable persistent API access; investigate requester, publisher and scope.",
+      "pivots": "Entra audit, app registration, resource activity"
+    },
+    {
+      "category": "Detection",
+      "code": "CANARY",
+      "title": "Known-positive test event",
+      "description": "A repeatable control helps detect parser or scheduling regressions before production incidents are missed.",
+      "pivots": "Raw/normalized field mapping, alert latency"
+    },
+    {
+      "category": "Detection",
+      "code": "FIELD NULL RATE",
+      "title": "Schema health signal",
+      "description": "A sudden rise in missing normalized fields can silently break rules after parser or source changes.",
+      "pivots": "Collector versions, raw events, test fixtures"
+    },
+    {
+      "category": "Kubernetes",
+      "code": "POD CREATE",
+      "title": "Pod admission",
+      "description": "Privilege settings and service-account identity help identify unexpected access to node resources.",
+      "pivots": "kube-audit, RBAC, admission controller"
+    },
+    {
+      "category": "Kubernetes",
+      "code": "SECRET GET",
+      "title": "Secret access request",
+      "description": "Reads should be correlated with service account workloads, namespace and approval, not assumed hostile.",
+      "pivots": "kube-audit, RBAC bindings, workload identity"
     }
   ]
 };
