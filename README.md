@@ -1,4 +1,4 @@
-# SOC FIELDWORK / Edition 03
+# SOC FIELDWORK / Edition 04
 
 **An offline-first, interactive SOC analyst training desk, from the first shift to threat hunting and detection engineering.**
 
@@ -6,27 +6,27 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 
 ## What is inside
 
-| Training material | Edition 03 |
+| Training material | Edition 04 |
 | --- | ---: |
-| Step-by-step lessons | **151** |
-| Multi-stage investigation files | **42** |
-| Quiz questions with coaching | **136** |
-| Interview questions with model answers and common mistakes | **135** |
-| Graded evidence-retrieval drills | **31** |
-| Realistic synthetic log records | **203** |
-| Shift runbooks | **46** |
-| Glossary terms | **192** |
-| Production SPL/KQL *reference patterns* | **33** |
-| Signal Atlas cards | **32** |
-| Primary reference links | **16** |
+| Step-by-step lessons | **219** |
+| Multi-stage investigation files | **65** |
+| Quiz questions with coaching | **176** |
+| Interview questions with model answers and common mistakes | **165** |
+| Graded evidence-retrieval drills | **77** |
+| Realistic synthetic log records | **341** |
+| Shift runbooks | **64** |
+| Glossary terms | **231** |
+| Production SPL/KQL *reference patterns* | **45** |
+| Signal Atlas cards | **46** |
+| Primary reference links | **18** |
 
 ### The experience
 
 - **Briefing Desk** — redesigned editorial incident-workspace home screen, tier pathway, shift-start discipline, current cases, progress.
-- **Training Manual** — prerequisite and tier-specific lessons covering networks, identity, Windows, Linux, email, cloud, SIEM, EDR, IR, forensics, hunting, detection-as-code and communication.
-- **Incident Case Files** — realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs.
+- **Training Manual** — prerequisite and tier-specific lessons covering networks, identity, Windows, Linux, email, cloud, SIEM, EDR, IR, forensics, hunting, detection-as-code and communication. Edition 04 adds deeper work on OAuth, PKI/AD CS, collection blind spots, Kerberos, WinRM, detection SLOs and cloud token chains.
+- **Incident Case Files** — realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs; 23 new cases include a detailed debrief revealed after submission.
 - **Query Workbench** — safe in-browser filter/query language over case logs (not real SPL/KQL).
-- **Evidence Drills** — 31 graded queries comparing the **exact event set**, so overly broad queries don't pass.
+- **Evidence Drills** — 77 graded queries comparing the **exact event set**, so overly broad queries don't pass.
 - **Knowledge Exams & Interview Prep** — answer practice, model responses and explanation of frequent interview mistakes.
 - **Action Playbooks** — realistic escalation, identity, endpoint, cloud, hunting and detection workflows.
 - **Signal Atlas** — searchable Windows Event IDs, Sysmon, cloud, DNS, identity and operations cards showing meaning, limitations and pivots.
@@ -41,6 +41,16 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 4. Open `https://<github-username>.github.io/soc-fieldwork/` after Pages finishes deployment.
 
 There is **no build step**. To run locally, serve the folder over HTTP (`python -m http.server 8000`) and open the local address. Module imports are not reliably supported by `file://` pages.
+
+## Edition 04 additions
+
+- 68 new topic-focused technical lessons with observable telemetry, alternative explanations, investigation pivots, and common errors.
+- 23 synthetic case files containing 138 multi-source evidence events and 69 case-specific decision questions; every new case includes an after-submission debrief.
+- 46 additional exact-evidence log-search drills, 40 knowledge questions, 30 interview challenges, 18 actionable runbooks, and expanded signal/reference material.
+- A scenario pack mixing confirmed risk, ambiguous telemetry, benign changes, cloud-identity abuse, data-loss investigation, operational safety decisions and detection failures.
+- The same local progress key remains unchanged. No server or live infrastructure is needed.
+
+See the [four-week SOC interview sprint](docs/FOUR-WEEK-SOC-INTERVIEW-SPRINT.md) for day-by-day practice using the expanded game.
 
 ## Tests
 
