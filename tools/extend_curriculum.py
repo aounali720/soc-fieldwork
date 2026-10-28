@@ -11,6 +11,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 d=json.loads((ROOT/'content.json').read_text(encoding='utf-8'))
 
+# Safe to rerun: do not append the same learning pack twice.
+if any(x.get('title') == 'Reading a five-tuple' for x in d['lessons']):
+    print('Edition 04 content already installed; nothing to append.')
+    raise SystemExit(0)
+
 # tier | domain | title | technical explanation | first evidence | caution/benign explanation | first response
 LESSONS = r'''
 Foundation|Networking|Reading a five-tuple|A flow is identified by source IP, source port, destination IP, destination port and protocol; NAT can change the visible tuple across sensors|NetFlow or firewall logs showing action, interface, bytes and duration|A short burst on a high destination port is not inherently malicious|Compare both directions and align with proxy, DNS and asset identity
