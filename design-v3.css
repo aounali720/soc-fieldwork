@@ -30,3 +30,8 @@ html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-siz
 .case-debrief-grid p,.case-debrief-caveat p{margin:0;font-size:13px;line-height:1.65}
 .case-debrief-caveat{padding:14px 19px;border-top:1px solid #ceccbc;background:#e7e5d8}
 @media(max-width:720px){.case-debrief-grid{grid-template-columns:1fr}.case-debrief-grid>div{border-right:0;border-bottom:1px solid #ceccbc}}
+/* Contrast safeguards inside the dark interview panel */
+.interview-card>p{color:#d4dfd9}
+.interview-card .note-box.warn p,.interview-card .note-box.warn li{color:#664132}
+.interview-card .interview-answer .eyebrow{color:#f0b187}
+.interview-card .note-box.warn{color:#624334}
