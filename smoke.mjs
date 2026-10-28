@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { DATA } from './data.js';
 const routes={
   overview:'analyst',academy:'Learn the entire stack','visual-lab':'Understand it visually',missions:'The incident queue',
-  console:'Make the logs talk',drills:'Evidence retrieval drills',quiz:'Prove what you know',
+  console:'Make the logs talk',drills:'Evidence retrieval drills',practice:'Practice until',quiz:'Prove what you know',
   interviews:'Speak like the analyst',runbooks:'Runbooks for every shift',atlas:'Know what the telemetry means',
   timeline:'The event chronicle',glossary:'Operational vocabulary',resources:'Learn from primary sources'
 };
@@ -21,6 +21,15 @@ for(const [route,expected] of Object.entries(routes)){
    assert.ok(html.includes('SOC FIELDWORK'));
    assert.ok(!html.includes('undefined</'),`Undefined value in route ${route}`);
    assert.ok(clickCallback, 'Delegated action listener missing');
+   if(route==='practice'){
+     assert.ok(html.includes('data-action="practice-mode"'));
+     clickCallback({target:{closest:()=>({dataset:{action:'practice-mode',mode:'match'}})}});
+     assert.ok(html.includes('01 / TERMS'),'Matching board did not render');
+     clickCallback({target:{closest:()=>({dataset:{action:'practice-mode',mode:'order'}})}});
+     assert.ok(html.includes('practice-order-row'),'Order game did not render');
+     clickCallback({target:{closest:()=>({dataset:{action:'practice-exam-start'}})}});
+     assert.ok(html.includes('UNASSISTED ROUND'),'Exam round did not start');
+   }
    if(route==='visual-lab'){
      assert.ok(html.includes('data-action="visual-step"'));
      clickCallback({target:{closest:()=>({dataset:{action:'visual-select',id:'dns-resolution'}})}});
