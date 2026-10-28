@@ -1216,6 +1216,1410 @@ export const DATA = {
       ],
       "example": "A public upload API can store files in cloud storage; model unauthenticated input, scanning, IAM and audit trail requirements.",
       "minutes": 17
+    },
+    {
+      "id": "c65",
+      "tier": "Foundation",
+      "domain": "Networks",
+      "title": "Packet journey: from browser to server",
+      "summary": "Trace a request through DNS resolution, TCP/TLS setup, routing, load balancers, and application logs. A single failure can leave evidence in several layers.",
+      "details": [
+        "Client resolves name before connecting unless cached or pinned",
+        "TCP SYN/SYN-ACK/ACK establishes a session; UDP has no such handshake",
+        "Reverse proxies and NAT can change the IP observed by application logs"
+      ],
+      "workflow": [
+        "State which hostname and destination were used",
+        "Examine resolver, firewall and proxy visibility separately",
+        "Reconstruct the request order in one timezone"
+      ],
+      "example": "The edge firewall allows TCP/443, but the web app rejects the request at authentication; network allow does not imply application success.",
+      "evidence": [
+        "DNS qname, proxy URI/status, firewall 5-tuple",
+        "Client IP versus forwarded IP provenance"
+      ],
+      "pitfalls": [
+        "Treating a port as proof of protocol",
+        "Calling a dropped SYN an HTTP error"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c66",
+      "tier": "Foundation",
+      "domain": "Networks",
+      "title": "DNS records and investigation pivots",
+      "summary": "Understand A, AAAA, CNAME, MX, TXT, NS, PTR, TTL, NXDOMAIN and recursive versus authoritative answers. DNS events help form—but rarely prove—a C2 hypothesis.",
+      "details": [
+        "A/AAAA resolve names; CNAME aliases to another name",
+        "MX routes mail; TXT includes SPF and ownership signals",
+        "Caching and TTL mean observations may differ over time"
+      ],
+      "workflow": [
+        "Determine which client and resolver made a query",
+        "Group by domain, client, response code and interval",
+        "Correlate the requesting process and subsequent connections"
+      ],
+      "example": "Four TXT lookups with changing subdomain labels from one endpoint warrant comparison with normal software update behavior.",
+      "evidence": [
+        "Query type, answer, TTL, rcode and resolver",
+        "Endpoint process-to-DNS association"
+      ],
+      "pitfalls": [
+        "Assuming NXDOMAIN equals compromise",
+        "Blocking a domain without business impact review"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c67",
+      "tier": "Foundation",
+      "domain": "Networks",
+      "title": "DHCP, ARP, VLANs and switch telemetry",
+      "summary": "Place a security event on the correct local-network segment; know why host IP and MAC mappings change and why VLAN boundaries matter.",
+      "details": [
+        "DHCP leases assign addresses with expiry and reassignment",
+        "ARP resolves local IPv4 neighbors; IPv6 uses Neighbor Discovery",
+        "VLANs separate broadcast domains while routed traffic crosses L3 controls"
+      ],
+      "workflow": [
+        "Find asset identity at the event timestamp",
+        "Correlate DHCP lease, switchport, NAC and VPN records",
+        "Note NAT, shared IP and virtual NIC ambiguity"
+      ],
+      "example": "A firewall log gives 10.4.5.19 at 01:10 UTC; the DHCP lease proves it belonged to a kiosk then, not the laptop using it at noon.",
+      "evidence": [
+        "DHCP client MAC and lease interval",
+        "Switch port, NAC identity and VLAN"
+      ],
+      "pitfalls": [
+        "Using current IP-to-device inventory for historical attribution",
+        "Treating a MAC as globally unique identity"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c68",
+      "tier": "Foundation",
+      "domain": "Networks",
+      "title": "Email delivery and authentication",
+      "summary": "Read SMTP hop evidence, envelope sender, From header, Reply-To, SPF, DKIM, and DMARC alignment without assuming an authenticated message is safe.",
+      "details": [
+        "SPF validates authorized sending IP against envelope identities",
+        "DKIM verifies signed header/body portions and a domain signature",
+        "DMARC uses alignment and policy; pass does not certify sender intent"
+      ],
+      "workflow": [
+        "Trace Received headers in plausible order",
+        "Compare visible sender to envelope and Reply-To",
+        "Combine attachment behavior, URLs and user action"
+      ],
+      "example": "A phishing message sent from a compromised legitimate vendor can pass all three controls.",
+      "evidence": [
+        "Message-ID, authentication-results and attachment hash",
+        "URL clicks, recipient actions and mailbox rules"
+      ],
+      "pitfalls": [
+        "Calling SPF pass a clean verdict",
+        "Trusting external display names"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c69",
+      "tier": "Foundation",
+      "domain": "Windows",
+      "title": "Windows logon type decision map",
+      "summary": "Security Event 4624 records successful logons; the LogonType and account context shape whether it represents an interactive login, remote network use or a service.",
+      "details": [
+        "Type 2 interactive, type 3 network, type 10 remote interactive",
+        "Type 4 batch and type 5 service can be routine",
+        "Correlate 4624 with 4625, 4634, 4648, 4672 and host role"
+      ],
+      "workflow": [
+        "Read TargetUserName, LogonType, IpAddress and LogonId",
+        "Compare logon origin with endpoint inventory and admin schedule",
+        "Pivot to new processes, shares, service creation or RDP activity"
+      ],
+      "example": "Type 3 on a file server is normal until paired with a privileged account and a new service installed minutes later.",
+      "evidence": [
+        "4624 LogonType/LogonId fields",
+        "7045, Sysmon 1 and EDR process tree"
+      ],
+      "pitfalls": [
+        "Mistaking type 3 for RDP",
+        "Treating 4672 alone as proof of escalation"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c70",
+      "tier": "Foundation",
+      "domain": "Windows",
+      "title": "Windows event channels and audit coverage",
+      "summary": "Distinguish Security, System, PowerShell Operational, Sysmon, and Defender/EDR telemetry; absence of events can be a collection-policy problem.",
+      "details": [
+        "Security shows audited logon, object and account events",
+        "System includes service events and platform errors",
+        "PowerShell logging depends on policies and may expose different details than Sysmon"
+      ],
+      "workflow": [
+        "Confirm source channel and collection health",
+        "Look up exact event semantics and logging policy",
+        "Cross-check with another sensor when coverage is incomplete"
+      ],
+      "example": "An endpoint shows Sysmon 1 but no PowerShell 4104 because script-block logging is disabled; do not infer no scripts executed.",
+      "evidence": [
+        "EventID, channel, provider, host and record ID",
+        "GPO audit policy and connector heartbeat"
+      ],
+      "pitfalls": [
+        "Concluding a system is clean from a missing event",
+        "Confusing Sysmon and Security Event IDs"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c71",
+      "tier": "Foundation",
+      "domain": "Linux",
+      "title": "Linux authentication and auditd essentials",
+      "summary": "Understand SSH, sudo, su, journald, auth logs, cron/systemd and auditd context so Linux hosts are not treated as blind spots.",
+      "details": [
+        "Systemd journal centralizes many services; distro log files vary",
+        "SSH authentication successes and failures need source and account context",
+        "auditd can capture process/file access when configured"
+      ],
+      "workflow": [
+        "Verify local time and daemon/source",
+        "Compare SSH success with sudo, session and service modifications",
+        "Find persistence in authorized_keys, cron and systemd units"
+      ],
+      "example": "Repeated SSH failures followed by success are not enough to label compromise without account ownership and subsequent commands.",
+      "evidence": [
+        "journalctl entries, sshd logs and auditd execve",
+        "systemd timer/service changes and file hashes"
+      ],
+      "pitfalls": [
+        "Assuming /var/log/auth.log exists on every distro",
+        "Treating root sudo as always suspicious"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c72",
+      "tier": "Foundation",
+      "domain": "Identity",
+      "title": "Authentication protocols: OAuth/OIDC/SAML",
+      "summary": "Know the roles of identity provider, service provider, tokens, assertions, scopes, claims and consent; understand what sign-in logs can and cannot reveal.",
+      "details": [
+        "SAML commonly exchanges signed assertions between IdP and service",
+        "OIDC builds identity on OAuth 2.0 token flows",
+        "Refresh/access tokens have different uses and lifetime controls"
+      ],
+      "workflow": [
+        "Identify whether the event is an interactive sign-in, token refresh or app-only grant",
+        "Examine application, token audience and permission scope",
+        "Correlate consent and privileged audit events"
+      ],
+      "example": "A user consent grant to an unknown app with mail.read scope may persist after a password change.",
+      "evidence": [
+        "App ID, service principal, consent event and scopes",
+        "Device, session and token issuance metadata"
+      ],
+      "pitfalls": [
+        "Calling every access token an ID token",
+        "Assuming MFA reappears for each refresh"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c73",
+      "tier": "Foundation",
+      "domain": "Identity",
+      "title": "Kerberos and NTLM in SOC investigations",
+      "summary": "Read domain authentication patterns and distinguish ticket-granting behavior from password failures while respecting local audit-policy dependencies.",
+      "details": [
+        "Kerberos AS/TGS flows have different service purposes",
+        "Events 4768, 4769, 4771 and 4776 answer different questions",
+        "NTLM still appears in legacy environments and requires risk context"
+      ],
+      "workflow": [
+        "Identify principal, source workstation and service name",
+        "Check ticket patterns and account permissions",
+        "Pivot to DC logs plus endpoint processes and network flow"
+      ],
+      "example": "Many TGS requests for privileged service accounts may merit review, but regular application activity can be similarly noisy.",
+      "evidence": [
+        "DC Security 4768/4769 and SPN",
+        "Source process, encryption-type context and approved services"
+      ],
+      "pitfalls": [
+        "Assuming ticket requests alone equal credential theft",
+        "Treating 4771 as a general successful logon"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c74",
+      "tier": "Foundation",
+      "domain": "Core security",
+      "title": "Encoding, encryption, hashing and signatures",
+      "summary": "Separate reversible encoding, secret-key encryption, one-way hashing, keyed MACs and public-key signatures. Analysts often see these in malware, TLS and artifact validation.",
+      "details": [
+        "Base64 is encoding, not confidentiality",
+        "Hashes summarize content; collisions and changes have different meanings",
+        "Digital signatures prove a signer key was used, not that a signed program is safe"
+      ],
+      "workflow": [
+        "Classify which primitive an artifact actually uses",
+        "Preserve original bytes before decoding",
+        "Verify hash/signature provenance and compare with trusted baselines"
+      ],
+      "example": "A signed installer from a compromised vendor can still behave maliciously; correlate signer with reputation and process behavior.",
+      "evidence": [
+        "SHA-256 digest and file metadata",
+        "Signature chain, certificate status and timestamp"
+      ],
+      "pitfalls": [
+        "Calling Base64 encryption",
+        "Labeling any signed binary benign"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c75",
+      "tier": "Foundation",
+      "domain": "Core security",
+      "title": "Risk, CVSS, EPSS and exploit evidence",
+      "summary": "Prioritize vulnerabilities using exposure, exploitability, business criticality and active exploitation rather than a score in isolation.",
+      "details": [
+        "CVSS describes severity characteristics, not actual compromise",
+        "EPSS estimates exploitation probability and is not an incident verdict",
+        "Internet reachability and compensating controls matter"
+      ],
+      "workflow": [
+        "Confirm asset, version and vulnerable component",
+        "Check exposure and known exploitation evidence",
+        "Assign remediation owner and verification date"
+      ],
+      "example": "A critical library in a disconnected test environment may rank below an actively exploited internet-facing medium-severity flaw.",
+      "evidence": [
+        "Asset inventory and version evidence",
+        "Vulnerability scan details and patch status"
+      ],
+      "pitfalls": [
+        "Treating CVSS 10 as automatic active breach",
+        "Declaring patch complete without rescanning"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c76",
+      "tier": "Foundation",
+      "domain": "Core security",
+      "title": "Data formats: JSON, CSV, Syslog and ECS",
+      "summary": "Understand parsers, field extraction, normalization and ingestion delays. Query errors often begin at data-shape assumptions.",
+      "details": [
+        "JSON nesting and field types determine query syntax",
+        "Syslog header conventions vary by sender and format",
+        "ECS/ASIM-like schemas help normalize disparate products"
+      ],
+      "workflow": [
+        "Inspect a raw example and field mappings",
+        "Compare parsed time with original timestamp",
+        "Validate null/missing fields and dropped events"
+      ],
+      "example": "An IP is stored under client.ip in one index and src_ip in another; a query can silently miss half the fleet.",
+      "evidence": [
+        "Raw log and parsed fields side by side",
+        "Ingest timestamp versus event timestamp"
+      ],
+      "pitfalls": [
+        "Assuming identical fields across vendors",
+        "Silently casting invalid timestamps"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c77",
+      "tier": "Foundation",
+      "domain": "Cloud basics",
+      "title": "Cloud shared responsibility model",
+      "summary": "Know which layer the provider secures and which configurations, identities, data and applications remain the customer’s responsibility.",
+      "details": [
+        "IaaS requires guest OS and application hardening",
+        "Managed services shift operational tasks but not data classification",
+        "Audit coverage depends on cloud-specific log configuration"
+      ],
+      "workflow": [
+        "Identify the cloud service and security boundary",
+        "Check IAM, logging and network configuration",
+        "Recommend controls owned by the correct team"
+      ],
+      "example": "An exposed object storage bucket is often a tenant configuration issue, not evidence of provider infrastructure compromise.",
+      "evidence": [
+        "IAM policy, bucket permissions and cloud audit trail",
+        "Provider status and tenant configuration history"
+      ],
+      "pitfalls": [
+        "Assuming managed means automatically secure",
+        "Confusing service health with account security"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c78",
+      "tier": "Foundation",
+      "domain": "Core security",
+      "title": "ATT&CK tactics versus techniques versus detection",
+      "summary": "Use ATT&CK as a behavioral map rather than an automatic attribution engine; one event may support multiple hypotheses.",
+      "details": [
+        "Tactics express goals; techniques describe behaviors",
+        "A technique ID is not a malware family or attacker identity",
+        "Mapping requires actual evidence, not guesses from alert titles"
+      ],
+      "workflow": [
+        "Describe exact observed behavior",
+        "Map at the narrowest supported technique level",
+        "Record telemetry gaps and alternative explanations"
+      ],
+      "example": "Service creation with a temporary binary can support remote execution hypotheses but does not independently identify an operator.",
+      "evidence": [
+        "Observed command/process/service data",
+        "Detection rule and technique rationale"
+      ],
+      "pitfalls": [
+        "Overmapping every stage of an attack chain",
+        "Inferring nation-state actor from a single technique"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c79",
+      "tier": "L1",
+      "domain": "Daily operations",
+      "title": "SLA clock, queue ownership and handover",
+      "summary": "Treat an alert as owned work: deadline, state, next action and escalation are distinct fields. Duplicate cases should link without erasing evidence.",
+      "details": [
+        "Severity does not always equal urgency; critical assets change priority",
+        "SLA breach risk grows when ownership is ambiguous",
+        "Handover must include status and blockers, not only ticket link"
+      ],
+      "workflow": [
+        "Identify priority and response policy",
+        "Assign owner and record next check time",
+        "Escalate pending decisions before shift change"
+      ],
+      "example": "Two analysts both assume the other contacted the asset owner; a precise handover prevents the gap.",
+      "evidence": [
+        "Ticket created/updated timestamps and assigned responder",
+        "Decision record and contact attempts"
+      ],
+      "pitfalls": [
+        "Closing on assignment without investigation",
+        "Unowned P1 alerts during shift handover"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c80",
+      "tier": "L1",
+      "domain": "Daily operations",
+      "title": "Distinguish detections, events, incidents and cases",
+      "summary": "An event is observation; a detection correlates observations into a signal; an incident is validated security harm or policy-significant activity according to organizational criteria.",
+      "details": [
+        "A true positive detection can be authorized activity",
+        "A case can combine many alerts around one entity/timeframe",
+        "Escalation is based on confidence and impact, not alert volume"
+      ],
+      "workflow": [
+        "Validate alert logic and supporting events",
+        "Check intent, authorization and business context",
+        "Disposition with a clear evidence-backed explanation"
+      ],
+      "example": "A managed vulnerability scanner triggers a port-scan rule; the behavior is real but approved in a change window.",
+      "evidence": [
+        "Alert rule logic and raw matching events",
+        "Change ticket and relevant asset owner"
+      ],
+      "pitfalls": [
+        "Calling every rule match an incident",
+        "Calling a benign positive a false positive"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c81",
+      "tier": "L1",
+      "domain": "Windows detection",
+      "title": "Security event 4688 and command-line visibility",
+      "summary": "Event 4688 can record process creation, depending on audit settings; full command-line collection is controlled separately. Sysmon Event 1 often provides additional context.",
+      "details": [
+        "Read creator process, account, image and command line if logged",
+        "Parent and child sequence reveals suspicious application-to-shell chains",
+        "Process IDs can be reused and need time and entity context"
+      ],
+      "workflow": [
+        "Verify 4688 audit policy and source host",
+        "Build process tree around suspicious execution",
+        "Check signer, child processes and subsequent network actions"
+      ],
+      "example": "winword.exe launching powershell.exe with encoded command is suspicious context, not a proof of decoded intent.",
+      "evidence": [
+        "4688 NewProcessName/CommandLine",
+        "Sysmon 1 ProcessGuid and parent data"
+      ],
+      "pitfalls": [
+        "Assuming every 4688 has arguments",
+        "Correlating reused PID across hours"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c82",
+      "tier": "L1",
+      "domain": "Windows detection",
+      "title": "Account creation, group membership and privilege changes",
+      "summary": "Learn common Windows and AD event IDs used to identify new accounts and group changes; distinguish local and domain scopes.",
+      "details": [
+        "4720 account created, 4726 deleted and 4738 changed",
+        "4728/4732/4756 cover additions to different group scopes",
+        "Audit location and event fields vary; privileged membership needs immediate context"
+      ],
+      "workflow": [
+        "Confirm acting principal and target account",
+        "Compare change windows and approved requests",
+        "Identify new privileges and correlated sign-ins"
+      ],
+      "example": "An unplanned addition to Domain Admins after suspicious login is a high-priority escalation, even if EDR has no malware alert.",
+      "evidence": [
+        "DC Security log member-change event",
+        "Group SID, actor, ticket and target"
+      ],
+      "pitfalls": [
+        "Mixing up group scope event IDs",
+        "Ignoring who performed the change"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c83",
+      "tier": "L1",
+      "domain": "Email security",
+      "title": "Phishing URL and attachment investigation",
+      "summary": "Investigate message, recipient, click, download and execution as separate facts; do not detonate untrusted artifacts on a workstation.",
+      "details": [
+        "Differentiate delivery, click and execution",
+        "URL redirects may change destination after delivery",
+        "Safe reputation and sandbox services have privacy and authorization limits"
+      ],
+      "workflow": [
+        "Preserve message identifiers and headers",
+        "Search mail gateway and proxy for clicks",
+        "Use EDR to confirm process execution and affected scope"
+      ],
+      "example": "A blocked .exe after a click is not the same as successful malware execution; report delivered/clicked/blocked distinctly.",
+      "evidence": [
+        "Email delivery status and recipient list",
+        "Proxy URL, EDR prevention event and process tree"
+      ],
+      "pitfalls": [
+        "Opening unknown attachments to check manually",
+        "Declaring compromise from email delivery alone"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c84",
+      "tier": "L1",
+      "domain": "Email security",
+      "title": "Business email compromise first response",
+      "summary": "BEC often involves legitimate sessions, mailbox rules, payment requests or app grants; payload scanning alone will miss it.",
+      "details": [
+        "Invoice urgency is a social-engineering cue, not proof",
+        "Forwarding rules and changed recovery methods increase risk",
+        "Token-based sessions can survive password changes"
+      ],
+      "workflow": [
+        "Compare conversation history and sender identity",
+        "Review mailbox audit and sign-ins",
+        "Escalate financial action and preserve records"
+      ],
+      "example": "A seemingly normal vendor requests a new bank account; finance should verify through an independently known channel.",
+      "evidence": [
+        "Audit New-InboxRule/Set-Mailbox and sign-in locations",
+        "Payment change and mail access timeline"
+      ],
+      "pitfalls": [
+        "Using reply-to-email for verification",
+        "Assuming no malware means no BEC"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c85",
+      "tier": "L1",
+      "domain": "Endpoint detection",
+      "title": "EDR alert action versus observed outcome",
+      "summary": "EDR may alert, quarantine a file, kill a process or isolate host. Analysts must separate intended control action from confirmed execution results.",
+      "details": [
+        "Blocked execution does not guarantee no earlier activity",
+        "Suspicious child process requires tracing its ancestors",
+        "Sensor gaps and tamper events reduce confidence"
+      ],
+      "workflow": [
+        "Read action and action result fields",
+        "Check pre-detection and post-detection process activity",
+        "Verify whether isolation/quarantine actually completed"
+      ],
+      "example": "An alert-only detection with a persistent outbound connection is more urgent than a blocked file with no child processes.",
+      "evidence": [
+        "Alert classification, action result and process GUID",
+        "Sensor last-seen time and network artifacts"
+      ],
+      "pitfalls": [
+        "Calling alert_only blocked",
+        "Missing alternative execution paths"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c86",
+      "tier": "L1",
+      "domain": "Network detection",
+      "title": "HTTP redirects, proxies and web request attribution",
+      "summary": "Understand the difference between proxy logs, WAF events, application outcomes and browser sessions. HTTP 200 does not necessarily mean authorized action.",
+      "details": [
+        "A redirect can chain across hosts/domains",
+        "WAF action=block may preclude app execution for that request",
+        "NAT and reverse proxies complicate user attribution"
+      ],
+      "workflow": [
+        "Trace user/device to proxy request",
+        "Correlate WAF request ID with application response",
+        "Inspect upstream status and authenticated principal"
+      ],
+      "example": "A WAF detects traversal and blocks with 403 while the subsequent app request returns 200 for a benign report; do not conflate them.",
+      "evidence": [
+        "WAF action, request ID and normalized URL",
+        "Application authorization result and proxy username"
+      ],
+      "pitfalls": [
+        "Treating every 200 response as data theft",
+        "Mistaking WAF detection for successful exploit"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c87",
+      "tier": "L1",
+      "domain": "SIEM operations",
+      "title": "Field extraction, lookup tables and data models",
+      "summary": "Searchable data depends on sourcetypes, parsing rules, schema mapping, enrichment freshness and retention; validate before building a rule.",
+      "details": [
+        "Field types and casing may differ across indexes",
+        "Lookups can enrich with asset owner but become stale",
+        "Query time windows must account for ingestion delay"
+      ],
+      "workflow": [
+        "Inspect sample raw logs and extracted fields",
+        "Validate against known ground-truth events",
+        "Check lookup join coverage and unknown matches"
+      ],
+      "example": "A failed-logon dashboard suddenly drops to zero after a parser update; ingestion health matters more than celebrating the decline.",
+      "evidence": [
+        "Raw message, source type and index lag",
+        "Lookup unmatched counts"
+      ],
+      "pitfalls": [
+        "Assuming visual dashboard implies complete coverage",
+        "Silently dropping null fields"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c88",
+      "tier": "L1",
+      "domain": "SIEM operations",
+      "title": "Baseline and threshold alerts",
+      "summary": "Baselines capture expected behavior, but an average can hide high variance and seasonality. A threshold is only a starting detection hypothesis.",
+      "details": [
+        "Partition baselines by host role, user and time of day",
+        "Consider scheduled admin activity and maintenance windows",
+        "Rare events are not necessarily malicious; malicious can be common"
+      ],
+      "workflow": [
+        "Document what normal means for the entity",
+        "Compare current rate with cohort and historical windows",
+        "Pivot to process/account behavior before disposition"
+      ],
+      "example": "Ten failed logins may be severe for a rarely used service account but routine on an internet-facing auth gateway.",
+      "evidence": [
+        "Hourly aggregates, host cohort and day-of-week",
+        "Source IP diversity and success-after-failure pattern"
+      ],
+      "pitfalls": [
+        "Using one global threshold for all asset classes",
+        "Auto-whitelisting noisy users"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c89",
+      "tier": "L1",
+      "domain": "Identity detection",
+      "title": "MFA fatigue, session anomaly and token theft",
+      "summary": "Interpret push approval spam, new device registration, suspicious refresh tokens and post-authentication actions without conflating them.",
+      "details": [
+        "MFA success alone does not validate session legitimacy",
+        "Token theft may not generate a new password attempt",
+        "Session revocation may be needed after account takeover"
+      ],
+      "workflow": [
+        "Inspect authentication method and device posture",
+        "Correlate sign-in and mailbox/cloud actions",
+        "Escalate credible compromise for approved session and account response"
+      ],
+      "example": "Repeated push denials followed by one approval and inbox forwarding change support account takeover concern.",
+      "evidence": [
+        "MFA details, device compliance and app sessions",
+        "Authentication audit and token/consent activity"
+      ],
+      "pitfalls": [
+        "Treating a successful MFA as proof of safety",
+        "Resetting password without reviewing active sessions"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c90",
+      "tier": "L1",
+      "domain": "SOC writing",
+      "title": "Analyst ticket with confidence and uncertainty",
+      "summary": "Write reproducible notes: who, what, when (UTC), where, evidence, assessment, actions and unknowns. Confidence is not the same as severity.",
+      "details": [
+        "State a fact from evidence separately from a hypothesis",
+        "Use timestamps, log source and asset IDs",
+        "Explain why a containment request is proportionate to business impact"
+      ],
+      "workflow": [
+        "Write a two-sentence summary first",
+        "Attach concise supporting artifacts and negative findings",
+        "Identify owner and explicitly requested next step"
+      ],
+      "example": "Observed 4624 type 3 from unknown IP, then 7045 on host; suspected lateral movement, not confirmed exfiltration.",
+      "evidence": [
+        "Raw event reference, detection rule and affected entities",
+        "Timeline and pending validation actions"
+      ],
+      "pitfalls": [
+        "Writing confirmed compromise without proof",
+        "Saying investigated and closed without rationale"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c91",
+      "tier": "L1",
+      "domain": "Daily operations",
+      "title": "SOC shift communications and fatigue management",
+      "summary": "Protect handover quality during high-volume shifts with triage batches, explicit priorities and rest-aware double checks on disruptive actions.",
+      "details": [
+        "High alert volume increases context-switching errors",
+        "Reliable templated notes beat memory",
+        "P1 incidents require designated communications cadence"
+      ],
+      "workflow": [
+        "Triage urgent, high-confidence business impact first",
+        "Group related alerts by entity/time to avoid duplicate work",
+        "Ask for peer review before high-impact emergency changes"
+      ],
+      "example": "A thousand matching scans share one approved scanner: link alert grouping and retain original evidence for an auditable suppression proposal.",
+      "evidence": [
+        "Case status, SLA and alert grouping criteria",
+        "Handover acknowledgement and last update"
+      ],
+      "pitfalls": [
+        "Treating all alerts FIFO regardless of risk",
+        "Making isolation decisions while distracted without verification"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c92",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "Build process trees across Sysmon and EDR",
+      "summary": "Correlate endpoint execution via ProcessGuid, parent relationships, users, hashes and timestamps. PID alone may be reused, and event ordering may be delayed.",
+      "details": [
+        "Sysmon Event 1 records process creation when configured",
+        "Sysmon 3 network connection depends on configuration",
+        "Parent-child links and command line give stronger context than process name"
+      ],
+      "workflow": [
+        "Anchor on suspicious process GUID and start time",
+        "Expand parents, children and network connections",
+        "Confirm file origin, signer and persistence artifacts"
+      ],
+      "example": "Office spawning script interpreter and unusual HTTPS connection warrants host investigation despite common Windows binaries.",
+      "evidence": [
+        "ProcessGuid, ParentProcessGuid and hash",
+        "Network five-tuple and related file writes"
+      ],
+      "pitfalls": [
+        "Using PID as durable identity",
+        "Assuming a signed interpreter is safe"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c93",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "Active Directory lateral movement investigation",
+      "summary": "Reconstruct source-to-target movement using remote logons, service tasks, privileged accounts and network pivot evidence; distinguish admin work from intrusions.",
+      "details": [
+        "4624 type 3 plus 7045 can indicate remote service execution",
+        "Scheduled task events can show alternative remote execution",
+        "Domain controllers provide account context, but endpoints reveal actions"
+      ],
+      "workflow": [
+        "Collect origins, destinations and account context",
+        "Compare authentication to remote process/service evidence",
+        "Map exact affected hosts and privileged credentials"
+      ],
+      "example": "Same admin account creates an unfamiliar service on two hosts within minutes; check authorized deployment work before attribution.",
+      "evidence": [
+        "4624/4648, 7045 and network share access",
+        "EDR command line, service binary hash and change records"
+      ],
+      "pitfalls": [
+        "Assuming SMB alone implies lateral movement",
+        "Ignoring service account compromise"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c94",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "Kerberoasting detection and response",
+      "summary": "Investigate unusual service-ticket acquisition patterns without depending on encryption type alone; privileged service accounts and post-auth events determine risk.",
+      "details": [
+        "SPN-backed accounts may be targeted for offline password guessing",
+        "Event 4769 request rate and source matter",
+        "RC4 usage alone is not confirmation of attack"
+      ],
+      "workflow": [
+        "Build per-principal SPN/ticket baseline",
+        "Look for unusual bursts and affected sensitive accounts",
+        "Recommend credential hygiene and identity response by policy"
+      ],
+      "example": "A single app server requesting usual SQL service tickets should not be escalated as proven Kerberoasting.",
+      "evidence": [
+        "4769 service name, client address and encryption info",
+        "SPN inventory and privilege of target account"
+      ],
+      "pitfalls": [
+        "Treating ticket volume as stolen password proof",
+        "Disabling production service accounts without approval"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c95",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "DCSync and directory replication anomalies",
+      "summary": "Monitor directory replication privilege abuse using security events and DC role context; legitimate DC replication must not be confused with abuse.",
+      "details": [
+        "Directory replication rights may be held outside domain controllers",
+        "Access event 4662 requires suitable SACL and audit setup",
+        "Non-DC sources requesting replication are an investigation lead"
+      ],
+      "workflow": [
+        "Verify audit coverage and principal replication rights",
+        "Correlate 4662 with host identity and network session",
+        "Escalate confirmed unauthorized privilege for coordinated credential response"
+      ],
+      "example": "A backup server with delegated rights may generate replication-like activity; ownership validation prevents damaging containment.",
+      "evidence": [
+        "4662 properties/object context and account",
+        "Directory ACL changes and source host role"
+      ],
+      "pitfalls": [
+        "Claiming DCSync from 4662 alone",
+        "Ignoring SACL and domain-controller baseline"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c96",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "Windows persistence: tasks, services, Run keys and WMI",
+      "summary": "Look beyond malware filename to persistence mechanisms and their creator, trigger, binary and authorization context.",
+      "details": [
+        "Scheduled task and service creation are common admin methods",
+        "Registry Run keys may start programs at logon",
+        "WMI event subscriptions can persist and need specialist telemetry"
+      ],
+      "workflow": [
+        "Inspect new persistence object and creation time",
+        "Identify creator account and target image path",
+        "Compare with change history and process tree"
+      ],
+      "example": "A service pointing to a temporary user directory after an unusual remote logon merits escalation, not automatic deletion.",
+      "evidence": [
+        "7045, task-creation events and registry changes",
+        "EDR process tree and binary provenance"
+      ],
+      "pitfalls": [
+        "Removing evidence before preservation",
+        "Labeling every new scheduled task malicious"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c97",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "Data exfiltration scoping",
+      "summary": "Determine whether bytes left, what data was accessible and whether uploads reached a destination. DNS or firewall counts alone cannot prove content transfer.",
+      "details": [
+        "Traffic bytes may include protocol overhead and retries",
+        "Cloud audit data events may require explicit configuration",
+        "Proxy and DLP logs offer different attribution strengths"
+      ],
+      "workflow": [
+        "Identify destination and initiating principal/process",
+        "Correlate storage access with transfer volume and success",
+        "Escalate potential data exposure with explicit uncertainty"
+      ],
+      "example": "Seventy-five GetObject events show file reads, not necessarily public disclosure; investigate principal, destination and approved workflows.",
+      "evidence": [
+        "Object API audit, DLP and proxy upload metrics",
+        "Sensitive-data label and access grant timeline"
+      ],
+      "pitfalls": [
+        "Calling any high byte count confirmed theft",
+        "Relying on blocked firewall attempts as successful transfer"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c98",
+      "tier": "L2",
+      "domain": "Threat investigation",
+      "title": "DNS beaconing and tunneling deep dive",
+      "summary": "Assess inter-arrival regularity, domains, qtypes and payload shape alongside endpoint process and approved applications.",
+      "details": [
+        "Regular polling can be benign scheduled software",
+        "High-entropy labels and excessive TXT queries are leads",
+        "Passive DNS does not give payload meaning with encrypted DNS"
+      ],
+      "workflow": [
+        "Establish host baseline and parent process",
+        "Quantify query distribution and interval variance",
+        "Compare destinations, reputation, ownership and process behavior"
+      ],
+      "example": "A laptop making TXT queries every 60 seconds may be a sync client; the unmanaged binary and domain novelty are needed for stronger suspicion.",
+      "evidence": [
+        "DNS request times, qtype/rcode and unique subdomains",
+        "Sysmon process-to-network events and proxy metadata"
+      ],
+      "pitfalls": [
+        "Declaring C2 solely from 60-second interval",
+        "Assuming entropy alone proves data encoding"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c99",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Containment choices and business blast radius",
+      "summary": "Balance stopping ongoing harm against operational damage: account disablement, session revocation, host isolation and network blocks target different scopes.",
+      "details": [
+        "Isolation may sever response access on critical endpoints",
+        "Disabling a service account can break business workflows",
+        "A block may not revoke existing tokens or sessions"
+      ],
+      "workflow": [
+        "Identify active threat and containment objective",
+        "Obtain authorization and fallback/rollback plan",
+        "Verify containment action succeeded and monitor for alternatives"
+      ],
+      "example": "For an actively encrypting workstation, approved isolation may be urgent; a database cluster needs explicit coordinated response.",
+      "evidence": [
+        "EDR action result, IAM session audit and firewall change",
+        "Change ticket and validation telemetry"
+      ],
+      "pitfalls": [
+        "Issuing unapproved disruptive commands",
+        "Equating requested action with successful containment"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c100",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Incident timeline and chain of evidence",
+      "summary": "Combine disparate logs using UTC, original timezones, collection delays, source fidelity and notes about contradictions; preserve raw artifacts.",
+      "details": [
+        "A SIEM ingest time can be later than event creation",
+        "Endpoint clocks may drift and misorder sequences",
+        "Hashes and custody records protect reproducibility, not absolute truth"
+      ],
+      "workflow": [
+        "Capture original timestamp and source clock context",
+        "Build a sorted timeline with confidence levels",
+        "Record evidence origin, storage and analysts handling it"
+      ],
+      "example": "Mail delivery 08:01, click 08:03, session 08:05 and rule change 08:07 form a hypothesis requiring account audit confirmation.",
+      "evidence": [
+        "Message ID, sign-in ID and event timestamps",
+        "Evidence hash, acquisition method and custody record"
+      ],
+      "pitfalls": [
+        "Mixing local and UTC silently",
+        "Changing a source artifact while annotating"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c101",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Ransomware: precursor versus impact",
+      "summary": "Identify stages such as suspicious authentication, backup tampering, mass encryption and ransom notes; distinguish high-confidence impact from a single tool invocation.",
+      "details": [
+        "vssadmin activity can be legitimate backup admin work",
+        "File-renaming spikes and ransom notes strongly elevate urgency",
+        "Scope includes shares, hypervisors, identity and backup integrity"
+      ],
+      "workflow": [
+        "Confirm affected host(s) and active encryption",
+        "Trigger approved crisis escalation and containment",
+        "Preserve evidence and coordinate recovery validation"
+      ],
+      "example": "Mass renamed files, ransom-note creation and unblocked suspicious process show likely active impact requiring urgent response.",
+      "evidence": [
+        "EDR commands and event timeline",
+        "File-server I/O anomalies and backup integrity status"
+      ],
+      "pitfalls": [
+        "Waiting for antivirus signature in active encryption",
+        "Deleting notes and binaries before collection"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c102",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Cloud compromise: AWS and Azure investigation",
+      "summary": "Distinguish management-plane changes, data access and identity evidence; enumerate affected resource policies, tokens and key material.",
+      "details": [
+        "CloudTrail management and data event coverage differ",
+        "Azure activity logs and Entra audit logs serve different purposes",
+        "Temporary role sessions can outlive an initial sign-in"
+      ],
+      "workflow": [
+        "Identify effective principal and assumed role/session",
+        "Map privilege changes and data-resource access",
+        "Revoke/rotate credentials under approved playbook and verify"
+      ],
+      "example": "CreateAccessKey followed by AdministratorAccess and unusual object reads is suspicious even when no endpoint is infected.",
+      "evidence": [
+        "Cloud audit eventName, principalArn and source IP",
+        "IAM policy history, app grants and object access events"
+      ],
+      "pitfalls": [
+        "Assuming a public IP means public cloud compromise",
+        "Confusing management access with data read completion"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c103",
+      "tier": "L2",
+      "domain": "Response",
+      "title": "Incident communications for executives and legal",
+      "summary": "Report scope, impact, containment, unknowns and decision points with appropriate confidence; avoid premature claims and preserve privacy.",
+      "details": [
+        "Operational update differs from breach notification",
+        "Legal/privacy reporting depends on jurisdiction and evidence",
+        "Every update should name a next review time and decision owner"
+      ],
+      "workflow": [
+        "Draft verified facts and a separate hypotheses section",
+        "Explain affected business functions and current mitigations",
+        "Route external statements through incident leadership and legal"
+      ],
+      "example": "We observed unauthorized mailbox rules on one account; investigation is ongoing into downstream data access.",
+      "evidence": [
+        "Case timeline and confirmed action record",
+        "Asset/data owner and required approvals"
+      ],
+      "pitfalls": [
+        "Stating no data loss before examining logs",
+        "Sending incident artifacts to unauthorized chat rooms"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c104",
+      "tier": "L2",
+      "domain": "Detection engineering",
+      "title": "Sigma translation and field compatibility",
+      "summary": "Translate generic detection logic into target SIEM fields with explicit parser mappings, null handling and validation using known-positive and known-benign logs.",
+      "details": [
+        "Sigma selection/condition is abstract until backend translation",
+        "Field aliases and wildcard behavior vary",
+        "Query portability does not guarantee comparable data completeness"
+      ],
+      "workflow": [
+        "Write detection hypothesis and data prerequisites",
+        "Map fields for each target environment",
+        "Replay positive and negative scenarios and track coverage"
+      ],
+      "example": "An impossible-travel Sigma-style rule still needs identity provider device context and VPN exit labels in the SIEM.",
+      "evidence": [
+        "Rule YAML and backend query",
+        "Test events, false-positive log and deployment history"
+      ],
+      "pitfalls": [
+        "Copying Sigma YAML into SPL without translation",
+        "Ignoring source event schema"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c105",
+      "tier": "L2",
+      "domain": "Detection engineering",
+      "title": "Triage rule QA and alert suppression",
+      "summary": "Tune detections with safe, narrow exceptions that preserve uncommon malicious behavior; measure precision and recall on reviewed datasets.",
+      "details": [
+        "Suppression can hide the same behavior from an attacker",
+        "Allowlists should have owner and expiry",
+        "Precision improves only when benign population is understood"
+      ],
+      "workflow": [
+        "Review 30–90 days matched alert examples",
+        "Add context: signer, parent, asset role and change window",
+        "Replay adversarial test and measure false negatives"
+      ],
+      "example": "Exclude a known scanner only when hostname, owner and approved time range match; keep detections for that account elsewhere.",
+      "evidence": [
+        "Rule versions and sample match counts",
+        "Approved tuning exceptions and expiry"
+      ],
+      "pitfalls": [
+        "Whitelisting an IP range forever",
+        "Optimizing only for alert volume"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c106",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Hunt hypothesis: lateral movement with remote services",
+      "summary": "Design a testable hypothesis around cross-host authentication and short-lived service creation, then hunt at scale without equating every admin tool with intrusion.",
+      "details": [
+        "Hypotheses should specify population, timeframe and signals",
+        "Known admins and deployment tools form a comparison cohort",
+        "A missing source weakens conclusions, it is not proof of absence"
+      ],
+      "workflow": [
+        "State hypothesis and required 4624/7045 telemetry",
+        "Join accounts, origins, targets and creation intervals",
+        "Investigate rare clusters; document counterexamples and findings"
+      ],
+      "example": "A service installed on three servers by a new admin origin is a lead; maintenance records may resolve it benign.",
+      "evidence": [
+        "Normalized 4624 source/workstation and 7045 binary",
+        "Host inventory, EDR and deployment schedule"
+      ],
+      "pitfalls": [
+        "Using a global service-creation threshold",
+        "Reporting a hunt as no threats without coverage caveat"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c107",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Hunt hypothesis: suspicious OAuth consent",
+      "summary": "Correlate new application consent, broad scopes, unusual principals and subsequent API operations; identity-only threats may not involve endpoint malware.",
+      "details": [
+        "User-consent policy changes attack surface",
+        "Mail.Read, offline_access and admin grants can alter risk",
+        "App permissions need tenant and owner context"
+      ],
+      "workflow": [
+        "Find recent consent grants and app registrations",
+        "Enrich publisher, scope, signer and approval history",
+        "Pivot to app-only and delegated API reads"
+      ],
+      "example": "An unknown app obtains offline_access and Mail.Read then accesses unusual mailboxes; remove consent only under authorized response.",
+      "evidence": [
+        "Consent audit, servicePrincipal ID and API calls",
+        "Application owner and approval ticket"
+      ],
+      "pitfalls": [
+        "Treating all third-party apps malicious",
+        "Resetting user passwords as only mitigation"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c108",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "Statistical beacon detection",
+      "summary": "Use interval variance, periodograms or time-binned counts to surface regular external callbacks, then validate service schedules and endpoint processes.",
+      "details": [
+        "Fixed cadence is a clue, not malicious proof",
+        "Clock jitter and batching distort inter-arrival stats",
+        "Scoring should include rare destinations and execution context"
+      ],
+      "workflow": [
+        "Build per host/destination time series",
+        "Compare to benign update cohorts",
+        "Review process lineage and domain age with privacy controls"
+      ],
+      "example": "A 5-minute heartbeat to a signed updater is normal; a new unsigned binary calling an unrecognized domain is not.",
+      "evidence": [
+        "Flow timestamps, byte trends and destination",
+        "Process image, signed status and user context"
+      ],
+      "pitfalls": [
+        "Conflating NTP and C2 polling",
+        "Ignoring sampling and NAT bias"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c109",
+      "tier": "L3",
+      "domain": "Threat hunting",
+      "title": "ATT&CK coverage matrix and data-source gaps",
+      "summary": "Separate detection-rule existence from telemetry coverage and analytic validation; treat an unmonitored technique as unknown rather than safe.",
+      "details": [
+        "Technique overlap does not imply all sub-techniques covered",
+        "Rules depend on quality and retention of required data",
+        "Control testing establishes measurable confidence"
+      ],
+      "workflow": [
+        "Select priority threats for business assets",
+        "Map available telemetry and rules to tested technique behaviors",
+        "Record gaps, owner, risk and next validation exercise"
+      ],
+      "example": "A service-creation rule on half the endpoint fleet does not provide full lateral movement coverage.",
+      "evidence": [
+        "Sensor inventory and event volumes by host",
+        "Tested attack emulation outcomes and rule mapping"
+      ],
+      "pitfalls": [
+        "Claiming percentage coverage by counting tags",
+        "Ignoring collection outages"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c110",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "Detection-as-code engineering workflow",
+      "summary": "Treat analytics rules like production software: version control, peer review, tests, staging, metrics and rollback plans.",
+      "details": [
+        "Queries can exceed SIEM performance limits",
+        "Rule naming and MITRE tags are documentation, not validation",
+        "A good rule should explain response and data prerequisites"
+      ],
+      "workflow": [
+        "Write hypothesis, prerequisites and detection query",
+        "Validate on synthetic positive and realistic benign negatives",
+        "Roll out gradually, monitor alert quality and revert if needed"
+      ],
+      "example": "A new command-line rule fires on backup tooling; narrow by signed parent and context instead of dropping the technique entirely.",
+      "evidence": [
+        "Git diff, test cases, rule changelog",
+        "Query cost, false-positive and false-negative review"
+      ],
+      "pitfalls": [
+        "Deploying an untested detection globally",
+        "Optimizing speed by removing investigative fields"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c111",
+      "tier": "L3",
+      "domain": "Detection engineering",
+      "title": "Structured detection QA metrics",
+      "summary": "Measure true-positive yield, false-positive burden, median time to triage and gap-specific coverage without gaming the numbers.",
+      "details": [
+        "MTTD depends on event time and detection time semantics",
+        "MTTR varies by definition and may hide complex cases",
+        "Recall requires an estimate of missed attacks from tests/hunts"
+      ],
+      "workflow": [
+        "Document metric definition and window",
+        "Sample verified alerts and missed test events",
+        "Explain trends with detection changes and staffing context"
+      ],
+      "example": "A reduction in alerts after connector failure is a monitoring incident, not a precision improvement.",
+      "evidence": [
+        "Rule hit counts with reviewed dispositions",
+        "Data freshness and tested simulation coverage"
+      ],
+      "pitfalls": [
+        "Ranking teams by closure speed alone",
+        "Ignoring skipped incidents in metrics"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c112",
+      "tier": "L3",
+      "domain": "Forensics",
+      "title": "Windows forensic artifacts: Prefetch, Amcache and Shimcache",
+      "summary": "Know what host execution artifacts can suggest—and why their presence or absence rarely proves exact execution sequences.",
+      "details": [
+        "Prefetch can indicate application runs but depends on policy/OS",
+        "Amcache provides executable metadata with interpretation caveats",
+        "Shimcache/AppCompatCache is not a standalone execution proof"
+      ],
+      "workflow": [
+        "Preserve forensic image or targeted artifacts properly",
+        "Correlate with EDR, event logs and file timestamps",
+        "State limitations explicitly in report"
+      ],
+      "example": "A hash appears in Amcache near incident date; compare with Sysmon process and file activity before concluding execution.",
+      "evidence": [
+        "Artifact path, source image hash and tool version",
+        "Corroborating process evidence"
+      ],
+      "pitfalls": [
+        "Treating every Shimcache entry as executed",
+        "Editing mounted evidence during triage"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c113",
+      "tier": "L3",
+      "domain": "Forensics",
+      "title": "Memory forensics: volatile evidence fundamentals",
+      "summary": "Understand why running processes, network sockets, injected memory and volatile secrets require a planned acquisition and integrity chain.",
+      "details": [
+        "Memory acquisition can change the system and expose sensitive data",
+        "Volatility differs from disk persistence",
+        "Timeline and tooling must record collection context"
+      ],
+      "workflow": [
+        "Determine necessity and legal authorization",
+        "Acquire with validated tool and hashed output",
+        "Examine process/network anomalies with correlation to disk and logs"
+      ],
+      "example": "A disk scanner finds nothing after a short-lived in-memory process; available memory capture may add context, not guarantee attribution.",
+      "evidence": [
+        "Acquisition timestamp, host state and SHA-256",
+        "Process/VAD/socket indicators with confidence"
+      ],
+      "pitfalls": [
+        "Running volatile capture without planning impact",
+        "Exposing secrets in unsecured evidence"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c114",
+      "tier": "L3",
+      "domain": "Cloud detection",
+      "title": "Kubernetes audit and workload drift",
+      "summary": "Detect high-risk API access, secret reads and unexpected workload modifications while considering the noisy automation of controllers and deployments.",
+      "details": [
+        "Kubernetes audit policies determine what verbs/resources are logged",
+        "Service accounts and workload identities need identity mapping",
+        "A new privileged pod or hostPath mount can increase risk"
+      ],
+      "workflow": [
+        "Review API verb, actor, namespace and source",
+        "Compare against deploy controller/change window",
+        "Correlate pod image, permissions and network egress"
+      ],
+      "example": "create pods with privileged=true by unknown service account warrants urgent validation; legitimate agents may require exceptional privileges.",
+      "evidence": [
+        "Kubernetes audit verb/resource/response",
+        "Pod spec, admission logs and RBAC grants"
+      ],
+      "pitfalls": [
+        "Assuming kube-apiserver access alone means breach",
+        "Ignoring policy-controlled audit omissions"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c115",
+      "tier": "L3",
+      "domain": "Cloud detection",
+      "title": "SaaS audit engineering and coverage",
+      "summary": "Model tenant administration, mailbox activities, OAuth apps and collaboration sharing across variable audit licensing and retention.",
+      "details": [
+        "Some audit events require specific licenses and ingestion",
+        "SaaS identities span user, guest and service principals",
+        "Data-access auditing may not be on by default"
+      ],
+      "workflow": [
+        "Identify high-value SaaS workflows and critical roles",
+        "Verify event retention and field mapping",
+        "Build and test privileged activity analytics"
+      ],
+      "example": "A new guest invited into sensitive workspace after suspicious admin sign-in is context; review resource permissions and audit trail.",
+      "evidence": [
+        "Tenant audit events and identity actor ID",
+        "Sharing policy and application consent history"
+      ],
+      "pitfalls": [
+        "Assuming all SaaS data actions logged by default",
+        "Ignoring guest/service principal activity"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "c116",
+      "tier": "L3",
+      "domain": "Strategy",
+      "title": "Threat-informed defense prioritization",
+      "summary": "Connect business crown jewels, realistic threats, exposure and test outcomes to engineering investments instead of chasing every IOC feed.",
+      "details": [
+        "Threat intelligence is useful when applicable to your environment",
+        "Technique mapping can prioritize telemetry and controls",
+        "Purple-team validation discovers practical gaps"
+      ],
+      "workflow": [
+        "Rank assets and attacker paths",
+        "Select high-impact techniques and test them safely",
+        "Prioritize durable telemetry and detection improvements"
+      ],
+      "example": "For a healthcare app, credential misuse and cloud-storage exports may be higher-priority hunt themes than malware family name feeds.",
+      "evidence": [
+        "Threat model and asset owners",
+        "Emulation validation and remediation backlog"
+      ],
+      "pitfalls": [
+        "Equating feed count with coverage",
+        "Adopting framework mapping without business context"
+      ],
+      "minutes": 12
     }
   ],
   "interviews": [
@@ -1754,6 +3158,310 @@ export const DATA = {
       "question": "Which SOC metrics matter?",
       "answer": "Well-defined detection/response times, backlog age, escalation quality, alert precision, coverage and ingest health, segmented by severity.",
       "trap": "Maximizing closed alerts as the main KPI."
+    },
+    {
+      "id": "i068",
+      "tier": "L1",
+      "category": "Networking",
+      "question": "Walk me through opening a website from the URL to first page load.",
+      "answer": "DNS/cache lookup, TCP or QUIC connectivity, TLS and HTTP exchange, then browser rendering. In SOC, different logs record distinct stages; state what each actually proves.",
+      "trap": "Jumping straight to HTTP without DNS/network context."
+    },
+    {
+      "id": "i069",
+      "tier": "L1",
+      "category": "Windows",
+      "question": "Differentiate Windows events 4624, 4625 and 7045.",
+      "answer": "4624 is successful logon; 4625 failed logon in Security; 7045 is service installation in System. They answer different questions and need source context.",
+      "trap": "Claiming 7045 is a Security event or that type 3 is RDP."
+    },
+    {
+      "id": "i070",
+      "tier": "L1",
+      "category": "Windows",
+      "question": "What is the difference between Sysmon Event 1 and Event 3?",
+      "answer": "Configured Sysmon Event 1 is process creation with rich process context; Event 3 represents network connections when enabled. Combine them via ProcessGuid and time.",
+      "trap": "Assuming Event 3 is enabled everywhere."
+    },
+    {
+      "id": "i071",
+      "tier": "L1",
+      "category": "Windows",
+      "question": "How do you investigate a logon event outside business hours?",
+      "answer": "Check account, logon type, source host/IP, device, MFA, change window and behavior after the session; compare user baseline and asset criticality.",
+      "trap": "Calling every off-hours logon malicious."
+    },
+    {
+      "id": "i072",
+      "tier": "L1",
+      "category": "Identity",
+      "question": "Why can an impossible-travel alert be benign?",
+      "answer": "VPN egress, corporate proxies, mobile network geolocation and cached sessions distort physical location. Validate ASN, egress, device and sequence.",
+      "trap": "Saying geo alone proves an attacker."
+    },
+    {
+      "id": "i073",
+      "tier": "L1",
+      "category": "SIEM",
+      "question": "What checks do you perform if a SIEM dashboard suddenly has zero alerts?",
+      "answer": "Inspect ingestion delay, connector heartbeats, source event volume, parser changes, rule state and timeframe before inferring lower threat activity.",
+      "trap": "Celebrating zero alerts without data health checks."
+    },
+    {
+      "id": "i074",
+      "tier": "L1",
+      "category": "Email",
+      "question": "Does SPF/DKIM/DMARC pass make a message trustworthy?",
+      "answer": "No. They test parts of sender authentication/alignment, not the sender intent; a compromised legitimate account can send convincing harmful content.",
+      "trap": "Equating valid email authentication with no phishing risk."
+    },
+    {
+      "id": "i075",
+      "tier": "L1",
+      "category": "Email",
+      "question": "How do you distinguish delivered, clicked, downloaded and executed?",
+      "answer": "Mail gateway confirms receipt, proxy/browser click, web download, and EDR/process telemetry execution. Report each stage independently.",
+      "trap": "Calling infection confirmed based on URL click alone."
+    },
+    {
+      "id": "i076",
+      "tier": "L1",
+      "category": "EDR",
+      "question": "What does an alert-only EDR action mean?",
+      "answer": "The system detected behavior, but it did not report prevention. Verify process execution, child activity, network traffic and available response actions.",
+      "trap": "Saying the binary was quarantined when action=alert_only."
+    },
+    {
+      "id": "i077",
+      "tier": "L1",
+      "category": "Operations",
+      "question": "How do you hand over a P1 case to the next shift?",
+      "answer": "Provide asset/account, incident summary, confirmed UTC timeline, current containment status, evidence references, pending decisions, contacts, next owner and deadline.",
+      "trap": "Only sending the incident ticket number."
+    },
+    {
+      "id": "i078",
+      "tier": "L1",
+      "category": "Operations",
+      "question": "Explain severity vs priority with an example.",
+      "answer": "Severity describes technical/business seriousness; priority also reflects urgency, exposure, exploit state, criticality and response SLA. A service account takeover on production is urgent.",
+      "trap": "Treating CVSS or alert severity as the entire triage decision."
+    },
+    {
+      "id": "i079",
+      "tier": "L1",
+      "category": "Threats",
+      "question": "What indicators support password spraying?",
+      "answer": "One/few origins attempt authentication across many accounts with low per-account attempts; correlate lockouts, later successes, device posture and privileged changes.",
+      "trap": "Saying each account must have hundreds of failures."
+    },
+    {
+      "id": "i080",
+      "tier": "L1",
+      "category": "Web",
+      "question": "What can you conclude from a WAF 403?",
+      "answer": "The matching request was blocked if the rule/action is authoritative; inspect app logs and other request IDs before claiming failed or successful broader exploitation.",
+      "trap": "Saying every request from that IP is blocked."
+    },
+    {
+      "id": "i081",
+      "tier": "L1",
+      "category": "Writing",
+      "question": "Give a 30-second escalation for suspected mailbox compromise.",
+      "answer": "A finance mailbox sign-in from an unmanaged source was followed by a new external forwarding rule at 08:12 UTC. Scope and exfiltration are being validated; request approved identity containment and mailbox audit review.",
+      "trap": "Claiming confirmed data loss before evaluating access."
+    },
+    {
+      "id": "i082",
+      "tier": "L2",
+      "category": "AD",
+      "question": "Explain how you would investigate 4624 type 3 followed by 7045.",
+      "answer": "Map source account/IP and LogonId to host and service creation time, inspect executable and process tree, validate change records, then hunt same account on other hosts.",
+      "trap": "Assuming remote service execution is confirmed malicious without business context."
+    },
+    {
+      "id": "i083",
+      "tier": "L2",
+      "category": "AD",
+      "question": "How do you investigate suspected Kerberoasting?",
+      "answer": "Review 4769 request patterns, unusual source, SPNs, sensitive service accounts, encryption context and resulting authentication activity; do not infer password cracking from tickets alone.",
+      "trap": "Calling all RC4 tickets malicious or claiming a cracked password."
+    },
+    {
+      "id": "i084",
+      "tier": "L2",
+      "category": "AD",
+      "question": "What evidence suggests DCSync-like behavior?",
+      "answer": "Suspicious directory replication operations and privileges from non-DC principals, corroborated with security auditing and account/host provenance, may justify escalation.",
+      "trap": "Claiming one 4662 event is conclusive."
+    },
+    {
+      "id": "i085",
+      "tier": "L2",
+      "category": "IR",
+      "question": "How do you make an incident timeline across systems?",
+      "answer": "Normalize UTC and event/ingest times, reconcile drift, preserve raw artifact reference, state confirmed facts and ordering uncertainty, and separate hypothesis from observation.",
+      "trap": "Sorting local clocks as if they were UTC."
+    },
+    {
+      "id": "i086",
+      "tier": "L2",
+      "category": "IR",
+      "question": "What containment options exist for compromised identity?",
+      "answer": "Session/token revocation, password/key rotation, disabling identity, reducing permissions and removing app grants are options coordinated with owner and incident command.",
+      "trap": "Only resetting password when malicious app credentials remain active."
+    },
+    {
+      "id": "i087",
+      "tier": "L2",
+      "category": "IR",
+      "question": "When would you isolate a host?",
+      "answer": "Where ongoing execution or lateral movement risk outweighs operational impact, within approved incident runbook; preserve evidence and ensure remote response access/rollback.",
+      "trap": "Isolating a critical production server without authorization."
+    },
+    {
+      "id": "i088",
+      "tier": "L2",
+      "category": "Cloud",
+      "question": "What is the difference between management and data access events?",
+      "answer": "Management events record resource/configuration actions; data events record object or resource operations where enabled. Investigate both to establish rights and actual access.",
+      "trap": "Claiming CreateAccessKey alone proves data exfiltration."
+    },
+    {
+      "id": "i089",
+      "tier": "L2",
+      "category": "Cloud",
+      "question": "How do you investigate consent phishing?",
+      "answer": "Trace app registration/grant, delegated scopes, identity sessions, app API calls, accessed resources, app publisher and response/revocation requirements.",
+      "trap": "Concluding password reset removes OAuth grants."
+    },
+    {
+      "id": "i090",
+      "tier": "L2",
+      "category": "Cloud",
+      "question": "What should be done if an external principal can read cloud storage?",
+      "answer": "Verify policy and access period, correlate object-read logs if available, seek approved permission revocation, preserve trail and assess sensitive data exposure.",
+      "trap": "Confusing permission to read with confirmed download of all objects."
+    },
+    {
+      "id": "i091",
+      "tier": "L2",
+      "category": "Malware",
+      "question": "What evidence distinguishes ransomware precursor and active impact?",
+      "answer": "Backup tampering and suspicious tooling are possible precursors; high-volume file encryption/renaming plus ransom notes strongly indicate active impact.",
+      "trap": "Waiting for family attribution to respond to encryption."
+    },
+    {
+      "id": "i092",
+      "tier": "L2",
+      "category": "Detection",
+      "question": "How do you tune a noisy detection?",
+      "answer": "Review representative alerts, identify stable benign context, write narrow versioned exceptions, replay positive and negative cases, measure operational effect and set an owner/expiry.",
+      "trap": "Whitelisting all activity from a high-volume subnet."
+    },
+    {
+      "id": "i093",
+      "tier": "L2",
+      "category": "Network",
+      "question": "Explain why regular DNS requests are not enough to prove C2.",
+      "answer": "Many legitimate services poll periodically. Compare domain novelty, query shape, process owner, timing, bytes and known scheduled services.",
+      "trap": "Calling beaconing based solely on uniform interval."
+    },
+    {
+      "id": "i094",
+      "tier": "L2",
+      "category": "Forensics",
+      "question": "What is chain of custody?",
+      "answer": "A documented record of who collected, accessed, transferred and stored an artifact, alongside timestamps, hashes, method and integrity controls.",
+      "trap": "Assuming a hash alone proves custody."
+    },
+    {
+      "id": "i095",
+      "tier": "L2",
+      "category": "Reporting",
+      "question": "How would you brief leadership while facts are changing?",
+      "answer": "Use verified facts, affected business functions, confidence, current containment, unknowns, decisions needed and next update deadline; avoid premature breach declarations.",
+      "trap": "Mixing assumptions into confirmed impact."
+    },
+    {
+      "id": "i096",
+      "tier": "L3",
+      "category": "Hunting",
+      "question": "How do you start a hypothesis-driven hunt?",
+      "answer": "Define adversary behavior, target asset group, timeframe, available data and falsifiable criteria; baseline cohorts, pivot across sources and capture findings and coverage gaps.",
+      "trap": "Starting from arbitrary suspicious strings without a defined question."
+    },
+    {
+      "id": "i097",
+      "tier": "L3",
+      "category": "Detection",
+      "question": "Describe your detection-as-code release pipeline.",
+      "answer": "Version controlled rule with schema prerequisites, positive/negative tests, peer review, staging, performance checks, controlled rollout, monitoring and rollback.",
+      "trap": "Deploying from a copied blog query without validation."
+    },
+    {
+      "id": "i098",
+      "tier": "L3",
+      "category": "Detection",
+      "question": "What are precision and recall in SOC rules?",
+      "answer": "Precision is true positives among alerts; recall is detected true positives among all actual positive cases, which requires realistic tested ground truth. Both are difficult to measure perfectly.",
+      "trap": "Claiming a rule has 100% recall from the matches it already generated."
+    },
+    {
+      "id": "i099",
+      "tier": "L3",
+      "category": "Engineering",
+      "question": "What would you investigate if a known-positive test stops alerting?",
+      "answer": "Check event generation, collection health, parsing/schema changes, lookup enrichment, rule enablement, filtering and time window in that order; add regression coverage.",
+      "trap": "Lowering severity before proving which stage failed."
+    },
+    {
+      "id": "i100",
+      "tier": "L3",
+      "category": "Coverage",
+      "question": "Does mapping 100 rules to ATT&CK mean 100% coverage?",
+      "answer": "No. Technique counts obscure telemetry availability, asset deployment, rule fidelity and validated outcomes. Use threat-relevant tests and monitored population.",
+      "trap": "Presenting a heatmap as a control effectiveness guarantee."
+    },
+    {
+      "id": "i101",
+      "tier": "L3",
+      "category": "Forensics",
+      "question": "What are limits of Shimcache and Amcache?",
+      "answer": "These artifacts provide execution-related context and metadata with OS/version-dependent caveats; correlate with Prefetch, logs and EDR before asserting execution.",
+      "trap": "Treating every artifact entry as indisputable executed malware."
+    },
+    {
+      "id": "i102",
+      "tier": "L3",
+      "category": "Cloud",
+      "question": "How would you detect Kubernetes secret misuse?",
+      "answer": "Review API verb/resource/principal/namespace, RBAC grants, new service accounts, controller baselines, pod identity and data access; verify audit policy coverage.",
+      "trap": "Alerting on every secret read without baseline."
+    },
+    {
+      "id": "i103",
+      "tier": "L3",
+      "category": "Metrics",
+      "question": "How can MTTR improve for the wrong reason?",
+      "answer": "Prematurely closed tickets, excluding hard cases, instrumentation outages and changed measurement definitions can all improve the number without improving security.",
+      "trap": "Optimizing closures rather than validated response quality."
+    },
+    {
+      "id": "i104",
+      "tier": "L3",
+      "category": "Strategy",
+      "question": "How do you prioritize engineering work across threats?",
+      "answer": "Combine business crown jewels, credible attacker paths, existing coverage, detection test results and remediation cost; record owner and validation metrics.",
+      "trap": "Chasing every new threat feed equally."
+    },
+    {
+      "id": "i105",
+      "tier": "L3",
+      "category": "Leadership",
+      "question": "What should a good post-incident review produce?",
+      "answer": "Timeline, root/compounding factors, what worked, telemetry gaps, actionable prioritized fixes with owners, due dates and verification tests, without blame.",
+      "trap": "Writing a narrative but tracking no corrective actions."
     }
   ],
   "cases": [
@@ -2908,6 +4616,1062 @@ export const DATA = {
           "why": "Measure control effectiveness, not paperwork."
         }
       ]
+    },
+    {
+      "id": "s17",
+      "tier": "L1",
+      "name": "Browser Update Impersonator",
+      "kind": "Endpoint",
+      "difficulty": "Starter",
+      "attack": "T1204.002",
+      "host": "WS-MKT-12",
+      "summary": "A user downloads an alleged browser patch from a marketing link; EDR reports prevention.",
+      "mission": "Separate clicked, downloaded, executed and blocked; assess other exposure.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "email",
+          "asset": "GW",
+          "detail": "sender=security-notice@updates-demo.example recipient=m.lee url=https://updates-demo.example/browser"
+        },
+        {
+          "time": "08:07:11",
+          "source": "proxy",
+          "asset": "WS-MKT-12",
+          "detail": "GET https://updates-demo.example/browser/update.exe status=200"
+        },
+        {
+          "time": "08:14:22",
+          "source": "edr",
+          "asset": "WS-MKT-12",
+          "detail": "file=update.exe process_start=attempted action=blocked result=success"
+        },
+        {
+          "time": "08:21:33",
+          "source": "edr",
+          "asset": "WS-MKT-12",
+          "detail": "parent=browser.exe child=update.exe blocked_before_execution=true"
+        },
+        {
+          "time": "08:28:44",
+          "source": "edr",
+          "asset": "WS-MKT-12",
+          "detail": "post_alert_processes=0 suspicious_connections=0"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Which outcome is supported?",
+          "options": [
+            "Executable downloaded; execution blocked",
+            "Confirmed ransomware encryption",
+            "No interaction with the URL"
+          ],
+          "answer": 0,
+          "why": "The download is visible; prevention reports successful block before execution."
+        },
+        {
+          "prompt": "What should you pivot on?",
+          "options": [
+            "Only the file name",
+            "Recipient and other URL click/downloads in mail/proxy",
+            "Declare every recipient infected"
+          ],
+          "answer": 1,
+          "why": "Scope delivery, clicks and additional execution attempts."
+        },
+        {
+          "prompt": "Disposition?",
+          "options": [
+            "Document prevented execution and search scope",
+            "Close without reviewing other recipients",
+            "Isolate every recipient immediately"
+          ],
+          "answer": 0,
+          "why": "Record the observed prevention and validate campaign spread."
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "tier": "L1",
+      "name": "RDP After Business Hours",
+      "kind": "Identity",
+      "difficulty": "Intermediate",
+      "attack": "T1021.001",
+      "host": "HR-WIN-07",
+      "summary": "A privileged user initiates RDP off-hours from a jump server with an approved maintenance change.",
+      "mission": "Distinguish suspicious remote access from approved work.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "security",
+          "asset": "HR-WIN-07",
+          "detail": "EventID=4624 LogonType=10 Account=admin.rosa Source=10.20.0.9"
+        },
+        {
+          "time": "08:07:11",
+          "source": "edr",
+          "asset": "HR-WIN-07",
+          "detail": "process=mmc.exe user=admin.rosa signer=Microsoft"
+        },
+        {
+          "time": "08:14:22",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "CHG-7702 owner=admin.rosa approved_window=08:00-10:00"
+        },
+        {
+          "time": "08:21:33",
+          "source": "vpn",
+          "asset": "JUMP-01",
+          "detail": "user=admin.rosa mfa=pass device=compliant"
+        },
+        {
+          "time": "08:28:44",
+          "source": "security",
+          "asset": "HR-WIN-07",
+          "detail": "EventID=4634 Account=admin.rosa logoff=recorded"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What does logon type 10 usually show?",
+          "options": [
+            "Remote interactive session",
+            "Local batch task",
+            "DNS request"
+          ],
+          "answer": 0,
+          "why": "Type 10 typically corresponds to remote interactive logon such as RDP."
+        },
+        {
+          "prompt": "Which pivot reduces uncertainty?",
+          "options": [
+            "Correlate approved change and source jump host",
+            "Assume privilege escalation",
+            "Block destination 3389 tenant-wide"
+          ],
+          "answer": 0,
+          "why": "Time, approved owner and source context help determine authorization."
+        },
+        {
+          "prompt": "Best call?",
+          "options": [
+            "Likely authorized activity with documented evidence",
+            "Confirmed ransomware",
+            "Ignore privileged off-hours access forever"
+          ],
+          "answer": 0,
+          "why": "This case has corroborating approval; disposition requires notes and continued coverage."
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "tier": "L1",
+      "name": "New Local Administrator",
+      "kind": "Windows",
+      "difficulty": "Intermediate",
+      "attack": "T1098",
+      "host": "ENG-WS-04",
+      "summary": "A previously unseen account is added to local Administrators after a standard software update window.",
+      "mission": "Identify account modification, actor and approval.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "security",
+          "asset": "ENG-WS-04",
+          "detail": "EventID=4720 Target=svc-local-new Subject=it-temp"
+        },
+        {
+          "time": "08:07:11",
+          "source": "security",
+          "asset": "ENG-WS-04",
+          "detail": "EventID=4732 Group=Administrators Member=svc-local-new Subject=it-temp"
+        },
+        {
+          "time": "08:14:22",
+          "source": "edr",
+          "asset": "ENG-WS-04",
+          "detail": "parent=mmc.exe process=net.exe user=it-temp"
+        },
+        {
+          "time": "08:21:33",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "approved_changes=none target=ENG-WS-04"
+        },
+        {
+          "time": "08:28:44",
+          "source": "idp",
+          "asset": "ENG-WS-04",
+          "detail": "user=it-temp last_signin=unusual source=198.51.100.53"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Which is strongest fact?",
+          "options": [
+            "New local account was added to Administrators",
+            "Domain Admin privileges were confirmed",
+            "No identity event occurred"
+          ],
+          "answer": 0,
+          "why": "Account creation and local group modification are visible."
+        },
+        {
+          "prompt": "What is the high-value follow-up?",
+          "options": [
+            "Validate actor, sign-in and any change request",
+            "Change firewall port 53",
+            "Delete endpoint logs"
+          ],
+          "answer": 0,
+          "why": "Actor context and authorization determine urgency and scope."
+        },
+        {
+          "prompt": "Disposition?",
+          "options": [
+            "Escalate unauthorized privilege modification",
+            "Close as safe update by default",
+            "Claim domain-wide takeover"
+          ],
+          "answer": 0,
+          "why": "No approved change plus unusual actor merits prompt escalation."
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "tier": "L1",
+      "name": "False Silence in Endpoint Alerts",
+      "kind": "Telemetry",
+      "difficulty": "Intermediate",
+      "attack": "T1562",
+      "host": "SALES-FLEET",
+      "summary": "Endpoint alert counts drop suddenly during connector failures.",
+      "mission": "Decide whether zero detections indicate a safe fleet.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "health",
+          "asset": "SOC",
+          "detail": "source=SALES-FLEET connector=EDR last_seen=02:00"
+        },
+        {
+          "time": "08:07:11",
+          "source": "health",
+          "asset": "SOC",
+          "detail": "connector=EDR backlog_minutes=154 affected_endpoints=280"
+        },
+        {
+          "time": "08:14:22",
+          "source": "siem",
+          "asset": "SOC",
+          "detail": "rule=SuspiciousProcess hits_last_hour=0"
+        },
+        {
+          "time": "08:21:33",
+          "source": "health",
+          "asset": "SOC",
+          "detail": "identity_ingest=healthy endpoint_ingest=stale"
+        },
+        {
+          "time": "08:28:44",
+          "source": "ticket",
+          "asset": "SOC",
+          "detail": "data_gap_owner=endpoint_platform ticket=INC-330"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What is the core issue?",
+          "options": [
+            "Visibility gap",
+            "Confirmed reduction in malware",
+            "A phishing campaign"
+          ],
+          "answer": 0,
+          "why": "EDR connector lag means absence of alerts is uninformative."
+        },
+        {
+          "prompt": "What should L1 do?",
+          "options": [
+            "Raise ingestion incident and document affected scope",
+            "Close monitoring tickets as green",
+            "Disable all rules"
+          ],
+          "answer": 0,
+          "why": "Coordinate telemetry recovery and record detection confidence gap."
+        },
+        {
+          "prompt": "How should you report zero hits?",
+          "options": [
+            "Unknown due to stale source",
+            "No threats exist",
+            "Source healthy because identity works"
+          ],
+          "answer": 0,
+          "why": "One healthy source cannot validate a different broken connector."
+        }
+      ]
+    },
+    {
+      "id": "s21",
+      "tier": "L1",
+      "name": "Blocked SQL Injection Probe",
+      "kind": "Web",
+      "difficulty": "Starter",
+      "attack": "T1190",
+      "host": "WEB-EDGE-02",
+      "summary": "WAF blocks a suspected SQLi payload; app records no matching successful request.",
+      "mission": "Keep attempted exploitation distinct from confirmed compromise.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "waf",
+          "asset": "WEB-EDGE-02",
+          "detail": "path=/search?q=1%27+OR+1%3D1 action=block status=403 rule=SQLi-100"
+        },
+        {
+          "time": "08:07:11",
+          "source": "proxy",
+          "asset": "WEB-EDGE-02",
+          "detail": "client=203.0.113.49 requests=12"
+        },
+        {
+          "time": "08:14:22",
+          "source": "app",
+          "asset": "WEB-EDGE-02",
+          "detail": "request_id=WX-711 result=not_forwarded"
+        },
+        {
+          "time": "08:21:33",
+          "source": "waf",
+          "asset": "WEB-EDGE-02",
+          "detail": "path=/health action=allow status=200"
+        },
+        {
+          "time": "08:28:44",
+          "source": "app",
+          "asset": "WEB-EDGE-02",
+          "detail": "db_query_errors=0 in_window=true"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What is directly supported?",
+          "options": [
+            "Attempt blocked at WAF",
+            "SQL injection succeeded",
+            "Database contents were copied"
+          ],
+          "answer": 0,
+          "why": "Block/403 and not_forwarded show the specific request did not reach the app."
+        },
+        {
+          "prompt": "Best pivot?",
+          "options": [
+            "Inspect other requests and app/DB errors",
+            "Reboot production database immediately",
+            "Assume any HTTP 200 means breach"
+          ],
+          "answer": 0,
+          "why": "Search for alternate successful requests before assessing impact."
+        },
+        {
+          "prompt": "Disposition?",
+          "options": [
+            "Document blocked probe and watch patterns",
+            "Confirmed data breach",
+            "Turn off WAF for testing"
+          ],
+          "answer": 0,
+          "why": "Supported conclusion is attempted exploitation with no observed success here."
+        }
+      ]
+    },
+    {
+      "id": "s22",
+      "tier": "L2",
+      "name": "Service Account Password Spray",
+      "kind": "Identity",
+      "difficulty": "Advanced",
+      "attack": "T1110.003",
+      "host": "CORP-IDP",
+      "summary": "Many service identities receive one failure each; a privileged account succeeds from the same source.",
+      "mission": "Build a chain from credential attack to potential privilege misuse.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "idp",
+          "asset": "CORP-IDP",
+          "detail": "ip=198.51.100.71 user=svc-report result=FAIL"
+        },
+        {
+          "time": "08:07:11",
+          "source": "idp",
+          "asset": "CORP-IDP",
+          "detail": "ip=198.51.100.71 user=svc-backup result=FAIL"
+        },
+        {
+          "time": "08:14:22",
+          "source": "idp",
+          "asset": "CORP-IDP",
+          "detail": "ip=198.51.100.71 user=svc-build result=FAIL"
+        },
+        {
+          "time": "08:21:33",
+          "source": "idp",
+          "asset": "CORP-IDP",
+          "detail": "ip=198.51.100.71 user=svc-payroll result=SUCCESS mfa=not_configured"
+        },
+        {
+          "time": "08:28:44",
+          "source": "audit",
+          "asset": "CORP-IDP",
+          "detail": "user=svc-payroll action=AddRole role=SecurityAdministrator"
+        },
+        {
+          "time": "08:35:55",
+          "source": "audit",
+          "asset": "CORP-IDP",
+          "detail": "user=svc-payroll action=CreateAppCredential app=unknown-demo"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Which hypothesis fits?",
+          "options": [
+            "Spray followed by possible privileged misuse",
+            "Legitimate scanner with no authentication",
+            "DNS cache corruption"
+          ],
+          "answer": 0,
+          "why": "Same origin across identities plus a successful privileged change supports investigation."
+        },
+        {
+          "prompt": "Most urgent scope?",
+          "options": [
+            "New role/app credential and downstream actions",
+            "Only failed logons",
+            "Printer inventory"
+          ],
+          "answer": 0,
+          "why": "Persistence and new privileges may outlast the initial session."
+        },
+        {
+          "prompt": "Coordinated response?",
+          "options": [
+            "Escalate for approved session/credential response and audit scope",
+            "Only block random DNS record",
+            "Delete all identity history"
+          ],
+          "answer": 0,
+          "why": "Confirmed role change warrants identity IR and careful evidence preservation."
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "tier": "L2",
+      "name": "Helpdesk Token Reused",
+      "kind": "Identity",
+      "difficulty": "Advanced",
+      "attack": "T1550",
+      "host": "M365",
+      "summary": "A managed helpdesk session is followed by consent activity from an unknown unmanaged device.",
+      "mission": "Determine whether token misuse may explain an unusual access pattern.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "idp",
+          "asset": "M365",
+          "detail": "user=helpdesk sign_in=SUCCESS device=managed ip=198.51.100.9"
+        },
+        {
+          "time": "08:07:11",
+          "source": "idp",
+          "asset": "M365",
+          "detail": "user=helpdesk token_use=SUCCESS device=unmanaged ip=203.0.113.44"
+        },
+        {
+          "time": "08:14:22",
+          "source": "audit",
+          "asset": "M365",
+          "detail": "actor=helpdesk action=ConsentToApp app=MailboxSearch-Unknown"
+        },
+        {
+          "time": "08:21:33",
+          "source": "audit",
+          "asset": "M365",
+          "detail": "actor=helpdesk action=AddApplicationSecret app=MailboxSearch-Unknown"
+        },
+        {
+          "time": "08:28:44",
+          "source": "audit",
+          "asset": "M365",
+          "detail": "actor=MailboxSearch-Unknown action=Mail.Read count=43"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What is most suspicious?",
+          "options": [
+            "Unmanaged session plus app consent and mail access",
+            "Device managed first sign-in",
+            "Successful authentication always means safety"
+          ],
+          "answer": 0,
+          "why": "Sequence suggests risky application permissions and session use."
+        },
+        {
+          "prompt": "Best pivot?",
+          "options": [
+            "App scopes, identity session and accessed resources",
+            "Only executable hashes",
+            "Firewall reboot log"
+          ],
+          "answer": 0,
+          "why": "Cloud audit can reveal token/application reach without endpoint process evidence."
+        },
+        {
+          "prompt": "Response recommendation?",
+          "options": [
+            "Coordinate revocation, app-grant removal and evidence review",
+            "Only change helpdesk laptop wallpaper",
+            "Assume on-prem ransomware"
+          ],
+          "answer": 0,
+          "why": "Multiple persistence paths may need approved remediation."
+        }
+      ]
+    },
+    {
+      "id": "s24",
+      "tier": "L2",
+      "name": "Database Snapshot Export",
+      "kind": "Cloud",
+      "difficulty": "Advanced",
+      "attack": "T1537",
+      "host": "AWS-ACCOUNT-04",
+      "summary": "A new principal snapshots a database and shares it to an external account without change approval.",
+      "mission": "Separate risky configuration and evidence of actual access.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=AssumeRole principal=devops-temp ip=203.0.113.54"
+        },
+        {
+          "time": "08:07:11",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=CreateDBSnapshot snapshot=customer-db-1 actor=devops-temp"
+        },
+        {
+          "time": "08:14:22",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=ModifyDBSnapshotAttribute account=external-demo actor=devops-temp"
+        },
+        {
+          "time": "08:21:33",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=DescribeDBSnapshots actor=external-demo"
+        },
+        {
+          "time": "08:28:44",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "actor=devops-temp approved_change=none"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What is confirmed?",
+          "options": [
+            "Snapshot shared to external account",
+            "Rows downloaded to a workstation",
+            "Database encrypted"
+          ],
+          "answer": 0,
+          "why": "Cloud audit shows creation and external share, not local download of row data."
+        },
+        {
+          "prompt": "What next?",
+          "options": [
+            "Validate external access and revoke share under approval",
+            "Delete all cloud trails",
+            "Ignore because AWS is managed"
+          ],
+          "answer": 0,
+          "why": "Scope resource sharing, access and effective permissions."
+        },
+        {
+          "prompt": "Priority?",
+          "options": [
+            "Escalate potential sensitive snapshot exposure",
+            "Routine backup by default",
+            "Confirmed data publication to open web"
+          ],
+          "answer": 0,
+          "why": "Unauthorized external share deserves urgent response with bounded claims."
+        }
+      ]
+    },
+    {
+      "id": "s25",
+      "tier": "L2",
+      "name": "Linux Persistence via Systemd",
+      "kind": "Linux",
+      "difficulty": "Advanced",
+      "attack": "T1543.002",
+      "host": "LINUX-API-05",
+      "summary": "New service unit executes a program from /tmp following unexpected SSH sign-in.",
+      "mission": "Correlate account origin, process and persistence.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "auth",
+          "asset": "LINUX-API-05",
+          "detail": "sshd accepted password user=deploy src=203.0.113.99"
+        },
+        {
+          "time": "08:07:11",
+          "source": "auditd",
+          "asset": "LINUX-API-05",
+          "detail": "execve user=deploy exe=/bin/systemctl args=enable update-helper.service"
+        },
+        {
+          "time": "08:14:22",
+          "source": "file",
+          "asset": "LINUX-API-05",
+          "detail": "write path=/etc/systemd/system/update-helper.service"
+        },
+        {
+          "time": "08:21:33",
+          "source": "systemd",
+          "asset": "LINUX-API-05",
+          "detail": "ExecStart=/tmp/update-helper owner=deploy"
+        },
+        {
+          "time": "08:28:44",
+          "source": "proxy",
+          "asset": "LINUX-API-05",
+          "detail": "process=update-helper dst=updates-mirror-demo.example:443"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Which behavior is supported?",
+          "options": [
+            "Suspicious systemd persistence after SSH sign-in",
+            "Windows Run key modified",
+            "Only cron normal activity"
+          ],
+          "answer": 0,
+          "why": "New systemd unit from tmp after SSH activity warrants investigation."
+        },
+        {
+          "prompt": "Corroborating evidence?",
+          "options": [
+            "Unit file, auditd and endpoint network",
+            "Office macros",
+            "Printer logs"
+          ],
+          "answer": 0,
+          "why": "Creator, binary and destination tie the event chain together."
+        },
+        {
+          "prompt": "Safe next action?",
+          "options": [
+            "Escalate Linux IR and preserve unit/binary evidence",
+            "Delete unit immediately without record",
+            "Declare enterprise-wide compromise"
+          ],
+          "answer": 0,
+          "why": "Collection and scoping are needed before remediation."
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "tier": "L2",
+      "name": "Suspicious Kubernetes Secret Reads",
+      "kind": "Cloud",
+      "difficulty": "Advanced",
+      "attack": "T1552.001",
+      "host": "K8S-CLUSTER-2",
+      "summary": "A new service account reads many secrets in a production namespace.",
+      "mission": "Identify who requested the secrets and whether authorized controllers explain activity.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "k8saudit",
+          "asset": "PROD-NS",
+          "detail": "verb=create resource=serviceaccounts name=svc-temp user=cluster-admin"
+        },
+        {
+          "time": "08:07:11",
+          "source": "k8saudit",
+          "asset": "PROD-NS",
+          "detail": "verb=create resource=rolebindings name=secrets-read user=cluster-admin"
+        },
+        {
+          "time": "08:14:22",
+          "source": "k8saudit",
+          "asset": "PROD-NS",
+          "detail": "verb=list resource=secrets user=system:serviceaccount:prod:svc-temp"
+        },
+        {
+          "time": "08:21:33",
+          "source": "k8saudit",
+          "asset": "PROD-NS",
+          "detail": "verb=get resource=secrets count=19 user=system:serviceaccount:prod:svc-temp"
+        },
+        {
+          "time": "08:28:44",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "namespace=prod approved_change=none"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What is concrete?",
+          "options": [
+            "New identity and role grant followed by secret access",
+            "Host network exfiltration is proven",
+            "No privilege modifications"
+          ],
+          "answer": 0,
+          "why": "Audit records identity creation/grant and secret reads."
+        },
+        {
+          "prompt": "What to inspect?",
+          "options": [
+            "Binding creator, pod identity and secret consumers",
+            "Only DNS TTL",
+            "Email SPF"
+          ],
+          "answer": 0,
+          "why": "Determine legitimacy, affected secrets and subsequent use."
+        },
+        {
+          "prompt": "Risk response?",
+          "options": [
+            "Coordinate authorization check, evidence and possible rotation",
+            "Delete every production secret instantly",
+            "Close since service account name looks normal"
+          ],
+          "answer": 0,
+          "why": "Potential secret exposure has business impact; rotation is coordinated."
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "tier": "L2",
+      "name": "Cloud Bucket Policy Drift",
+      "kind": "Cloud",
+      "difficulty": "Advanced",
+      "attack": "T1537",
+      "host": "AWS-STORAGE",
+      "summary": "An automation actor updates a storage policy granting a foreign principal access to sensitive objects.",
+      "mission": "Verify policy semantics and whether any data was actually read.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=PutBucketPolicy bucket=team-finance principal=automation-ci"
+        },
+        {
+          "time": "08:07:11",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "policy_statement=Allow Principal=external-demo account=999999999999"
+        },
+        {
+          "time": "08:14:22",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=GetObject principal=external-demo bucket=team-finance key=ledger.csv"
+        },
+        {
+          "time": "08:21:33",
+          "source": "cloudtrail",
+          "asset": "AWS",
+          "detail": "event=GetObject principal=external-demo bucket=team-finance key=forecast.csv"
+        },
+        {
+          "time": "08:28:44",
+          "source": "change",
+          "asset": "ITSM",
+          "detail": "policy_exception=none owner=finance-data"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Strongest conclusion?",
+          "options": [
+            "External principal read at least two named objects",
+            "All buckets in account compromised",
+            "No objects accessed"
+          ],
+          "answer": 0,
+          "why": "Data events support two GetObject operations; extent still needs review."
+        },
+        {
+          "prompt": "Scope next?",
+          "options": [
+            "List accesses, object sensitivity and policy validity period",
+            "Only count DNS lookups",
+            "Reinstall endpoint antivirus"
+          ],
+          "answer": 0,
+          "why": "Access duration and object list shape impact assessment."
+        },
+        {
+          "prompt": "Response?",
+          "options": [
+            "Escalate unauthorized sharing and coordinate revocation/notification review",
+            "Delete logs to hide external access",
+            "Assume API calls equal content publication"
+          ],
+          "answer": 0,
+          "why": "Contain sharing while preserving data-event evidence."
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "tier": "L3",
+      "name": "Detection Regression After Parser Change",
+      "kind": "Engineering",
+      "difficulty": "Advanced",
+      "attack": "T1562",
+      "host": "SOC-CONTENT",
+      "summary": "A parser release changes normalized field names and a high-value analytic stops matching its known test event.",
+      "mission": "Find the broken assumption and establish a durable test.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "pipeline",
+          "asset": "SOC",
+          "detail": "release=parser-3.5 field=process.command_line renamed_to=process.commandLine"
+        },
+        {
+          "time": "08:07:11",
+          "source": "metrics",
+          "asset": "SOC",
+          "detail": "rule=EncodedScript matches_before=16 matches_after=0"
+        },
+        {
+          "time": "08:14:22",
+          "source": "test",
+          "asset": "SOC",
+          "detail": "fixture=encoded-script-01 raw_event_present=true"
+        },
+        {
+          "time": "08:21:33",
+          "source": "test",
+          "asset": "SOC",
+          "detail": "fixture=encoded-script-01 parsed_field=process.commandLine"
+        },
+        {
+          "time": "08:28:44",
+          "source": "engineering",
+          "asset": "SOC",
+          "detail": "rule_field=process.command_line last_updated=prior_release"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Root cause hypothesis?",
+          "options": [
+            "Field mapping regression",
+            "Attackers ceased all activity overnight",
+            "Network cable unplugged"
+          ],
+          "answer": 0,
+          "why": "The rule references a field no longer populated while raw event exists."
+        },
+        {
+          "prompt": "Best engineering fix?",
+          "options": [
+            "Update mapping and add ingestion/parser regression test",
+            "Whitelist all PowerShell",
+            "Raise severity on zero events"
+          ],
+          "answer": 0,
+          "why": "Validate rule on fixture and protect against repeat failures."
+        },
+        {
+          "prompt": "Completion criteria?",
+          "options": [
+            "Positive test fires and benign negatives still pass",
+            "Dashboard shows less noise",
+            "No tests required"
+          ],
+          "answer": 0,
+          "why": "Both positive and negative QA and deployment monitoring matter."
+        }
+      ]
+    },
+    {
+      "id": "s29",
+      "tier": "L3",
+      "name": "Purple Team: Unauthorized Service Creation",
+      "kind": "Engineering",
+      "difficulty": "Advanced",
+      "attack": "T1543.003",
+      "host": "LAB-WIN-03",
+      "summary": "A safe lab simulation generates service installation events, but the analytic detects only a subset of endpoints.",
+      "mission": "Distinguish rule logic from telemetry coverage and evaluation.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "simulation",
+          "asset": "LAB-WIN-03",
+          "detail": "test=remote-service-create result=event_generated eventid=7045"
+        },
+        {
+          "time": "08:07:11",
+          "source": "siem",
+          "asset": "SOC",
+          "detail": "endpoint=LAB-WIN-03 ingested_eventid=7045 yes=true"
+        },
+        {
+          "time": "08:14:22",
+          "source": "rule",
+          "asset": "SOC",
+          "detail": "rule=ServiceCreateRare alert=generated host=LAB-WIN-03"
+        },
+        {
+          "time": "08:21:33",
+          "source": "simulation",
+          "asset": "LAB-WIN-04",
+          "detail": "test=remote-service-create result=event_generated eventid=7045"
+        },
+        {
+          "time": "08:28:44",
+          "source": "health",
+          "asset": "SOC",
+          "detail": "endpoint=LAB-WIN-04 system_channel_collection=disabled"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "What explains missed second alert?",
+          "options": [
+            "Missing log coverage on LAB-WIN-04",
+            "Attack technique cannot generate 7045",
+            "No rule exists"
+          ],
+          "answer": 0,
+          "why": "Endpoint B does not forward System channel."
+        },
+        {
+          "prompt": "What should be changed?",
+          "options": [
+            "Enable and validate collection; rerun simulation",
+            "Lower all rule thresholds without data",
+            "Delete 7045 rule"
+          ],
+          "answer": 0,
+          "why": "Fix data prerequisite before assessing detection logic."
+        },
+        {
+          "prompt": "How report coverage?",
+          "options": [
+            "Validated on monitored hosts; fleet gap remains",
+            "100% ATT&CK coverage",
+            "Technique cannot be detected"
+          ],
+          "answer": 0,
+          "why": "Coverage claims must include actual deployed sensors."
+        }
+      ]
+    },
+    {
+      "id": "s30",
+      "tier": "L3",
+      "name": "Hunt: Rare Identity to Cloud Data Path",
+      "kind": "Hunting",
+      "difficulty": "Advanced",
+      "attack": "T1530",
+      "host": "HYBRID-ORG",
+      "summary": "An unusual identity receives privileged SaaS consent and reads sensitive storage; analysts must build a hypothesis and measure coverage.",
+      "mission": "Scope a multi-source identity-to-data hunt.",
+      "events": [
+        {
+          "time": "08:00:00",
+          "source": "idp",
+          "asset": "M365",
+          "detail": "user=research-temp device=unmanaged ip=203.0.113.84 result=SUCCESS"
+        },
+        {
+          "time": "08:07:11",
+          "source": "audit",
+          "asset": "M365",
+          "detail": "actor=research-temp event=ConsentToApp scope=Files.Read.All app=DataBridge-Demo"
+        },
+        {
+          "time": "08:14:22",
+          "source": "cloud",
+          "asset": "M365",
+          "detail": "app=DataBridge-Demo event=FilesAccessed count=82 site=legal-share"
+        },
+        {
+          "time": "08:21:33",
+          "source": "inventory",
+          "asset": "SOC",
+          "detail": "asset=legal-share sensitivity=restricted"
+        },
+        {
+          "time": "08:28:44",
+          "source": "health",
+          "asset": "SOC",
+          "detail": "source=UnifiedAuditLog coverage=partial missing=app_background_actions"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Hypothesis?",
+          "options": [
+            "Suspicious consent-enabled access to restricted files",
+            "Confirmed Windows ransomware",
+            "Safe because no EDR alert"
+          ],
+          "answer": 0,
+          "why": "Identity+app grant+resource access support focused hunt."
+        },
+        {
+          "prompt": "Key limitation?",
+          "options": [
+            "Partial background action audit means scope uncertain",
+            "SaaS has no identity logs",
+            "Only email is useful"
+          ],
+          "answer": 0,
+          "why": "Data gap must be disclosed alongside observed access."
+        },
+        {
+          "prompt": "Next engineering step?",
+          "options": [
+            "Improve app activity visibility and test analytics",
+            "Block all cloud identities indefinitely",
+            "Map every ATT&CK technique without tests"
+          ],
+          "answer": 0,
+          "why": "Detection gaps and scenario replay turn the hunt into durable defense."
+        }
+      ]
     }
   ],
   "runbooks": [
@@ -3101,6 +5865,240 @@ export const DATA = {
         "Construct positive and negative test fixtures",
         "Test performance, tuning and missing data behavior",
         "Deploy via change control; monitor and maintain version history"
+      ]
+    },
+    {
+      "id": "r17",
+      "title": "Validate endpoint process alert",
+      "tier": "L1",
+      "steps": [
+        "Confirm asset identity, criticality and EDR telemetry freshness",
+        "Record process GUID, image path, command line, parent and signer",
+        "Verify alert action: blocked, alert-only, quarantined or failed",
+        "Look for child processes, file writes, network destinations and persistence",
+        "Check user context, change schedule and peer hosts",
+        "Document confirmed behaviors, uncertainty and escalation owner"
+      ]
+    },
+    {
+      "id": "r18",
+      "title": "Investigate Windows failed logons",
+      "tier": "L1",
+      "steps": [
+        "Establish affected accounts, endpoints, sources and UTC timeframe",
+        "Review 4625 status/substatus and logon type where available",
+        "Group by source and distinct users; check success-after-failure",
+        "Check VPN/SSO/IdP context and source reputation",
+        "Inspect successful-session behavior before declaring takeover",
+        "Escalate credential abuse with account owner and scope"
+      ]
+    },
+    {
+      "id": "r19",
+      "title": "Investigate new local administrator",
+      "tier": "L1",
+      "steps": [
+        "Confirm group scope and member/actor from Security audit",
+        "Correlate user/device sign-in, ticket and maintenance records",
+        "Determine privilege granted and persistence possibilities",
+        "Pivot on actor changes to other assets",
+        "Escalate unauthorized access under approved identity process",
+        "Preserve relevant account and group audit records"
+      ]
+    },
+    {
+      "id": "r20",
+      "title": "Inspect mail authentication headers",
+      "tier": "L1",
+      "steps": [
+        "Preserve full message and Message-ID",
+        "Read Received chain and authenticated sender domain",
+        "Compare From, Reply-To, envelope and DMARC alignment",
+        "Examine URL/attachment without unsafe execution",
+        "Correlate recipients, clicks and endpoint effects",
+        "Document campaign scope and recommended user notification"
+      ]
+    },
+    {
+      "id": "r21",
+      "title": "Investigate WAF suspicious request",
+      "tier": "L1",
+      "steps": [
+        "Record client, rule, action, request ID and UTC time",
+        "Decode only within approved tooling; preserve raw URI",
+        "Compare WAF decision to application and upstream logs",
+        "Look for successful adjacent requests and error patterns",
+        "Consider false positives and known scanners/change windows",
+        "Escalate supported exploitation evidence, not only a suspicious payload"
+      ]
+    },
+    {
+      "id": "r22",
+      "title": "Recover missing SIEM log source",
+      "tier": "L1",
+      "steps": [
+        "Check collector status, heartbeat and data freshness",
+        "Compare raw source generation with index/search volume",
+        "Identify TLS, auth, storage, parser or pipeline issues",
+        "Notify coverage owner and affected on-call analysts",
+        "Record visibility gap period and affected detections",
+        "Replay test event and confirm ingestion after repair"
+      ]
+    },
+    {
+      "id": "r23",
+      "title": "Investigate unusual outbound DNS",
+      "tier": "L1",
+      "steps": [
+        "Confirm device, user and resolver source",
+        "Group qname/qtype/rcode, timing and subdomain diversity",
+        "Check proxy/network destinations after DNS answers",
+        "Identify owning process in EDR/Sysmon where possible",
+        "Compare with corporate update/sync tools",
+        "Escalate suspicious correlated behavior with gap notes"
+      ]
+    },
+    {
+      "id": "r24",
+      "title": "Investigate suspect remote service execution",
+      "tier": "L2",
+      "steps": [
+        "Collect 4624 type 3, 4648 and service event 7045 where enabled",
+        "Join by account/source/target and narrow UTC windows",
+        "Inspect ImagePath, new service binary, hash and signer",
+        "Check target processes and outbound connections",
+        "Search same actor/service name across estate",
+        "Coordinate evidence and approved containment if malicious"
+      ]
+    },
+    {
+      "id": "r25",
+      "title": "Investigate Kerberos abuse",
+      "tier": "L2",
+      "steps": [
+        "Validate domain controller security audit coverage",
+        "Baseline 4768/4769 volume by source and SPN",
+        "Identify highly privileged service accounts and legacy encryption",
+        "Correlate suspicious source workstation and authentication chain",
+        "Investigate post-auth privileges and lateral movement",
+        "Recommend credential response through domain owner"
+      ]
+    },
+    {
+      "id": "r26",
+      "title": "Investigate OAuth application consent",
+      "tier": "L2",
+      "steps": [
+        "Identify actor/app ID, consent time, tenant and effective scopes",
+        "Verify publisher and authorization/request history",
+        "Review interactive and noninteractive sign-ins and app API operations",
+        "Scope affected mailboxes/files and possible persistent credentials",
+        "Coordinate removal/revocation with cloud tenant owner",
+        "Document access limits, gaps and remaining token risk"
+      ]
+    },
+    {
+      "id": "r27",
+      "title": "Investigate cloud object access",
+      "tier": "L2",
+      "steps": [
+        "Confirm bucket/container policy and principal identity",
+        "Review management changes and data read events where available",
+        "Calculate exposure window and list accessed sensitive objects",
+        "Check approved workflows, access key history and source network",
+        "Coordinate permission rollback and credential response",
+        "Engage data owner, legal and notification process where applicable"
+      ]
+    },
+    {
+      "id": "r28",
+      "title": "Triage Linux SSH and persistence",
+      "tier": "L2",
+      "steps": [
+        "Validate sshd logins by account, IP and time",
+        "Review sudo/auditd commands and shell history cautiously",
+        "Inspect systemd services, timers, cron and authorized_keys",
+        "Find binary location, ownership, hash and network connections",
+        "Check service account/change approvals",
+        "Preserve evidence and escalate with Linux owner"
+      ]
+    },
+    {
+      "id": "r29",
+      "title": "Contain identity takeover",
+      "tier": "L2",
+      "steps": [
+        "Verify current compromise indicators and incident authority",
+        "Identify accounts, sessions, grants, keys and privileged operations",
+        "Assess business impact of disablement, revocation and rotation",
+        "Execute coordinated approved containment steps",
+        "Validate reauthentication/token invalidation and persistence removal",
+        "Monitor for reentry and record recovery verification"
+      ]
+    },
+    {
+      "id": "r30",
+      "title": "Ransomware crisis first 15 minutes",
+      "tier": "L2",
+      "steps": [
+        "Identify confirmed encryption, notes and affected shares",
+        "Page incident command and infrastructure owners per policy",
+        "Coordinate urgent authorized isolation and privileged identity controls",
+        "Preserve available volatile and disk evidence without delaying response",
+        "Validate backup isolation and core business impact",
+        "Track each action, owner, timestamp and restoration plan"
+      ]
+    },
+    {
+      "id": "r31",
+      "title": "Validate detection through purple team",
+      "tier": "L3",
+      "steps": [
+        "Write technique hypothesis and safe test boundaries",
+        "Confirm required source coverage and parser fields",
+        "Generate a synthetic or lab-approved known-positive trace",
+        "Verify ingestion and alert correctness on monitored hosts",
+        "Test realistic negatives and measure false-positive cost",
+        "File coverage, logic and response improvements with owners"
+      ]
+    },
+    {
+      "id": "r32",
+      "title": "Build threat-hunt notebook",
+      "tier": "L3",
+      "steps": [
+        "Record hypothesis, asset cohort and threat rationale",
+        "Enumerate necessary telemetry and known blind spots",
+        "Save exact queries, timestamps and normalized results",
+        "Document leads and tests that disconfirm hypothesis",
+        "Escalate discovered incidents through normal case system",
+        "Deliver new detection candidates and visibility recommendations"
+      ]
+    },
+    {
+      "id": "r33",
+      "title": "Perform detection rule post-deployment QA",
+      "tier": "L3",
+      "steps": [
+        "Verify parser/source health and expected field types",
+        "Run positive fixtures and representative benign events",
+        "Measure latency, rule execution cost and alert volumes",
+        "Review exceptions and tune only with documented justification",
+        "Compare outcomes to versioned baseline and rollout objectives",
+        "Keep rollback plan, owner, and measured follow-up date"
+      ]
+    },
+    {
+      "id": "r34",
+      "title": "Run post-incident improvement review",
+      "tier": "L3",
+      "steps": [
+        "Collect verified incident timeline and business effects",
+        "Identify root and compounding factors including detection delays",
+        "Document successful controls and data gaps",
+        "Assign measurable fixes, owners and deadlines",
+        "Validate high-priority fixes with tabletop or technical tests",
+        "Track completion and communicate residual risks"
       ]
     }
   ],
@@ -3596,6 +6594,182 @@ export const DATA = {
     {
       "term": "Container image",
       "definition": "Packaged filesystem/config used to instantiate container processes."
+    },
+    {
+      "term": "ASIM",
+      "definition": "Advanced Security Information Model: Microsoft normalization approach for Sentinel telemetry across products."
+    },
+    {
+      "term": "ECS",
+      "definition": "Elastic Common Schema: a field-name framework for normalizing log and security event data."
+    },
+    {
+      "term": "Sourcetype",
+      "definition": "Splunk metadata that helps determine how incoming events are interpreted and searched."
+    },
+    {
+      "term": "Event time",
+      "definition": "Timestamp claimed by the event source, potentially subject to clock drift or parser error."
+    },
+    {
+      "term": "Ingestion time",
+      "definition": "Timestamp when a logging pipeline receives an event; often later than event generation."
+    },
+    {
+      "term": "Logon Type 10",
+      "definition": "Windows remote interactive logon type often associated with RDP."
+    },
+    {
+      "term": "Logon Type 3",
+      "definition": "Windows network logon type; common for SMB and other remote resource access."
+    },
+    {
+      "term": "Event 4688",
+      "definition": "Windows Security event for new process creation when auditing is enabled."
+    },
+    {
+      "term": "Event 7045",
+      "definition": "Windows System event indicating installation of a service."
+    },
+    {
+      "term": "Event 4769",
+      "definition": "Windows DC Security event concerning a Kerberos service-ticket request."
+    },
+    {
+      "term": "Event 4662",
+      "definition": "Windows Security object-operation event; its interpretation for directory access requires SACL and object context."
+    },
+    {
+      "term": "Event 4720",
+      "definition": "Windows Security event for user-account creation."
+    },
+    {
+      "term": "Event 4732",
+      "definition": "Windows Security event for adding a member to a security-enabled local group."
+    },
+    {
+      "term": "Sysmon ProcessGuid",
+      "definition": "Identifier used by Sysmon to correlate a process across events more reliably than PID alone."
+    },
+    {
+      "term": "Sysmon Event 11",
+      "definition": "Sysmon file-create event when configured."
+    },
+    {
+      "term": "Kerberoasting",
+      "definition": "Attack pattern involving requests for service tickets that could be attacked offline if weak credentials are used."
+    },
+    {
+      "term": "DCSync",
+      "definition": "Abuse of directory replication rights to retrieve password data from Active Directory."
+    },
+    {
+      "term": "App consent",
+      "definition": "Authorization granting an application specific delegated or application permissions to access resources."
+    },
+    {
+      "term": "Refresh token",
+      "definition": "Credential artifact used to obtain new access tokens, depending on identity provider and policy."
+    },
+    {
+      "term": "Service principal",
+      "definition": "Tenant identity representing an application or service that can be assigned permissions."
+    },
+    {
+      "term": "Ransomware precursor",
+      "definition": "Behavior such as backup tampering that may precede encryption but does not itself prove active encryption."
+    },
+    {
+      "term": "Cloud management event",
+      "definition": "Audit record for resource configuration or management operation."
+    },
+    {
+      "term": "Cloud data event",
+      "definition": "Audit record for resource-level object or data access where logging is enabled."
+    },
+    {
+      "term": "Object storage ACL",
+      "definition": "Access control list applied to a stored object or container, depending on provider configuration."
+    },
+    {
+      "term": "Canary deployment",
+      "definition": "Small controlled rollout used to monitor a change before broad production deployment."
+    },
+    {
+      "term": "False negative",
+      "definition": "An attack or defined positive behavior that the relevant detection fails to alert on."
+    },
+    {
+      "term": "Telemetry gap",
+      "definition": "Missing or delayed observations that reduce confidence in investigation or detection coverage."
+    },
+    {
+      "term": "Purple teaming",
+      "definition": "Coordinated attacker-behavior simulation and defense validation exercise."
+    },
+    {
+      "term": "HostPath",
+      "definition": "Kubernetes volume configuration that mounts part of the underlying node filesystem."
+    },
+    {
+      "term": "RBAC",
+      "definition": "Role-based access control, granting permissions based on assigned roles."
+    },
+    {
+      "term": "Kubernetes audit",
+      "definition": "API-server records describing requests, actors, resources and outcomes based on configured audit policy."
+    },
+    {
+      "term": "Pod service account",
+      "definition": "Kubernetes identity that processes in pods may use for API access."
+    },
+    {
+      "term": "Amcache",
+      "definition": "Windows artifact storing application/file metadata with forensic interpretation limitations."
+    },
+    {
+      "term": "Shimcache",
+      "definition": "Windows application compatibility artifact that cannot alone prove exact execution events."
+    },
+    {
+      "term": "Prefetch",
+      "definition": "Windows artifact that can help infer application execution subject to OS and policy limitations."
+    },
+    {
+      "term": "EPSS",
+      "definition": "Exploit Prediction Scoring System, providing an estimate of probability that a CVE will be exploited in the wild."
+    },
+    {
+      "term": "DMARC alignment",
+      "definition": "Matching domain relationships required by DMARC between visible From and authenticated identifiers."
+    },
+    {
+      "term": "DHCP lease",
+      "definition": "Time-bounded assignment of IP address to network client, useful for historical device attribution."
+    },
+    {
+      "term": "Forwarding rule",
+      "definition": "Mail action automatically redirecting messages; malicious creation can indicate account compromise."
+    },
+    {
+      "term": "Data-loss prevention",
+      "definition": "Controls and telemetry for detecting/restricting sensitive content movement."
+    },
+    {
+      "term": "P1",
+      "definition": "Organization-dependent high-priority incident category generally requiring urgent ownership and communication."
+    },
+    {
+      "term": "Backpressure",
+      "definition": "Processing backlog that slows log pipeline throughput and may delay detections."
+    },
+    {
+      "term": "Heartbeat",
+      "definition": "Periodic sensor/connector signal used to validate that data collection is still operating."
+    },
+    {
+      "term": "Detection fixture",
+      "definition": "Known expected-positive or expected-negative synthetic event used for analytics testing."
     }
   ],
   "questions": [
@@ -4378,6 +7552,578 @@ export const DATA = {
       ],
       "answer": 0,
       "why": "Closure volume is an output, not an effectiveness measure."
+    },
+    {
+      "id": "q061",
+      "tier": "Foundation",
+      "question": "Which transport protocol establishes sessions using a three-way handshake?",
+      "options": [
+        "TCP",
+        "UDP",
+        "ICMP",
+        "ARP"
+      ],
+      "answer": 0,
+      "why": "TCP normally uses SYN, SYN-ACK and ACK to establish a connection."
+    },
+    {
+      "id": "q062",
+      "tier": "Foundation",
+      "question": "What does a DNS CNAME record represent?",
+      "options": [
+        "A canonical-name alias",
+        "A mail exchanger",
+        "A public key signature",
+        "A transport port"
+      ],
+      "answer": 0,
+      "why": "CNAME aliases one DNS name to another name."
+    },
+    {
+      "id": "q063",
+      "tier": "Foundation",
+      "question": "What does an HTTP 302 usually indicate?",
+      "options": [
+        "A redirect response",
+        "A confirmed SQL injection",
+        "A TLS certificate issuance",
+        "A DNS NXDOMAIN"
+      ],
+      "answer": 0,
+      "why": "A 302 points the client to a different URL; follow the chain for investigation."
+    },
+    {
+      "id": "q064",
+      "tier": "Foundation",
+      "question": "Which Windows logon type usually represents RDP?",
+      "options": [
+        "10",
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 0,
+      "why": "RemoteInteractive is typically logon type 10; type 3 indicates a network logon."
+    },
+    {
+      "id": "q065",
+      "tier": "Foundation",
+      "question": "Which event typically records Windows service installation in the System log?",
+      "options": [
+        "7045",
+        "4625",
+        "4768",
+        "4104"
+      ],
+      "answer": 0,
+      "why": "System Event 7045 is service installation; context is required to determine legitimacy."
+    },
+    {
+      "id": "q066",
+      "tier": "Foundation",
+      "question": "Which event commonly records a successful Windows logon?",
+      "options": [
+        "4624",
+        "4625",
+        "4672",
+        "4728"
+      ],
+      "answer": 0,
+      "why": "Security 4624 records a logon success when audited."
+    },
+    {
+      "id": "q067",
+      "tier": "Foundation",
+      "question": "Why is a SHA-256 hash useful in an investigation?",
+      "options": [
+        "To identify and verify specific file bytes",
+        "To decrypt a file",
+        "To reveal the original password",
+        "To prove the file is malicious"
+      ],
+      "answer": 0,
+      "why": "A digest is a content fingerprint; reputation and behavior still determine risk."
+    },
+    {
+      "id": "q068",
+      "tier": "Foundation",
+      "question": "What does SPF pass establish?",
+      "options": [
+        "The sending IP is authorized for the tested envelope identity",
+        "The sender is not compromised",
+        "The attachment is safe",
+        "The visible From display name is genuine"
+      ],
+      "answer": 0,
+      "why": "SPF is a domain authentication input, not a verdict on intent."
+    },
+    {
+      "id": "q069",
+      "tier": "Foundation",
+      "question": "What is a weakness of IOC-only detection?",
+      "options": [
+        "Indicators rotate and may miss behavior",
+        "An IOC always uniquely identifies an actor",
+        "IOCs cannot ever be used in SIEM",
+        "Hashes automatically reconstruct timelines"
+      ],
+      "answer": 0,
+      "why": "Behavioral analytics and context improve resilience to indicator changes."
+    },
+    {
+      "id": "q070",
+      "tier": "Foundation",
+      "question": "Which source helps map an IP to a device at a historical timestamp?",
+      "options": [
+        "DHCP lease logs",
+        "A current asset dashboard only",
+        "A random WHOIS record",
+        "The website favicon"
+      ],
+      "answer": 0,
+      "why": "Historical leases and switch/NAC records support temporal attribution."
+    },
+    {
+      "id": "q071",
+      "tier": "Foundation",
+      "question": "What is the main difference between an event timestamp and ingestion timestamp?",
+      "options": [
+        "Event time is when it occurred; ingestion time is when a collector received it",
+        "They are always identical",
+        "Ingestion always precedes event time",
+        "Only Windows emits timestamps"
+      ],
+      "answer": 0,
+      "why": "Collector delay and time drift can affect timeline reconstruction."
+    },
+    {
+      "id": "q072",
+      "tier": "Foundation",
+      "question": "What does principle of least privilege mean?",
+      "options": [
+        "Grant only access needed for a task",
+        "Use Domain Admin for convenience",
+        "Disable logging",
+        "Trust all signed binaries"
+      ],
+      "answer": 0,
+      "why": "Excessive permission increases blast radius."
+    },
+    {
+      "id": "q073",
+      "tier": "L1",
+      "question": "A WAF blocks a traversal request with HTTP 403. What is directly supported?",
+      "options": [
+        "That request was blocked at the WAF",
+        "The server leaked /etc/passwd",
+        "The attacker obtained a shell",
+        "Every other path was protected"
+      ],
+      "answer": 0,
+      "why": "The WAF action addresses this request; investigate other attempts separately."
+    },
+    {
+      "id": "q074",
+      "tier": "L1",
+      "question": "EDR says action=alert_only. What is a safe conclusion?",
+      "options": [
+        "The system alerted; no block is demonstrated",
+        "The process was quarantined",
+        "The endpoint is isolated",
+        "No execution occurred"
+      ],
+      "answer": 0,
+      "why": "Alert-only is not prevention. Confirm execution and subsequent behavior."
+    },
+    {
+      "id": "q075",
+      "tier": "L1",
+      "question": "Windows event 4625 usually indicates what?",
+      "options": [
+        "Failed logon",
+        "Successful logon",
+        "New service installation",
+        "File rename"
+      ],
+      "answer": 0,
+      "why": "4625 is a failed logon event under appropriate auditing."
+    },
+    {
+      "id": "q076",
+      "tier": "L1",
+      "question": "Which signal most strongly raises password-spraying risk?",
+      "options": [
+        "One source failing across many users then succeeding",
+        "One employee forgetting a password",
+        "A browser refresh",
+        "A DNS PTR lookup"
+      ],
+      "answer": 0,
+      "why": "Cross-user failures from one origin with later success are a suspicious pattern."
+    },
+    {
+      "id": "q077",
+      "tier": "L1",
+      "question": "A file download gets HTTP 200 and EDR blocks execution. Which summary is accurate?",
+      "options": [
+        "Download observed, execution prevented by EDR",
+        "Malware ran successfully",
+        "No web interaction occurred",
+        "Confirmed exfiltration"
+      ],
+      "answer": 0,
+      "why": "Do not equate successful HTTP download with successful binary execution."
+    },
+    {
+      "id": "q078",
+      "tier": "L1",
+      "question": "Which artifact most helps confirm process ancestry?",
+      "options": [
+        "Sysmon ProcessGuid and ParentProcessGuid",
+        "Reverse DNS alone",
+        "Alert severity label",
+        "HTTP cache-control"
+      ],
+      "answer": 0,
+      "why": "Stable process GUID links support process-tree reconstruction."
+    },
+    {
+      "id": "q079",
+      "tier": "L1",
+      "question": "What belongs in an escalation handoff?",
+      "options": [
+        "Timestamped evidence, affected entities, impact, unknowns and next steps",
+        "Only a screenshot of the red alert",
+        "A conclusion with no logs",
+        "The analyst password"
+      ],
+      "answer": 0,
+      "why": "Reproducible evidence and specific action requests prevent lost context."
+    },
+    {
+      "id": "q080",
+      "tier": "L1",
+      "question": "A sign-in succeeded with MFA from a corporate VPN egress. What should be checked?",
+      "options": [
+        "Device/session context and VPN egress mapping",
+        "Assume impossible travel is confirmed",
+        "Disable every VPN user",
+        "Ignore subsequent suspicious actions"
+      ],
+      "answer": 0,
+      "why": "MFA and VPN can explain anomalies but do not exclude compromise."
+    },
+    {
+      "id": "q081",
+      "tier": "L1",
+      "question": "What should happen when EDR connector lag exceeds a shift?",
+      "options": [
+        "Raise visibility/ingestion issue and qualify conclusions",
+        "Report zero attacks occurred",
+        "Turn off incident queue",
+        "Overwrite raw logs"
+      ],
+      "answer": 0,
+      "why": "Loss of visibility means zero alert count is not safety evidence."
+    },
+    {
+      "id": "q082",
+      "tier": "L1",
+      "question": "What best distinguishes a benign positive from a false positive?",
+      "options": [
+        "Behavior matched the detection but was authorized",
+        "Both mean rule engine was broken",
+        "Benign positive implies compromise",
+        "False positive always requires malware"
+      ],
+      "answer": 0,
+      "why": "Benign positive is correctly detected activity lacking malicious intent."
+    },
+    {
+      "id": "q083",
+      "tier": "L1",
+      "question": "What is the best first pivot for a phishing link click?",
+      "options": [
+        "Check proxy download and endpoint execution with user/time",
+        "Send link to teammates to click",
+        "Reboot the mail gateway",
+        "Delete delivery metadata"
+      ],
+      "answer": 0,
+      "why": "Separate message receipt, click, download and execution."
+    },
+    {
+      "id": "q084",
+      "tier": "L1",
+      "question": "Which query flaw can cause silent data loss?",
+      "options": [
+        "Assuming all sources use the same field name",
+        "Sorting by descending time",
+        "Filtering for a host",
+        "Limiting result count intentionally"
+      ],
+      "answer": 0,
+      "why": "Schema normalization must be validated across sourcetypes."
+    },
+    {
+      "id": "q085",
+      "tier": "L2",
+      "question": "A 7045 follows remote type-3 logons from new source. What is the priority pivot?",
+      "options": [
+        "Service image, creator, source account and business change",
+        "Assume service definitely malicious",
+        "Delete domain controller",
+        "Conclude no lateral movement is possible"
+      ],
+      "answer": 0,
+      "why": "Multiple corroborating events establish a plausible execution chain."
+    },
+    {
+      "id": "q086",
+      "tier": "L2",
+      "question": "A cloud trail has ListBuckets and GetObject. What do they prove respectively?",
+      "options": [
+        "Enumeration and API object retrieval events",
+        "Public web publication and encryption",
+        "Guaranteed local file exfiltration",
+        "Host ransomware and C2"
+      ],
+      "answer": 0,
+      "why": "API events require response, principal and downstream context for impact assessment."
+    },
+    {
+      "id": "q087",
+      "tier": "L2",
+      "question": "Which control reduces risk after OAuth app grant abuse?",
+      "options": [
+        "Review and revoke grant/session under approved response",
+        "Only change endpoint wallpaper",
+        "Only patch router firmware",
+        "Delete email headers"
+      ],
+      "answer": 0,
+      "why": "Credential rotation alone may not remove malicious app permissions."
+    },
+    {
+      "id": "q088",
+      "tier": "L2",
+      "question": "Which statement about Kerberoasting is most accurate?",
+      "options": [
+        "Unusual service ticket requests can be a clue, not proof of cracked credentials",
+        "One 4769 means password theft succeeded",
+        "Kerberos uses SMTP only",
+        "All TGS requests require isolation"
+      ],
+      "answer": 0,
+      "why": "Interpret 4769 with source, SPN, account baseline and later behavior."
+    },
+    {
+      "id": "q089",
+      "tier": "L2",
+      "question": "Which approach best handles ransomware-like mass renaming?",
+      "options": [
+        "Coordinate urgent containment, preserve evidence, scope impact",
+        "Wait a week for signature updates",
+        "Delete all backups",
+        "Assume it is authorized change regardless of context"
+      ],
+      "answer": 0,
+      "why": "Impact telemetry and backup tampering elevate urgency."
+    },
+    {
+      "id": "q090",
+      "tier": "L2",
+      "question": "What must an incident timeline state?",
+      "options": [
+        "Event time, source, timezone and uncertainty",
+        "Only ticket closure time",
+        "Only analyst workstation time",
+        "Every event is equally reliable"
+      ],
+      "answer": 0,
+      "why": "Timestamps must be normalized and source delays/clock drift noted."
+    },
+    {
+      "id": "q091",
+      "tier": "L2",
+      "question": "What does a signed binary guarantee?",
+      "options": [
+        "Only that signature verification ties to a key and signed bytes",
+        "That behavior is safe",
+        "That malware cannot modify it",
+        "That it has no network access"
+      ],
+      "answer": 0,
+      "why": "A legitimate key may sign an abused or compromised program."
+    },
+    {
+      "id": "q092",
+      "tier": "L2",
+      "question": "Which is a risky rule-tuning approach?",
+      "options": [
+        "Permanently excluding a broad subnet without tests",
+        "Testing expected positive and negative samples",
+        "Reviewing historical benign cases",
+        "Adding exception ownership"
+      ],
+      "answer": 0,
+      "why": "Broad allowlists can suppress malicious activity."
+    },
+    {
+      "id": "q093",
+      "tier": "L2",
+      "question": "What is a better response to missing audit logs?",
+      "options": [
+        "Document uncertainty and restore logging coverage",
+        "Say no compromise happened",
+        "Fabricate events for the ticket",
+        "Delete correlated evidence"
+      ],
+      "answer": 0,
+      "why": "Lack of telemetry weakens conclusions; restore controls and use remaining independent sources."
+    },
+    {
+      "id": "q094",
+      "tier": "L2",
+      "question": "How should suspected data exfiltration be worded when only DNS is available?",
+      "options": [
+        "Suspicious DNS behavior; data transfer unconfirmed",
+        "Confirmed 10 GB data theft",
+        "No activity occurred",
+        "An attacker was identified by name"
+      ],
+      "answer": 0,
+      "why": "DNS patterns alone do not prove outbound content disclosure."
+    },
+    {
+      "id": "q095",
+      "tier": "L2",
+      "question": "What is the most important validation before disabling a service account?",
+      "options": [
+        "Business owner, impact and authorized containment plan",
+        "Its username length",
+        "The color of SIEM dashboard",
+        "DNS TTL"
+      ],
+      "answer": 0,
+      "why": "Service accounts may run critical workloads; coordinated control is needed."
+    },
+    {
+      "id": "q096",
+      "tier": "L3",
+      "question": "A detection stopped after parser field renaming. What should be fixed first?",
+      "options": [
+        "Field mapping, positive fixtures and regression tests",
+        "Global severity threshold",
+        "Only dashboard colors",
+        "Delete failed test fixture"
+      ],
+      "answer": 0,
+      "why": "Root cause is broken schema contract; repair and validate it."
+    },
+    {
+      "id": "q097",
+      "tier": "L3",
+      "question": "What does ATT&CK rule-count coverage fail to measure?",
+      "options": [
+        "Actual telemetry availability and tested behavior detection",
+        "The number of MITRE technique names",
+        "The name of analyst",
+        "Number of phishing emails"
+      ],
+      "answer": 0,
+      "why": "A rule tag is not evidence of deployed effective detection."
+    },
+    {
+      "id": "q098",
+      "tier": "L3",
+      "question": "A purple-team test misses on one host because Sysmon is not installed. What is gap?",
+      "options": [
+        "Telemetry coverage",
+        "A proven rule logic failure",
+        "An impossible technique",
+        "A corrupted email inbox"
+      ],
+      "answer": 0,
+      "why": "Data source gap must be corrected before logic can be judged."
+    },
+    {
+      "id": "q099",
+      "tier": "L3",
+      "question": "What makes a threat-hunt hypothesis testable?",
+      "options": [
+        "Observable behavior, population, timeframe and required data",
+        "A broad guess without evidence",
+        "A fixed malware name only",
+        "A vendor marketing claim"
+      ],
+      "answer": 0,
+      "why": "You must define what evidence could support or disconfirm the hypothesis."
+    },
+    {
+      "id": "q100",
+      "tier": "L3",
+      "question": "What is essential for memory acquisition?",
+      "options": [
+        "Legal/operational authorization, impact planning and artifact integrity",
+        "Copying secrets into public chat",
+        "Running arbitrary unsigned binaries",
+        "Turning off audit logs"
+      ],
+      "answer": 0,
+      "why": "Volatile collection has risk and privacy considerations."
+    },
+    {
+      "id": "q101",
+      "tier": "L3",
+      "question": "Which metric may falsely improve during connector outages?",
+      "options": [
+        "Alert volume and apparent time-to-triage",
+        "Coverage of new endpoint sensors",
+        "Validated positive test detection",
+        "Known data freshness"
+      ],
+      "answer": 0,
+      "why": "Missing records can make dashboards seem quiet."
+    },
+    {
+      "id": "q102",
+      "tier": "L3",
+      "question": "How should a detection-as-code rollout be done?",
+      "options": [
+        "Reviewed tests, staging/canary, telemetry monitoring and rollback",
+        "Blind deployment to every host",
+        "Only optimizing for zero false positives",
+        "Skipping schema mapping"
+      ],
+      "answer": 0,
+      "why": "Rules need QA, operational performance checks and version control."
+    },
+    {
+      "id": "q103",
+      "tier": "L3",
+      "question": "Why are Kubernetes secret-read events contextual?",
+      "options": [
+        "Controllers may legitimately read secrets, so compare identity/role/change",
+        "Every secret get is attacker activity",
+        "Kubernetes has no audit facilities",
+        "Namespaced RBAC cannot affect exposure"
+      ],
+      "answer": 0,
+      "why": "Evaluate service account, namespace, verb and baseline."
+    },
+    {
+      "id": "q104",
+      "tier": "L3",
+      "question": "What is the purpose of purple teaming?",
+      "options": [
+        "Validate attack-path visibility and detections through coordinated safe exercises",
+        "Guarantee zero compromises",
+        "Replace defensive logging",
+        "Attribute every alert to an APT"
+      ],
+      "answer": 0,
+      "why": "A structured exercise reveals measurement gaps and detection improvements."
     }
   ],
   "queries": [
@@ -4428,6 +8174,84 @@ export const DATA = {
       "language": "KQL",
       "code": "DnsEvents\n| where TimeGenerated > ago(1d)\n| summarize Requests=count(), Names=dcount(Name) by ClientIP, QueryType\n| order by Requests desc",
       "meaning": "Illustrative custom DNS schema: adapt table and field names in your environment."
+    },
+    {
+      "language": "SPL",
+      "title": "Remote service installs by host",
+      "code": "index=windows sourcetype=WinEventLog:System EventCode=7045 earliest=-7d\n| stats count values(ServiceName) as services by host\n| sort -count",
+      "meaning": "Validate service creation events and privileged change windows; parser field names vary."
+    },
+    {
+      "language": "SPL",
+      "title": "Rare interactive logons",
+      "code": "index=windows EventCode=4624 Logon_Type=10 earliest=-7d\n| stats dc(src_ip) as sources count by Account_Name host\n| sort -sources",
+      "meaning": "Use remote interactive logons to find rare origins, then correlate with authorized jump servers."
+    },
+    {
+      "language": "SPL",
+      "title": "Top blocked WAF clients",
+      "code": "index=waf action=block earliest=-24h\n| stats count dc(uri_path) as distinct_paths by src_ip\n| sort -count",
+      "meaning": "Volume indicates attempted activity, not successful application exploitation."
+    },
+    {
+      "language": "SPL",
+      "title": "Process launch after office app",
+      "code": "index=sysmon EventCode=1 ParentImage=\"*\\winword.exe\"\n| table _time host User Image CommandLine ParentImage\n| sort -_time",
+      "meaning": "Hunt suspicious children of Office; compare signed installers and legitimate automation."
+    },
+    {
+      "language": "SPL",
+      "title": "Identify telemetry freshness",
+      "code": "index=edr earliest=-6h\n| stats latest(_time) as last_event by host\n| eval minutes_lag=(now()-last_event)/60\n| sort -minutes_lag",
+      "meaning": "Do not claim a host is clean when its sensor events are stale."
+    },
+    {
+      "language": "KQL",
+      "title": "Windows interactive sessions",
+      "code": "SecurityEvent\n| where EventID == 4624 and LogonType == 10\n| summarize Sessions=count() by Computer, Account, IpAddress\n| order by Sessions desc",
+      "meaning": "Requires corresponding fields and successful ingestion of SecurityEvent."
+    },
+    {
+      "language": "KQL",
+      "title": "Windows process suspicious parent",
+      "code": "DeviceProcessEvents\n| where InitiatingProcessFileName in~ (\"winword.exe\", \"excel.exe\")\n| where FileName in~ (\"powershell.exe\", \"cmd.exe\", \"wscript.exe\")\n| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName",
+      "meaning": "Microsoft Defender advanced hunting schema may differ from Sentinel tables."
+    },
+    {
+      "language": "KQL",
+      "title": "Audit unfamiliar mailbox rules",
+      "code": "OfficeActivity\n| where Operation in (\"New-InboxRule\", \"Set-InboxRule\")\n| project TimeGenerated, UserId, OfficeObjectId, Parameters, ClientIP",
+      "meaning": "Investigate external forwarding with user sign-ins and mailbox audit events."
+    },
+    {
+      "language": "KQL",
+      "title": "Entra sign-in failure pivots",
+      "code": "SigninLogs\n| where TimeGenerated > ago(1d)\n| where ResultType != \"0\"\n| summarize Failed=count(), Accounts=dcount(UserPrincipalName) by IPAddress\n| order by Accounts desc",
+      "meaning": "Differentiate spraying behavior from one mistyped password."
+    },
+    {
+      "language": "KQL",
+      "title": "Audit rare cloud privileges",
+      "code": "AzureActivity\n| where TimeGenerated > ago(7d)\n| where OperationNameValue has_any (\"roleAssignments/write\", \"authorization\")\n| project TimeGenerated, Caller, OperationNameValue, ActivityStatusValue",
+      "meaning": "Add business context and confirm actual provider operation names in your workspace."
+    },
+    {
+      "language": "KQL",
+      "title": "DNS TXT query frequency",
+      "code": "DnsEvents\n| where TimeGenerated > ago(1d) and QueryType == \"TXT\"\n| summarize QueryCount=count(), Domains=dcount(Name) by ClientIP\n| order by QueryCount desc",
+      "meaning": "DnsEvents is illustrative; adapt to actual DNS table and field names."
+    },
+    {
+      "language": "SPL",
+      "title": "Group lateral authentication origins",
+      "code": "index=windows EventCode=4624 Logon_Type=3 earliest=-24h\n| stats dc(host) as distinct_targets count by src_ip user\n| sort -distinct_targets",
+      "meaning": "Normalize account and source fields before deciding whether remote auth spreads across machines."
+    },
+    {
+      "language": "KQL",
+      "title": "Service creation coverage test",
+      "code": "Event\n| where TimeGenerated > ago(1d) and EventLog == \"System\" and EventID == 7045\n| summarize Hosts=dcount(Computer), Events=count() by bin(TimeGenerated, 1h)",
+      "meaning": "Confirm your connector maps System service-install events before deploying this rule."
     }
   ],
   "references": [
@@ -4470,6 +8294,214 @@ export const DATA = {
       "name": "CISA Incident & Vulnerability Response Playbooks",
       "url": "https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks",
       "desc": "Practical coordination and response playbooks."
+    },
+    {
+      "name": "Microsoft Sentinel KQL hunting",
+      "url": "https://learn.microsoft.com/en-us/azure/sentinel/hunting",
+      "desc": "Official KQL hunting operators and workflows; verify table availability per workspace."
+    },
+    {
+      "name": "NIST CSF 2.0",
+      "url": "https://www.nist.gov/cyberframework",
+      "desc": "Govern, Identify, Protect, Detect, Respond and Recover risk-management functions."
+    },
+    {
+      "name": "MITRE ATT&CK Enterprise Techniques",
+      "url": "https://attack.mitre.org/techniques/",
+      "desc": "Behavior-based technique descriptions and references."
+    },
+    {
+      "name": "AWS CloudTrail user guide",
+      "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
+      "desc": "Cloud management and data-event auditing guidance."
+    },
+    {
+      "name": "Microsoft Defender XDR hunting schema",
+      "url": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables",
+      "desc": "Supported table schemas for Defender advanced hunting."
+    },
+    {
+      "name": "Kubernetes Auditing",
+      "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/",
+      "desc": "Kubernetes API audit policy and event semantics."
+    },
+    {
+      "name": "CISA Cybersecurity Performance Goals",
+      "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals",
+      "desc": "Prioritized foundational cybersecurity controls."
+    }
+  ],
+  "drills": [
+    {
+      "id": "d01",
+      "tier": "L1",
+      "title": "Find the spray origin",
+      "task": "Return every event in the login-spray case (s01), but nothing from other cases.",
+      "solution": "case=s01",
+      "hint": "Group by case ID before you pivot.",
+      "lesson": "A targeted case slice defines the scope before behavior inspection."
+    },
+    {
+      "id": "d02",
+      "tier": "L1",
+      "title": "Failed password attempts",
+      "task": "Find only the failed IdP sign-ins from case s01.",
+      "solution": "case=s01 AND detail~FAIL",
+      "hint": "Use AND to narrow the case to results that contain FAIL.",
+      "lesson": "A failure count alone is insufficient: correlate the eventual success separately."
+    },
+    {
+      "id": "d03",
+      "tier": "L1",
+      "title": "Suspicious successful login",
+      "task": "Isolate the successful authentication in case s01, excluding token issuance.",
+      "solution": "case=s01 AND detail~SUCCESS",
+      "hint": "SUCCESS and TOKEN_ISSUED are distinct observed events.",
+      "lesson": "The success after spray can signal compromise; check session actions."
+    },
+    {
+      "id": "d04",
+      "tier": "L1",
+      "title": "Endpoint script chain",
+      "task": "Return all Sysmon records for the Office macro case s03.",
+      "solution": "case=s03 AND source=sysmon",
+      "hint": "Sysmon is the source; EDR is a separate record.",
+      "lesson": "Sysmon 1/3/11 support process, connection and file pivots."
+    },
+    {
+      "id": "d05",
+      "tier": "L1",
+      "title": "DNS TXT pattern",
+      "task": "Find DNS events in case s04.",
+      "solution": "case=s04 AND source=dns",
+      "hint": "Narrow by case and log source.",
+      "lesson": "Only the DNS records belong in this analytic sample; EDR is a follow-up."
+    },
+    {
+      "id": "d06",
+      "tier": "L1",
+      "title": "Approved scanner network events",
+      "task": "Return firewall records from scanner case s05, excluding change ticket.",
+      "solution": "case=s05 AND source=firewall",
+      "hint": "Use source=firewall.",
+      "lesson": "Change tickets are enrichment, not firewall traffic."
+    },
+    {
+      "id": "d07",
+      "tier": "L1",
+      "title": "WAF activity",
+      "task": "Find the WAF records in case s07, not the app result.",
+      "solution": "case=s07 AND source=waf",
+      "hint": "WAF and app are distinct sources.",
+      "lesson": "WAF block events cannot on their own prove app compromise."
+    },
+    {
+      "id": "d08",
+      "tier": "L1",
+      "title": "Service install event",
+      "task": "Find System-channel service creation in case s08.",
+      "solution": "case=s08 AND detail~7045",
+      "hint": "EventID=7045 appears in the service install record.",
+      "lesson": "Pair service creation with logon origin and process context."
+    },
+    {
+      "id": "d09",
+      "tier": "L2",
+      "title": "Mail audit after phish",
+      "task": "Return Microsoft 365 audit events from case s09.",
+      "solution": "case=s09 AND source=audit",
+      "hint": "Use source=audit for mailbox rule and access records.",
+      "lesson": "Rules and MailItemsAccessed create the post-login activity chain."
+    },
+    {
+      "id": "d10",
+      "tier": "L2",
+      "title": "Ransomware EDR actions",
+      "task": "Return all EDR events from ransomware case s10.",
+      "solution": "case=s10 AND source=edr",
+      "hint": "Filter by case and EDR, not all file-server telemetry.",
+      "lesson": "EDR process behavior must be interpreted with file system impact."
+    },
+    {
+      "id": "d11",
+      "tier": "L2",
+      "title": "Remote service creation trail",
+      "task": "Return System-channel events from case s11.",
+      "solution": "case=s11 AND source=system",
+      "hint": "System events contain two service installations.",
+      "lesson": "The same service name on two hosts supports lateral movement hypotheses."
+    },
+    {
+      "id": "d12",
+      "tier": "L2",
+      "title": "AWS audit trail",
+      "task": "Return CloudTrail events from case s12.",
+      "solution": "case=s12 AND source=cloudtrail",
+      "hint": "Only cloudtrail events, not change audit.",
+      "lesson": "Management and object access events form a privilege/data timeline."
+    },
+    {
+      "id": "d13",
+      "tier": "L2",
+      "title": "Beacon proxy callbacks",
+      "task": "Return proxy traffic in case s13.",
+      "solution": "case=s13 AND source=proxy",
+      "hint": "Proxy traffic excludes Sysmon binary provenance.",
+      "lesson": "Regular callbacks require process corroboration."
+    },
+    {
+      "id": "d14",
+      "tier": "L3",
+      "title": "Detection engineering metrics",
+      "task": "Return metric events from case s14.",
+      "solution": "case=s14 AND source=metrics",
+      "hint": "Use source=metrics for rule volume.",
+      "lesson": "Precision cannot be optimized by removing telemetry."
+    },
+    {
+      "id": "d15",
+      "tier": "L3",
+      "title": "Missing sensor facts",
+      "task": "Find health events from case s15.",
+      "solution": "case=s15 AND source=health",
+      "hint": "Separate health from SIEM query count.",
+      "lesson": "Zero hits from a disconnected source is not a healthy SOC."
+    },
+    {
+      "id": "d16",
+      "tier": "L3",
+      "title": "Post-incident review evidence",
+      "task": "Return post-incident review records in case s16.",
+      "solution": "case=s16 AND source=review",
+      "hint": "Every synthetic record here is from review source.",
+      "lesson": "An evidence-led PIR produces owned improvements."
+    },
+    {
+      "id": "d17",
+      "tier": "L2",
+      "title": "Malicious OAuth grant chain",
+      "task": "Return audit events from suspicious consent case s23.",
+      "solution": "case=s23 AND source=audit",
+      "hint": "Identify the app consent and application secret operations.",
+      "lesson": "Consent auditing tracks application persistence."
+    },
+    {
+      "id": "d18",
+      "tier": "L2",
+      "title": "Linux suspicious execution",
+      "task": "Return auditd exec events in Linux persistence case s25.",
+      "solution": "case=s25 AND source=auditd",
+      "hint": "Linux auditd records capture process invocation.",
+      "lesson": "Systemd file writes and SSH provide supporting events."
+    },
+    {
+      "id": "d19",
+      "tier": "L3",
+      "title": "Rule regression fixture",
+      "task": "Return synthetic test-fixture events from parser regression case s28.",
+      "solution": "case=s28 AND source=test",
+      "hint": "Select test fixtures, not all pipeline events.",
+      "lesson": "A passing test requires parsed fields matching rule assumptions."
     }
   ]
 };
