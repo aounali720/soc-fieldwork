@@ -18,3 +18,15 @@ html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-siz
 @media(max-width:870px){.sidebar{width:262px}.topbar{height:63px}.main{padding:25px 20px 55px}.edition-chip{display:none}.mobile-close{display:inline-flex;color:#fff;border-color:#66828a}.dispatch-body{padding:37px 28px}.dispatch-copy h1{font-size:clamp(44px,7vw,65px)}}
 @media(max-width:600px){.main{padding:16px 13px 44px}.dispatch-top,.dispatch-bottom{padding:11px 15px;font-size:8px}.dispatch-status{display:none}.dispatch-bottom span:last-child{display:none}.dispatch-body{padding:30px 23px}.dispatch-copy h1{font-size:clamp(44px,10vw,58px)}.dispatch-copy p{font-size:13px}.metrics-strip{grid-template-columns:1fr}.metric-ticket{border:0!important;border-bottom:1px solid #ded9ce!important}.metric-ticket:last-child{border-bottom:0!important}.station-header{padding:16px}.station-header h2{font-size:20px}.path-row{padding:14px 12px;grid-template-columns:30px 1fr 38px;gap:10px}.incident-entry{padding:14px 11px}.atlas-promo-inner{grid-template-columns:1fr}.atlas-code-preview{width:150px}.topbar{padding:0 13px}.pill-stat{font-size:9px}.panel-title{padding:13px 15px}.page-intro h1{font-size:35px}.atlas-detail-head{padding:15px}.atlas-number{margin:20px 18px 0}.atlas-detail h2{margin:12px 20px;font-size:28px}.atlas-summary{margin:0 20px 20px;font-size:14px}.atlas-keyline{padding:15px 20px}.atlas-pivots{margin:0 20px 18px}.atlas-notice{margin:0 20px 20px}.atlas-detail-foot{padding:14px 18px;display:block}.atlas-detail-foot button{display:block;margin-top:12px}.chronicle-case-list{grid-template-columns:1fr}.chronicle-summary{padding:23px}.chronicle-tape{padding:16px 12px}.chronicle-event{grid-template-columns:70px 18px 1fr;gap:9px}.chronicle-clock span{font-size:10px}.chronicle-event-body p{font-size:10px;padding:11px}.station-grid{gap:13px;margin-top:13px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Edition 04: post-decision debrief, not visible before assessment */
+.case-debrief{margin:24px 0;padding:0;border:1px solid #b8b59e;background:#f3f0e4;color:#282d2c;box-shadow:4px 4px 0 rgba(22,30,29,.08)}
+.case-debrief-heading{display:flex;justify-content:space-between;gap:12px;padding:13px 17px;background:#253a35;color:#f5f1e5;font-size:10px;font-weight:800;letter-spacing:.09em;flex-wrap:wrap}
+.case-debrief-heading strong{color:#c6d59a}
+.case-debrief-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.case-debrief-grid>div{padding:19px;border-right:1px solid #ceccbc}
+.case-debrief-grid>div:last-child{border-right:0}
+.case-debrief-grid b,.case-debrief-caveat b{display:block;font-size:10px;letter-spacing:.08em;margin-bottom:10px;color:#3b655a}
+.case-debrief-grid p,.case-debrief-caveat p{margin:0;font-size:13px;line-height:1.65}
+.case-debrief-caveat{padding:14px 19px;border-top:1px solid #ceccbc;background:#e7e5d8}
+@media(max-width:720px){.case-debrief-grid{grid-template-columns:1fr}.case-debrief-grid>div{border-right:0;border-bottom:1px solid #ceccbc}}
