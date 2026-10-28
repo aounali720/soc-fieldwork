@@ -1,129 +1,142 @@
-# SOC FIELDWORK
+# SOC FIELDWORK — expanded edition
 
-**An interactive security operations training game for the path from SOC L1 to L2 to L3.**
+**A hands-on, browser-based SOC L1 → L2 → L3 training game for investigation skills and technical interviews.**
 
-No backend. No sign-up. No build step. All case artifacts are synthetic. The site runs on GitHub Pages and saves progress in your browser. Built to practice the actual mental habits of analysts: validate the signal, identify the entity, test competing hypotheses, document evidence, choose proportional next steps, and explain your reasoning in an interview.
+The curriculum starts with networking, operating systems, logs and identity, then progresses through alert triage, incident response, threat hunting, detection engineering and advanced cloud coverage. All events are fictional and all analysis happens locally in your browser.
 
-## What's inside
+## Content at a glance
 
-| Area | What you can do |
-| --- | --- |
-| Learning tracks | **64 lessons** spanning prerequisites, L1 triage, L2 investigations and response, and L3 threat hunting/engineering |
-| Incident queue | **16 interactive cases**, **48 graded decisions**, synthetic endpoint/cloud/identity/web logs, evidence-based explanations |
-| Log lab | Filter, count, sort and analyze **70+ synthetic records** with a tiny, documented training DSL |
-| SIEM notebook | **8 worked SPL/KQL examples** with context and caveats |
-| Knowledge exam | **60 graded questions** with shuffled choice order and explanations |
-| Interview room | **67 Q&A prompts** plus typical misconceptions; reveal, practice aloud and self-assess |
-| Field runbooks | **16 operational checklists** covering start-of-shift, triage, escalation, phishing, malware, identity, cloud, response and hunting |
-| Glossary | **123 practical SOC terms** |
-| Dashboard | XP, local achievements, tier progress and daily shift checklist |
-| Reference library | Official links to NIST, MITRE, Microsoft, Splunk, Sigma and other technical references |
+| Learning area | Content | Purpose |
+| --- | ---: | --- |
+| Learning tracks | **116 lessons** | Foundation, L1, L2, L3 concepts, workflows and applied examples |
+| Incident queue | **30 cases** / 90 decisions | Triage, correlation, scope, response, improvement |
+| Evidence drills | **19 graded queries** | Retrieve the *right* synthetic events, not merely syntactically valid queries |
+| Knowledge exam | **104 questions** | Self-test across the entire curriculum |
+| Interview room | **105 prompts** | Model answers and common misconceptions |
+| Runbooks | **34** | Shift checks and practical response checklists |
+| Glossary | **167 terms** | Events, protocols, techniques and SOC vocabulary |
+| SIEM query cookbook | **21 worked SPL/KQL examples** | Practice reading vendor-style query patterns |
+| Sources | **15 official references** | NIST, MITRE, Microsoft, Splunk, Sigma, CISA, AWS, Kubernetes |
+| Synthetic logs | **143 records** | Queryable, stable and offline |
 
-## Quick start
+**New in the expanded edition:** Windows audit specifics, DNS/DHCP/mail evidence, Kerberos and directory activity, OAuth consent, password spraying, identity abuse, cloud storage/SaaS audits, Linux systemd persistence, Kubernetes secrets, forensic artifact limitations, detection-as-code QA and regression testing. Mission answers are now shuffled, while grading remains based on the underlying correct option. New lessons expose *evidence to collect* and *common pitfalls*.
 
-Open `index.html` for a basic local preview, or run a local static server:
+## Start locally
+
+The site has no dependencies and no build step. Use any static HTTP server:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000`. Browsers generally require HTTP for ES module imports; opening `file://` may prevent the app from loading.
+Then visit `http://localhost:8000`. The site's ES modules may be blocked if you open `index.html` with `file://`. Internet is not required for lessons, grading, or persistence; optional online fonts fall back gracefully.
 
-The site consists of plain HTML, CSS and JavaScript modules. No `npm install` is needed. Tests require Node.js 22 or a compatible modern Node version:
+For tests, use Node.js 22 or another compatible current Node version:
 
 ```bash
 npm test
 ```
 
-## Publish on GitHub Pages
+## Publish to GitHub Pages
 
-1. Create a **public** repository, for example `soc-fieldwork`, on your GitHub account.
-2. Upload **the contents of this project folder to the repository root** (including the `index.html`, `app.js`, `data.js`, `query.js`, `styles.css`, `assets` and `.nojekyll`). Do **not** upload a ZIP file as a single asset and expect it to be served as the website.
-3. In **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, then **main** and **/(root)**. Save.
-4. Your site will appear at `https://YOUR-USERNAME.github.io/soc-fieldwork/` when GitHub Pages completes publishing.
+1. Create or open your GitHub repository, such as `aounali720/soc-fieldwork`.
+2. Replace the repository files with **the contents of this folder**. Files must be at the repository root: `index.html`, `app.js`, `data.js`, `content.json`, `styles.css`, `query.js`, `.nojekyll`, `assets/`, etc. Keep your `.github/workflows/` files for validation.
+3. Under **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then Save.
+4. The live website is typically `https://aounali720.github.io/soc-fieldwork/` once GitHub completes deployment.
 
-Or, after creating the empty repository, using Git:
+Or push from an existing clone:
 
 ```bash
-git init
+cp -R /path/to/soc-fieldwork-expanded/. /path/to/your/soc-fieldwork-clone/
+cd /path/to/your/soc-fieldwork-clone
 git add .
-git commit -m "Launch SOC Fieldwork training game"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/soc-fieldwork.git
-git push -u origin main
+git commit -m "Expand SOC Fieldwork curriculum and evidence drills"
+git push origin main
 ```
 
-The site uses relative assets and supports repository subpaths, such as `/soc-fieldwork/`. The `.nojekyll` file prevents unnecessary Jekyll processing.
+If you use the ZIP package, **extract it first**. Uploading the ZIP as one file does not deploy a site.
 
 ## Recommended learning route
 
-**Prerequisites (Foundation):** Networking (TCP/IP, subnetting, DNS, HTTP/TLS), Windows/Linux logs, identity, Active Directory, security vocabulary, ATT&CK and time normalization.
+### Phase 1 — foundation
 
-**SOC L1:** Shift handover, connector health, prioritization, event IDs, phishing, malware, login anomalies, firewall/WAF, SIEM filtering, safe triage, evidence-based tickets and escalation. Start with case 01, then follow cases 02–08.
+Learn TCP/IP, common ports, DNS records, TLS, HTTP, Windows Security logs, Sysmon, basic Linux auth, AD/Kerberos and identity protocols. After each lesson, explain **what the log proves and what it cannot prove**. Solve the first four L1 missions.
 
-**SOC L2:** Timelines, competing hypotheses, account takeover, ransomware, cloud IAM, C2 and lateral movement, approved containment, evidence handling, Sigma and detection tuning. Work cases 09–13.
+### Phase 2 — SOC L1 shift readiness
 
-**SOC L3:** Threat hunting, detection engineering, purple teaming, forensic fundamentals, container monitoring, coverage gaps, post-incident review and metrics. Work cases 14–16.
+Work through triage, phishing, EDR, account abuse, SIEM field selection, escalation and ticket writing. Finish 10 L1/L2 Evidence Drills. Practice answering questions without revealing their answers first. Deliverable: three complete case handoffs with UTC times and an explicitly requested next step.
 
-**Interview prep:** After each topic, use the Knowledge Exam and try the corresponding tier in the Interview Room. Respond aloud using **definition → context → evidence → action**. A strong answer identifies what remains unknown, not merely a threat label.
+### Phase 3 — SOC L2 incident investigations
 
-### Suggested 4-week L1/L2 revision rhythm
+Connect evidence across IdP, email, endpoint, proxy, firewall and cloud. Build timelines; scope account takeover, lateral movement and suspicious cloud policy changes. Prioritize containment under approved organizational procedures and list unknowns. Deliverable: three incident timelines and two detection-rule tuning proposals.
 
-| Week | Focus | Deliverable |
-| --- | --- | --- |
-| 1 | Foundation, common protocols, event IDs, Windows/Linux logs | Explain DNS, TCP, 4624/4625, Sysmon 1/3/22; solve 1–3 |
-| 2 | SIEM, phishing, EDR, detection triage and escalation | Complete L1 track; solve 4–8; write 3 polished tickets |
-| 3 | Incident scoping, cloud identity, threat hunting basics | Complete L2 track; solve 9–13; build two UTC incident timelines |
-| 4 | Review failed questions, detection engineering and interviews | Practice 20 random interview prompts aloud; solve 14–16 |
+### Phase 4 — SOC L3 engineering and hunting
 
-This is a training aid and **cannot guarantee any interview outcome**. Use actual vendor training, authorized labs and real-world mentorship to deepen operational competence.
+Write hypotheses, test known-positive and negative events, validate telemetry, tune rules, map ATT&CK at the evidence level, and practice post-incident corrective action tracking. Deliverable: a versioned detection test case and a written threat-hunt memo with gaps and follow-up owners.
 
-## The log lab language
+For a structured week-by-week study plan, see [`docs/INTERVIEW-STUDY-PLAN.md`](docs/INTERVIEW-STUDY-PLAN.md). Event reference is in [`docs/EVENT-ID-QUICK-REFERENCE.md`](docs/EVENT-ID-QUICK-REFERENCE.md).
 
-The log workbench is a **tiny, safe simulator**, not an implementation of Splunk SPL or KQL. It accepts field filters with exact `=` or case-insensitive contains `~`, connected by `AND` or `OR`, and three pipe operations:
+## Evidence drill scoring
 
-```
-source=edr
-detail~4624
-source=idp AND detail~FAIL
-asset~WKSTN | sort time desc | limit 10
+The local query simulator accepts case-sensitive fields with case-insensitive values:
+
+```text
+case=s01
+case=s01 AND detail~FAIL
+case=s08 AND detail~7045
+case=s09 AND source=audit
 source=sysmon | count by asset
 ```
 
-Fields: `time`, `source`, `asset`, `detail`, `tier`, `case`, `event`. Operators: `count by`, `sort`, `limit`. Results come only from hard-coded fictional events; code is never evaluated and no requests are sent to a live SIEM.
+`=` is exact match, `~` is text contains, logical operators are `AND` and `OR`; pipes allow `count by`, `sort` and `limit`. The simulator **is not** Splunk SPL or Sentinel KQL. In Evidence Drills, queries must return the exact target event IDs—missing or extra matches do not pass; aggregated output cannot pass. Hints and a reference filter (after two attempts) support learning.
 
-## Data, privacy and safety
+## Persistence, privacy and safe use
 
-- All names, domains, IP addresses, messages and hosts in cases are **invented**. Many IPs fall in reserved documentation ranges.
-- No telemetry is collected and there is no server account. Progress is stored in browser `localStorage` under `soc-fieldwork-progress-v1`. It can be **exported or imported** from Field Runbooks.
-- Never paste confidential SOC logs into the training console; it only searches local synthetic events.
-- Destructive response actions must be authorized and handled under real production runbooks.
-- Online fonts are optional; the UI has system font fallbacks and works without the font service.
+- All case names, domains, accounts, logs and IP addresses are fictional or reserved example data.
+- No account, backend, external SIEM connection or API key is used.
+- Completions and notes are saved in `localStorage` (`soc-fieldwork-progress-v1`). This edition preserves existing v1 progress; the new `drills` bucket is added automatically.
+- Export and import saved progress in **Field runbooks** before switching browsers or clearing storage.
+- Never paste sensitive client telemetry into training systems; this simulator only queries embedded fictional events.
+- Follow live organizational authorization, privacy and change-control rules for isolation, credential disabling, retention and evidence capture.
+- Training cannot guarantee job or interview outcomes. Validate vendor-dependent fields and real security controls using official documentation.
 
-## Architecture
+## Layout
 
 ```text
-index.html                 Entrypoint
-styles.css                 Responsive UI, diagrams, radar animation
-data.js                    64 lessons, cases, questions, interviews, glossary, checklists
-query.js                   Bounded search/filter/count/sort training engine
-app.js                     Application views, grading, persistence, routing
-content.json               Portable copy of educational content
-assets/favicon.svg         Project identity
-.github/workflows/          Data/query validation on push and pull request
-tests.mjs                  Content integrity and query unit tests
+index.html                    GitHub Pages entrypoint
+styles.css                    Responsive SOC-style interface
+app.js                        UI, grading, navigation, persistence
+content.json                  Portable authored curriculum
+/data.js                      JS module export of identical content
+query.js                      Local bounded log query simulator
+assets/favicon.svg            Project icon
+assets/expanded-preview-*.png Screenshots (not required to run)
+docs/                         Study plan and event ID notes
+tests.mjs                      Data, drill and parser regression tests
+.github/workflows/validate.yml CI test workflow
+.nojekyll                      Disable GitHub Jekyll processing
 ```
 
-Edit the curriculum in `data.js` and keep `content.json` synchronized when modifying learning content. No packages, database or API credentials are required.
+To update content, edit `content.json` and regenerate the JS module with:
 
-## Study references and currency
+```python
+import json
+from pathlib import Path
+p = Path('content.json')
+data = json.loads(p.read_text(encoding='utf-8'))
+Path('data.js').write_text('/* Fictional educational data. */\nexport const DATA = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n', encoding='utf-8')
+```
 
-The course uses **NIST SP 800-61 Revision 3** (finalized April 2025, replaces Revision 2), **MITRE ATT&CK Enterprise v20.0** (October 2026), and current public documentation for Microsoft Sentinel, Windows events, Splunk, Sigma and Sysmon. These sources evolve; confirm versions when using this material professionally. Complete links are in the application's Source Library.
+## Primary references
 
-## Contributing
-
-Keep scenarios synthetic and ethically safe. Prefer evidence-led reasoning, relevant timestamps, clearly specified assumptions, verified event semantics and precise corrections over large but vague lists. Please add positive and negative query tests when changing the parser.
+- [NIST SP 800-61 Rev. 3 — April 2025](https://csrc.nist.gov/pubs/sp/800/61/r3/final): incident response recommendations aligned with NIST CSF 2.0.
+- [MITRE ATT&CK Enterprise](https://attack.mitre.org/techniques/): adversary behavior taxonomy; use current details rather than treating old mappings as timeless.
+- [Microsoft Sentinel hunting guidance](https://learn.microsoft.com/en-us/azure/sentinel/hunting).
+- [Splunk Search Reference](https://docs.splunk.com/Documentation/Splunk/latest/SearchReference/).
+- [Windows Security auditing](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/).
+- [Sysmon documentation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon).
+- [Kubernetes audit documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/).
 
 ## License
 
-MIT. See `LICENSE`.
+MIT — see `LICENSE`.
