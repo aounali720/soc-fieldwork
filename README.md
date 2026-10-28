@@ -1,4 +1,4 @@
-# SOC FIELDWORK / Edition 05
+# SOC FIELDWORK / Edition 06
 
 **An offline-first, interactive SOC analyst training desk, from the first shift to threat hunting and detection engineering.**
 
@@ -12,7 +12,14 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 | Original interactive concept maps | **31** |
 | Illustrated SVG reference images | **7** |
 | Multi-stage investigation files | **65** |
-| Quiz questions with coaching | **176** |
+| Original knowledge exam questions with coaching | **176** |
+| Practice Arena MCQs (176 existing + 40 new) | **216** |
+| Matching boards / individual term pairings | **25 boards / 125 pairs** |
+| Sequencing challenges | **17** |
+| Myth-or-fact statements | **36** |
+| Fill-in-the-gap questions | **30** |
+| Scenario-based analyst decisions from cases | **195** |
+| 10-question interview sprints | **Unlimited, locally scored** |
 | Interview questions with model answers and common mistakes | **165** |
 | Graded evidence-retrieval drills | **77** |
 | Realistic synthetic log records | **341** |
@@ -30,6 +37,7 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 - **Incident Case Files** — now also offer a visual event chain and event-source distribution graphic before the raw evidence. The charts show what was observed, not automatic proof of compromise. Realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs; 23 new cases include a detailed debrief revealed after submission.
 - **Query Workbench** — safe in-browser filter/query language over case logs (not real SPL/KQL).
 - **Evidence Drills** — 77 graded queries comparing the **exact event set**, so overly broad queries don't pass.
+- **Practice Arena** — six different exercise modes: 216 MCQs, 25 interactive column-matching boards, 17 reorder-the-steps challenges, 36 true/false checks, 30 typed term recall questions and 195 simulated case decisions. Includes explanations, retry/skip, career-tier filters, locally saved mastery and a 10-question sprint with a detailed end review.
 - **Knowledge Exams & Interview Prep** — answer practice, model responses and explanation of frequent interview mistakes.
 - **Action Playbooks** — realistic escalation, identity, endpoint, cloud, hunting and detection workflows.
 - **Signal Atlas** — searchable Windows Event IDs, Sysmon, cloud, DNS, identity and operations cards showing meaning, limitations and pivots.
@@ -39,7 +47,7 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 ## Deployment
 
 1. Create or open the `soc-fieldwork` GitHub repository.
-2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, **`design-v5.css`**, **`visuals.js`**, `content.json`, `query.js`, assets, etc.).
+2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, **`design-v5.css`**, **`visuals.js`**, **`practice-ui.js`**, **`practice-data.js`**, **`practice.css`**, `content.json`, `query.js`, assets, etc.).
 3. In **Settings → Pages**, select **Deploy from a branch**, branch `main`, folder `/(root)`.
 4. Open `https://<github-username>.github.io/soc-fieldwork/` after Pages finishes deployment.
 
@@ -92,3 +100,22 @@ Selected references include [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/s
 ## License
 
 See [LICENSE](./LICENSE).
+
+
+## Edition 06 — Practice Arena
+
+A new interactive `#practice` route turns the visual SOC curriculum into active recall:
+
+| Mode | How it works | Scoring |
+| --- | --- | --- |
+| MCQ Challenge | Select from four shuffled answers; 216 questions total | Correct answer earns first-time mastery |
+| Match the Columns | Select a term and its meaning in shuffled right column | All five pairs must be correct |
+| Put It in Order | Move cards up/down to reconstruct an investigation or protocol sequence | Exact sequence, with solution feedback |
+| Myth or Fact? | Determine whether a common SOC claim is true | Answer plus explanation |
+| Fill the Gap | Type a security term, event ID or acronym | Normalized exact synonyms, no AI guessing |
+| Analyst Decisions | Make a decision from case-specific synthetic SOC context | Best choice plus evidence-based rationale |
+| Interview Sprint | Answer ten mixed-difficulty MCQs without hints | End-of-round 0–10 score and full answer review |
+
+All exercises use fictional educational material. Matching and ordering work with keyboard and touch-friendly buttons (drag and drop is not required). Progress is stored in the existing `soc-fieldwork-progress-v1` local profile to retain earlier lesson and investigation completions. New mastery records are placed under `practice`, and sprint results under `practiceExams`. Existing exports/imports remain compatible. Correct solutions earn +20 XP per exercise once; repeated attempts do not farm XP. A sprint does not separately award mastery XP.
+
+Run `npm test` to check curriculum data, visuals, Practice Arena answer grading, scoring, and all fourteen routes. Note that browser screenshots are not a substitute for browser verification, especially where local web navigation is blocked by the environment.
