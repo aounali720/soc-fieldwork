@@ -1,5 +1,6 @@
 /* SOC Fieldwork Practice Arena: fictional/educational exercises, no network access. */
 import { DATA } from './data.js';
+import { EXTRA_MCQ, EXTRA_MATCH, EXTRA_ORDER, EXTRA_TRUTH, EXTRA_FILL } from './practice-pack-v7.js';
 
 // Each matching board has five distinct, auditable answer pairs. The browser randomizes
 // the right-hand column while preserving stable IDs and keyboard-friendly controls.
@@ -55,7 +56,7 @@ const BOARD_SEEDS = [
 ['L3','Identity attack graph',[
 ['Principal','User, service or device identity'],['Privilege edge','Authorization relation between entities'],['Shortest path','Potential chain of permissions to a target'],['Tier 0','Highly privileged identity and domain-control assets'],['Blast radius','Reachable systems or identities exposed by compromise']]]
 ];
-export const MATCH_BOARDS = BOARD_SEEDS.map(([tier,title,pairs],i)=>({id:`m${String(i+1).padStart(2,'0')}`,tier,title,pairs:pairs.map(([term,meaning])=>({term,meaning})),why:'These associations are clues, not a verdict. Correlate with timestamps, identities, configuration and neighboring evidence before closing a real case.'}));
+export const MATCH_BOARDS = [...BOARD_SEEDS.map(([tier,title,pairs],i)=>({id:`m${String(i+1).padStart(2,'0')}`,tier,title,pairs:pairs.map(([term,meaning])=>({term,meaning})),why:'These associations are clues, not a verdict. Correlate with timestamps, identities, configuration and neighboring evidence before closing a real case.'})),...EXTRA_MATCH];
 
 const ORDER_SEEDS = [
 ['Foundation','DNS resolution path',['Client checks local DNS cache','Resolver queries authoritative hierarchy when needed','Authoritative DNS returns a matching record','Resolver caches the response for its TTL','Client connects using the resolved destination'],'A cache hit may skip upstream lookup. DNS resolution does not by itself establish that a domain is safe.'],
@@ -76,7 +77,7 @@ const ORDER_SEEDS = [
 ['L3','Purple-team validation',['Define a narrowly scoped technique objective','Confirm authorization and production guardrails','Generate safe test telemetry','Check detection, alert routing and response','Tune and rerun the regression test'],'A successful test measures end-to-end visibility, not just a rule matching once.'],
 ['L3','Incident postmortem',['Collect a verified timeline and decisions','Separate observed facts from assumptions','Find root causes and control gaps','Assign measurable corrective actions and owners','Retest fixes and update playbooks'],'The goal is improvement, not blame.']
 ];
-export const ORDER_TASKS=ORDER_SEEDS.map(([tier,title,steps,why],i)=>({id:`o${String(i+1).padStart(2,'0')}`,tier,title,steps,why}));
+export const ORDER_TASKS=[...ORDER_SEEDS.map(([tier,title,steps,why],i)=>({id:`o${String(i+1).padStart(2,'0')}`,tier,title,steps,why})),...EXTRA_ORDER];
 
 const TRUE_FALSE_SEEDS = [
 ['Foundation','HTTPS means the website itself is trustworthy.',false,'TLS encrypts transport and authenticates endpoints under its trust model; it does not certify business legitimacy.'],
@@ -116,7 +117,7 @@ const TRUE_FALSE_SEEDS = [
 ['L3','A metric for detection latency can reveal pipeline degradation.',true,'Time-to-detect trends help find collection, parsing or correlation problems.'],
 ['L3','An admin account must be compromised merely because it used a privileged API.',false,'Legitimate automated operations exist; corroborate context and authority.']
 ];
-export const TRUTH_CHECKS=TRUE_FALSE_SEEDS.map(([tier,statement,answer,why],i)=>({id:`t${String(i+1).padStart(2,'0')}`,tier,statement,answer,why}));
+export const TRUTH_CHECKS=[...TRUE_FALSE_SEEDS.map(([tier,statement,answer,why],i)=>({id:`t${String(i+1).padStart(2,'0')}`,tier,statement,answer,why})),...EXTRA_TRUTH];
 
 const FILL_SEEDS = [
 ['Foundation','The transport protocol with SYN, SYN-ACK, ACK is ____.',['tcp'],'TCP'],
@@ -150,7 +151,7 @@ const FILL_SEEDS = [
 ['L3','A missing or inadequate analytic capability is a detection ____.',['gap'],'Detection gap'],
 ['L3','A defined expectation for telemetry availability and latency is a telemetry ____.',['slo','service level objective'],'Telemetry SLO']
 ];
-export const FILL_GAPS=FILL_SEEDS.map(([tier,prompt,answers,solution],i)=>({id:`f${String(i+1).padStart(2,'0')}`,tier,prompt,answers,solution,hint:`Think of the standard security operations term or protocol.`,why:`Reference term: ${solution}. Check relevant telemetry and context when applying this concept in an investigation.`}));
+export const FILL_GAPS=[...FILL_SEEDS.map(([tier,prompt,answers,solution],i)=>({id:`f${String(i+1).padStart(2,'0')}`,tier,prompt,answers,solution,hint:`Think of the standard security operations term or protocol.`,why:`Reference term: ${solution}. Check relevant telemetry and context when applying this concept in an investigation.`})),...EXTRA_FILL];
 
 const MCQ_SEEDS = [
 ['Foundation','A DNS lookup returns an unexpected IP for a corporate domain. What should you verify FIRST?',['Immediately blacklist every returned IP','Compare trusted resolver results, TTL and network context','Reboot all user laptops','Disable DNS logging'],1,'DNS answers can legitimately vary due to CDNs and geo-routing. Confirm the observation before acting.'],
@@ -194,7 +195,7 @@ const MCQ_SEEDS = [
 ['L3','How do you distinguish a detection rule fix from a broader program improvement?',['Fixing a regex solves all gaps','Validate root cause, source coverage, tuning, ownership and future regression monitoring','Only rename it','Raise score'],1,'Detection failures can originate in collection and operations rather than logic.'],
 ['L3','What most improves long-term forensic reproducibility?',['Memory alone','Acquisition methods, timestamps, hashes, chain-of-custody and analysis notes','Only screenshots','One analyst account'],1,'Repeatable, documented evidence handling supports reliable conclusions.']
 ];
-export const NEW_MCQ = MCQ_SEEDS.map(([tier,question,options,answer,why],i)=>({id:`p${String(i+1).padStart(3,'0')}`,tier,question,options,answer,why}));
+export const NEW_MCQ = [...MCQ_SEEDS.map(([tier,question,options,answer,why],i)=>({id:`p${String(i+1).padStart(3,'0')}`,tier,question,options,answer,why})),...EXTRA_MCQ];
 
 // Existing multi-step SOC cases provide scenario decisions with context and a full rationale.
 export const TRIAGE_CARDS=DATA.cases.flatMap(c=>c.questions.map((q,i)=>({id:`${c.id}-${i+1}`,tier:c.tier,caseId:c.id,caseName:c.name,asset:c.host,summary:c.summary,question:q.question,options:q.options,answer:q.answer,why:q.why})));
