@@ -1,4 +1,4 @@
-# SOC FIELDWORK / Edition 06
+# SOC FIELDWORK / Edition 07
 
 **An offline-first, interactive SOC analyst training desk, from the first shift to threat hunting and detection engineering.**
 
@@ -6,19 +6,22 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 
 ## What is inside
 
-| Training material | Edition 05 |
+| Training material | Edition 07 |
 | --- | ---: |
 | Step-by-step lessons | **219** |
 | Original interactive concept maps | **31** |
 | Illustrated SVG reference images | **7** |
 | Multi-stage investigation files | **65** |
 | Original knowledge exam questions with coaching | **176** |
-| Practice Arena MCQs (176 existing + 40 new) | **216** |
-| Matching boards / individual term pairings | **25 boards / 125 pairs** |
-| Sequencing challenges | **17** |
-| Myth-or-fact statements | **36** |
-| Fill-in-the-gap questions | **30** |
+| Practice Arena MCQs (176 curriculum + 68 additional) | **244** |
+| Matching boards / individual term pairings | **33 boards / 165 pairs** |
+| Sequencing challenges | **22** |
+| Myth-or-fact statements | **46** |
+| Fill-in-the-gap questions | **40** |
 | Scenario-based analyst decisions from cases | **195** |
+| Additional multi-source shift simulations | **10** |
+| Shift-simulation evidence records | **60** |
+| Shift-simulation graded decisions | **30** |
 | 10-question interview sprints | **Unlimited, locally scored** |
 | Interview questions with model answers and common mistakes | **165** |
 | Graded evidence-retrieval drills | **77** |
@@ -37,7 +40,8 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 - **Incident Case Files** — now also offer a visual event chain and event-source distribution graphic before the raw evidence. The charts show what was observed, not automatic proof of compromise. Realistic synthetic evidence, three decision gates per case, justifications, notebook and exportable handoffs; 23 new cases include a detailed debrief revealed after submission.
 - **Query Workbench** — safe in-browser filter/query language over case logs (not real SPL/KQL).
 - **Evidence Drills** — 77 graded queries comparing the **exact event set**, so overly broad queries don't pass.
-- **Practice Arena** — six different exercise modes: 216 MCQs, 25 interactive column-matching boards, 17 reorder-the-steps challenges, 36 true/false checks, 30 typed term recall questions and 195 simulated case decisions. Includes explanations, retry/skip, career-tier filters, locally saved mastery and a 10-question sprint with a detailed end review.
+- **Practice Arena** — six different exercise modes: 244 MCQs, 33 interactive column-matching boards, 22 reorder-the-steps challenges, 46 true/false checks, 40 typed term recall questions and 195 simulated case decisions. Includes explanations, retry/skip, career-tier filters, locally saved mastery and a 10-question sprint with a detailed end review.
+- **Shift Simulations (NEW in Edition 07)** — ten deep incident files with six events each, source filtering, timelines, three decisions per file, a locally saved handoff editor, confidence pitfalls and an unlockable example report. Topics include identity abuse, phishing, ransomware precursors, AD service tickets, cloud evidence gaps, Kubernetes RBAC, benign network health checks, detection regression and negative hunts. See the [Shift Simulation Field Guide](docs/SHIFT-SIMULATION-GUIDE.md).
 - **Knowledge Exams & Interview Prep** — answer practice, model responses and explanation of frequent interview mistakes.
 - **Action Playbooks** — realistic escalation, identity, endpoint, cloud, hunting and detection workflows.
 - **Signal Atlas** — searchable Windows Event IDs, Sysmon, cloud, DNS, identity and operations cards showing meaning, limitations and pivots.
@@ -47,11 +51,22 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 ## Deployment
 
 1. Create or open the `soc-fieldwork` GitHub repository.
-2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, **`design-v5.css`**, **`visuals.js`**, **`practice-ui.js`**, **`practice-data.js`**, **`practice.css`**, `content.json`, `query.js`, assets, etc.).
+2. Place the full project at the repository root (`index.html`, `app.js`, `data.js`, `styles.css`, **`design-v3.css`**, **`design-v5.css`**, **`visuals.js`**, **`practice-ui.js`**, **`practice-data.js`**, **`practice.css`**, **`practice-pack-v7.js`**, **`shift-sim-data.js`**, **`shift-sim-ui.js`**, **`shift-sim.css`**, `content.json`, `query.js`, assets, etc.).
 3. In **Settings → Pages**, select **Deploy from a branch**, branch `main`, folder `/(root)`.
 4. Open `https://<github-username>.github.io/soc-fieldwork/` after Pages finishes deployment.
 
 There is **no build step**. To run locally, serve the folder over HTTP (`python -m http.server 8000`) and open the local address. Module imports are not reliably supported by `file://` pages.
+
+## Edition 07 — evidence-rich shift simulations and expanded practice
+
+- Added 10 original simulations, each with six timestamped events, three defensible analyst decisions, a concrete knowledge pitfall, uncertainty, next steps and a sample ticket report.
+- The new **Shift Simulations** view provides source-filterable evidence timelines, source-composition charts, answer grading and a write-your-own escalation notebook with model debriefs unlocked after grading.
+- Added **61 additional practical exercises**: 28 MCQs, 8 five-pair matching boards, 5 sequencing exercises, 10 myth/fact checks and 10 fill-in-the-gap prompts. There are now **580 Practice Arena exercises**, plus the new shift simulation content.
+- Updated scoring and progress export/import without changing the original `soc-fieldwork-progress-v1` key. Existing local learning history remains compatible.
+- Upgraded automated checks to 15 routes with a full shift-simulation behavioral test suite.
+- All fictional evidence is scoped to documentation IP ranges and example domains. New content emphasizes verified evidence, source coverage, cautious judgment and safe response authority.
+
+See the [shift simulation guide](docs/SHIFT-SIMULATION-GUIDE.md) for a reliable daily practice method.
 
 ## Edition 05 — visual learning redesign
 
@@ -82,7 +97,7 @@ Requires Node.js 18+:
 npm test
 ```
 
-Tests validate dataset structure, question answers, data consistency, query evaluation, safe query rejections, atlas uniqueness, and all thirteen application view renderers including atlas and chronology interactions.
+Tests validate dataset structure, question answers, data consistency, query evaluation, safe query rejections, atlas uniqueness, and all fifteen application view renderers including atlas and chronology interactions.
 
 ## Storage and portability
 
