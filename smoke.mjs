@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { DATA } from './data.js';
 const routes={
   overview:'analyst',academy:'Learn the entire stack','visual-lab':'Understand it visually',missions:'The incident queue',
-  console:'Make the logs talk',drills:'Evidence retrieval drills',practice:'Practice until',quiz:'Prove what you know',
+  console:'Make the logs talk',drills:'Evidence retrieval drills',practice:'Practice until','shift-lab':'Work a real',quiz:'Prove what you know',
   interviews:'Speak like the analyst',runbooks:'Runbooks for every shift',atlas:'Know what the telemetry means',
   timeline:'The event chronicle',glossary:'Operational vocabulary',resources:'Learn from primary sources'
 };
@@ -29,6 +29,13 @@ for(const [route,expected] of Object.entries(routes)){
      assert.ok(html.includes('practice-order-row'),'Order game did not render');
      clickCallback({target:{closest:()=>({dataset:{action:'practice-exam-start'}})}});
      assert.ok(html.includes('UNASSISTED ROUND'),'Exam round did not start');
+   }
+   if(route==='shift-lab'){
+     assert.ok(html.includes('data-action="sim-open"'));
+     clickCallback({target:{closest:()=>({dataset:{action:'sim-tab',tab:'decisions'}})}});
+     assert.ok(html.includes('Make the call'),'Simulation decision tab did not render');
+     clickCallback({target:{closest:()=>({dataset:{action:'sim-tab',tab:'handoff'}})}});
+     assert.ok(html.includes('Write an analyst handoff'),'Simulation handoff tab did not render');
    }
    if(route==='visual-lab'){
      assert.ok(html.includes('data-action="visual-step"'));
