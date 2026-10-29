@@ -4,7 +4,7 @@ import { DATA } from './data.js';
 import { PRACTICE_BANKS, PRACTICE_MODES, MATCH_BOARDS, ORDER_TASKS, TRUTH_CHECKS, FILL_GAPS, NEW_MCQ, TRIAGE_CARDS, pool, checkFill, checkMatching, checkOrder, normalizedAnswer, seededOrder } from './practice-data.js';
 import { createPracticeController } from './practice-ui.js';
 
-assert.deepEqual(Object.fromEntries(Object.entries(PRACTICE_BANKS).map(([k,v])=>[k,v.length])),{mcq:216,match:25,order:17,truth:36,fill:30,triage:195});
+assert.deepEqual(Object.fromEntries(Object.entries(PRACTICE_BANKS).map(([k,v])=>[k,v.length])),{mcq:244,match:33,order:22,truth:46,fill:40,triage:195});
 assert.equal(TRIAGE_CARDS.length,DATA.cases.length*3);
 for(const mode of PRACTICE_MODES){const all=PRACTICE_BANKS[mode.id];assert.ok(all.length>=17);assert.equal(new Set(all.map(x=>x.id)).size,all.length);for(const t of (mode.id==='triage'?['L1','L2','L3']:['Foundation','L1','L2','L3']))assert.ok(pool(mode.id,t).length>0,`${mode.id} has no ${t} questions`);}
 for(const q of PRACTICE_BANKS.mcq){assert.ok(q.question&&q.options.length===4&&q.why);assert.ok(q.answer>=0&&q.answer<q.options.length);assert.equal(new Set(q.options).size,q.options.length,`duplicate distractor: ${q.id}`);}
@@ -27,4 +27,4 @@ trigger('practice-mode',{mode:'mcq'});q=PRACTICE_BANKS.mcq.find(x=>x.id===game.g
 trigger('practice-mode',{mode:'triage'});q=PRACTICE_BANKS.triage.find(x=>x.id===game.getState().id);trigger('practice-case');assert.equal(navigation,q.caseId);
 trigger('practice-exam-start');for(let i=0;i<10;i++){ui=game.getState();let q=PRACTICE_BANKS.mcq.find(x=>x.id===ui.exam.ids[ui.exam.position]);trigger('practice-exam-choice',{choice:String(q.answer)});trigger('practice-exam-submit');}assert.ok(game.render().includes('10 / 10 correct'));assert.equal(progress.practiceExams.length,1);assert.equal(progress.practiceExams[0].score,10);assert.ok(count>=6);
 assert.ok(readFileSync('./index.html','utf8').includes('practice.css'));assert.ok(readFileSync('./app.js','utf8').includes('practice:()=>practice.render()'));
-console.log('PASS: 519 practice exercises, deterministic boards, all six modes, feedback, mastery, navigation, ordering, and full exam scoring.');
+console.log('PASS: 580 practice exercises, deterministic boards, all six modes, feedback, mastery, navigation, ordering, and full exam scoring.');
