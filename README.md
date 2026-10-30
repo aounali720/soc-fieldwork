@@ -1,14 +1,24 @@
-# SOC FIELDWORK / Edition 07
+# SOC FIELDWORK / Edition 08
 
 **An offline-first, interactive SOC analyst training desk, from the first shift to threat hunting and detection engineering.**
 
 A GitHub Pages–ready application. No server, API key, account, tracker, external database, or live-target access required. It runs entirely in the browser with fictional, educational data and persists progress locally.
 
+## Complete field reference — Edition 08
+
+The built-in **Complete field reference** (`#manual`) contains **51 fully explained chapters, 73 searchable evidence reference cards, 20 adaptable detection recipes and 10 analyst templates**. Chapters cover foundational networking and host behavior, L1 alerts and authentication triage, L2 incident correlation/containment and L3 hunting, detection engineering, cloud and governance. Every chapter provides an investigation sequence, evidence to collect, a worked fictional case, a warning about a common mistake and a self-check interview explanation. Reading progress and bookmarks stay local and do not overwrite previous game progress.
+
+The **[offline field manual study guide](docs/OFFLINE-SOC-FIELD-MANUAL.md)** explains how to use it without leaving the game. External source links are optional verification references, not prerequisites.
+
 ## What is inside
 
-| Training material | Edition 07 |
+| Training material | Edition 08 |
 | --- | ---: |
 | Step-by-step lessons | **219** |
+| New detailed manual chapters | **51** |
+| New event/port/tactic reference cards | **73** |
+| New detection recipes | **20** |
+| New copy-ready operational templates | **10** |
 | Original interactive concept maps | **31** |
 | Illustrated SVG reference images | **7** |
 | Multi-stage investigation files | **65** |
@@ -41,7 +51,7 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 - **Query Workbench** — safe in-browser filter/query language over case logs (not real SPL/KQL).
 - **Evidence Drills** — 77 graded queries comparing the **exact event set**, so overly broad queries don't pass.
 - **Practice Arena** — six different exercise modes: 244 MCQs, 33 interactive column-matching boards, 22 reorder-the-steps challenges, 46 true/false checks, 40 typed term recall questions and 195 simulated case decisions. Includes explanations, retry/skip, career-tier filters, locally saved mastery and a 10-question sprint with a detailed end review.
-- **Shift Simulations (NEW in Edition 07)** — ten deep incident files with six events each, source filtering, timelines, three decisions per file, a locally saved handoff editor, confidence pitfalls and an unlockable example report. Topics include identity abuse, phishing, ransomware precursors, AD service tickets, cloud evidence gaps, Kubernetes RBAC, benign network health checks, detection regression and negative hunts. See the [Shift Simulation Field Guide](docs/SHIFT-SIMULATION-GUIDE.md).
+- **Shift Simulations (NEW in Edition 08)** — ten deep incident files with six events each, source filtering, timelines, three decisions per file, a locally saved handoff editor, confidence pitfalls and an unlockable example report. Topics include identity abuse, phishing, ransomware precursors, AD service tickets, cloud evidence gaps, Kubernetes RBAC, benign network health checks, detection regression and negative hunts. See the [Shift Simulation Field Guide](docs/SHIFT-SIMULATION-GUIDE.md).
 - **Knowledge Exams & Interview Prep** — answer practice, model responses and explanation of frequent interview mistakes.
 - **Action Playbooks** — realistic escalation, identity, endpoint, cloud, hunting and detection workflows.
 - **Signal Atlas** — searchable Windows Event IDs, Sysmon, cloud, DNS, identity and operations cards showing meaning, limitations and pivots.
@@ -57,7 +67,7 @@ A GitHub Pages–ready application. No server, API key, account, tracker, extern
 
 There is **no build step**. To run locally, serve the folder over HTTP (`python -m http.server 8000`) and open the local address. Module imports are not reliably supported by `file://` pages.
 
-## Edition 07 — evidence-rich shift simulations and expanded practice
+## Edition 08 — evidence-rich shift simulations and expanded practice
 
 - Added 10 original simulations, each with six timestamped events, three defensible analyst decisions, a concrete knowledge pitfall, uncertainty, next steps and a sample ticket report.
 - The new **Shift Simulations** view provides source-filterable evidence timelines, source-composition charts, answer grading and a write-your-own escalation notebook with model debriefs unlocked after grading.
