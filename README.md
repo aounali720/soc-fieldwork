@@ -10,11 +10,21 @@ The built-in **Complete field reference** (`#manual`) contains **51 fully explai
 
 The **[offline field manual study guide](docs/OFFLINE-SOC-FIELD-MANUAL.md)** explains how to use it without leaving the game. External source links are optional verification references, not prerequisites.
 
+## New in Edition 09 — Blue Team Pathways
+
+The **Blue Team Pathways** section adds 48 authored technical lessons, 48 graded reasoning checks, 16 fully fictional incident mini-labs and six curriculum-alignment maps covering public skill areas from TryHackMe (SOC L1 and L2), Hack The Box Academy, CyberDefenders, LetsDefend and Security Blue Team. Each lesson explains the concept, walks through synthetic evidence, offers five investigation steps and an explicit false-positive trap. Scenario labs grade the safest response and teach analyst handoffs. Content is bundled offline and tracks mastery locally.
+
+**Important:** The new explanations, challenges, decision prompts, synthetic events and diagrams are original educational work. This project has no affiliation with those providers and does **not** copy proprietary rooms, paid labs, walkthroughs, flags or protected material. Optional links lead only to public curriculum outlines. Details: [Blue Team Pathways guide](docs/BLUE-TEAM-PATHWAYS.md).
+
 ## What is inside
 
 | Training material | Edition 08 |
 | --- | ---: |
-| Step-by-step lessons | **219** |
+| Original core curriculum lessons | **219** |
+| Additional cross-platform skill field lessons | **48** |
+| Additional graded scenario investigations | **16** |
+| Additional reasoning checks | **48** |
+| Offline public syllabus alignment maps | **6** |
 | New detailed manual chapters | **51** |
 | New event/port/tactic reference cards | **73** |
 | New detection recipes | **20** |
@@ -44,6 +54,7 @@ The **[offline field manual study guide](docs/OFFLINE-SOC-FIELD-MANUAL.md)** exp
 
 ### The experience
 
+- **Blue Team Pathways (Edition 09)** — 48 original field lessons and 16 safe scenario exercises aligned to public TryHackMe SOC L1/L2, HTB Academy SOC, CyberDefenders, LetsDefend and BTL1 topic outlines. No paid or proprietary course content embedded.
 - **Briefing Desk** — redesigned visual-first home screen, tier pathway, shift-start discipline, current cases, progress.
 - **Visual Concept Lab** — 31 original, clickable diagrams of DNS, TLS, TCP, Kerberos, OAuth, Windows Event IDs, phishing, process trees, cloud IAM, detection engineering, hunting and incident response. Each teaches the mental model, the actual sequence, analyst log sources, common misconceptions and an interview question.
 - **Training Manual** — prerequisite and tier-specific lessons covering networks, identity, Windows, Linux, email, cloud, SIEM, EDR, IR, forensics, hunting, detection-as-code and communication. Earlier content editions added deeper work on OAuth, PKI/AD CS, collection blind spots, Kerberos, WinRM, detection SLOs and cloud token chains.
