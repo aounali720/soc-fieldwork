@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { DATA } from './data.js';
 const routes={
-  overview:'analyst',academy:'Learn the entire stack','visual-lab':'Understand it visually',missions:'The incident queue',
+  overview:'analyst',academy:'Learn the entire stack',manual:'The SOC Field Manual','visual-lab':'Understand it visually',missions:'The incident queue',
   console:'Make the logs talk',drills:'Evidence retrieval drills',practice:'Practice until','shift-lab':'Work a real',quiz:'Prove what you know',
   interviews:'Speak like the analyst',runbooks:'Runbooks for every shift',atlas:'Know what the telemetry means',
   timeline:'The event chronicle',glossary:'Operational vocabulary',resources:'Learn from primary sources'
@@ -21,6 +21,13 @@ for(const [route,expected] of Object.entries(routes)){
    assert.ok(html.includes('SOC FIELDWORK'));
    assert.ok(!html.includes('undefined</'),`Undefined value in route ${route}`);
    assert.ok(clickCallback, 'Delegated action listener missing');
+   if(route==='manual'){
+     assert.ok(html.includes('51</strong> explained chapters'));
+     clickCallback({target:{closest:()=>({dataset:{action:'manual-tab',tab:'recipes'}})}});
+     assert.ok(html.includes('Failed logons by account'), 'Field manual recipes inaccessible');
+     clickCallback({target:{closest:()=>({dataset:{action:'manual-tab',tab:'references'}})}});
+     assert.ok(html.includes('4625'), 'Event reference missing');
+   }
    if(route==='practice'){
      assert.ok(html.includes('data-action="practice-mode"'));
      clickCallback({target:{closest:()=>({dataset:{action:'practice-mode',mode:'match'}})}});
