@@ -1,0 +1,2034 @@
+/* Original offline curriculum inspired by public learning-path topic lists; not affiliated with training providers. */
+export const PATHWAYS = {
+  "version": 9,
+  "note": "Original SOC FIELDWORK educational material. Maps broad public syllabus areas; no TryHackMe/HTB/CyberDefenders paid lesson content, flags, captures, or lab solutions are included. All telemetry is fictional.",
+  "paths": {
+    "thm-l1": {
+      "name": "SOC Triage Path",
+      "label": "TryHackMe SOC Level 1 topic alignment",
+      "url": "https://tryhackme.com/path/outline/blueteam",
+      "focus": [
+        "SOC Operations",
+        "Network & Traffic",
+        "Windows & Identity",
+        "Email & Web",
+        "Endpoints & Malware",
+        "Detection & Hunting"
+      ]
+    },
+    "thm-l2": {
+      "name": "Advanced SOC Response",
+      "label": "TryHackMe SOC Level 2 topic alignment",
+      "url": "https://tryhackme.com/path/outline/soclevel2",
+      "focus": [
+        "SOC Operations",
+        "Windows & Identity",
+        "Cloud & Containers",
+        "Detection & Hunting",
+        "Forensics & Reporting"
+      ]
+    },
+    "htb": {
+      "name": "Analyst Investigation Track",
+      "label": "Hack The Box Academy SOC Analyst topic alignment",
+      "url": "https://academy.hackthebox.com/catalogue/paths",
+      "focus": [
+        "Network & Traffic",
+        "Windows & Identity",
+        "Endpoints & Malware",
+        "Forensics & Reporting",
+        "Detection & Hunting"
+      ]
+    },
+    "cyberdefenders": {
+      "name": "Forensic Evidence Lab",
+      "label": "CyberDefenders blue-team lab category alignment",
+      "url": "https://cyberdefenders.org/blueteam-ctf-challenges/",
+      "focus": [
+        "Network & Traffic",
+        "Endpoints & Malware",
+        "Forensics & Reporting"
+      ]
+    },
+    "letsdefend": {
+      "name": "Alert Queue & Incident Handling",
+      "label": "LetsDefend SOC Analyst learning path topic alignment",
+      "url": "https://app.letsdefend.io/path/soc-analyst-learning-path",
+      "focus": [
+        "SOC Operations",
+        "Email & Web",
+        "Detection & Hunting",
+        "Forensics & Reporting"
+      ]
+    },
+    "btl1": {
+      "name": "Blue Team Foundations",
+      "label": "Security Blue Team BTL1 domain alignment",
+      "url": "https://securityblue.team/certifications/blue-team-level-1",
+      "focus": [
+        "Email & Web",
+        "Network & Traffic",
+        "Forensics & Reporting",
+        "Detection & Hunting"
+      ]
+    }
+  },
+  "topics": [
+    {
+      "id": "pt001",
+      "area": "SOC Operations",
+      "tier": "Foundation",
+      "title": "Alert versus incident",
+      "concept": "A detection is a testable suspicion. An incident requires enough corroboration to justify a security response.",
+      "scenario": "An identity alert says impossible travel, but both sessions use the same registered laptop through an approved corporate VPN.",
+      "pivot": "Compare device ID, token session, MFA history and VPN egress before labeling compromise.",
+      "trap": "Country changes alone do not prove account takeover.",
+      "hint": "Group identity events by account, device and session, then sort in UTC.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Compare device ID, token session, MFA history and VPN egress before labeling compromise.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Alert versus incident”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Compare device ID, token session, MFA history and VPN egress before labeling compromise."
+        ],
+        "answer": 2,
+        "explanation": "Compare device ID, token session, MFA history and VPN egress before labeling compromise. A single signal does not establish scope or malicious intent. Country changes alone do not prove account takeover."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt002",
+      "area": "SOC Operations",
+      "tier": "L1",
+      "title": "Severity versus priority",
+      "concept": "Severity describes potential technical harm; priority accounts for asset criticality, exposure, confidence and operational deadlines.",
+      "scenario": "A low-volume privileged login to the backup controller may outrank noisy workstation scans.",
+      "pivot": "Confirm business owner, privilege, sensitive system role and active damage.",
+      "trap": "A critical badge on a rule is not an automatic P1.",
+      "hint": "Write a one-sentence impact statement and list the evidence needed to change priority.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Confirm business owner, privilege, sensitive system role and active damage.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Severity versus priority”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Confirm business owner, privilege, sensitive system role and active damage.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Confirm business owner, privilege, sensitive system role and active damage. A single signal does not establish scope or malicious intent. A critical badge on a rule is not an automatic P1."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt003",
+      "area": "SOC Operations",
+      "tier": "L1",
+      "title": "Case handoff quality",
+      "concept": "A useful escalation lets the next analyst reconstruct your conclusion and repeat every important search.",
+      "scenario": "Ticket 487 reports suspicious sign-in but lacks times, session IDs and affected devices.",
+      "pivot": "Record UTC range, entities, positive and negative findings, containment status and a bounded next action.",
+      "trap": "Listing indicators with no timeline leaves the receiving analyst guessing.",
+      "hint": "Use Who / What / When / Where / Evidence / Confidence / Next action.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Record UTC range, entities, positive and negative findings, containment status and a bounded next action.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Case handoff quality”, what is the strongest immediate analyst action?",
+        "options": [
+          "Record UTC range, entities, positive and negative findings, containment status and a bounded next action.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Record UTC range, entities, positive and negative findings, containment status and a bounded next action. A single signal does not establish scope or malicious intent. Listing indicators with no timeline leaves the receiving analyst guessing."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt004",
+      "area": "SOC Operations",
+      "tier": "L2",
+      "title": "Containment tradeoffs",
+      "concept": "Containment should reduce adversary opportunity without destroying evidence or disrupting more systems than necessary.",
+      "scenario": "An isolated engineering laptop may interrupt a critical remote maintenance session.",
+      "pivot": "Ask incident commander about business impact; preserve volatile data and identify the available containment granularity.",
+      "trap": "Automatically isolating every alerting device can cause avoidable outages.",
+      "hint": "Document approval, time, scope, expected impact and rollback owner before acting.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Ask incident commander about business impact; preserve volatile data and identify the available containment granularity.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Containment tradeoffs”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Ask incident commander about business impact; preserve volatile data and identify the available containment granularity."
+        ],
+        "answer": 2,
+        "explanation": "Ask incident commander about business impact; preserve volatile data and identify the available containment granularity. A single signal does not establish scope or malicious intent. Automatically isolating every alerting device can cause avoidable outages."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt005",
+      "area": "SOC Operations",
+      "tier": "L3",
+      "title": "Detection quality metrics",
+      "concept": "Operationally useful detection measures cover true findings, missed scenarios, time-to-detect and analyst effort.",
+      "scenario": "A new noisy rule triples alerts without uncovering new confirmed incidents.",
+      "pivot": "Use sampled review labels, attack simulation outcomes and pipeline freshness to assess value.",
+      "trap": "Alert count growth is not evidence of better coverage.",
+      "hint": "Track precision with a defined sample, recall from controlled tests and median investigation time.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Use sampled review labels, attack simulation outcomes and pipeline freshness to assess value.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Detection quality metrics”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Use sampled review labels, attack simulation outcomes and pipeline freshness to assess value.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Use sampled review labels, attack simulation outcomes and pipeline freshness to assess value. A single signal does not establish scope or malicious intent. Alert count growth is not evidence of better coverage."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt006",
+      "area": "SOC Operations",
+      "tier": "L3",
+      "title": "Evidence confidence and gaps",
+      "concept": "An absence of telemetry is a visibility finding, not proof that suspicious activity never happened.",
+      "scenario": "A server stops forwarding audit logs 20 minutes before an authentication anomaly.",
+      "pivot": "Check collector status, clock offset, ingestion lag and alternative endpoint telemetry.",
+      "trap": "No SIEM hits can mean missing data or a mistyped query.",
+      "hint": "State explicitly which sources were available, incomplete or uncollected.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check collector status, clock offset, ingestion lag and alternative endpoint telemetry.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Evidence confidence and gaps”, what is the strongest immediate analyst action?",
+        "options": [
+          "Check collector status, clock offset, ingestion lag and alternative endpoint telemetry.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Check collector status, clock offset, ingestion lag and alternative endpoint telemetry. A single signal does not establish scope or malicious intent. No SIEM hits can mean missing data or a mistyped query."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "letsdefend"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt007",
+      "area": "Network & Traffic",
+      "tier": "Foundation",
+      "title": "TCP sessions from packets",
+      "concept": "TCP session initiation, retransmission and reset patterns help explain whether a connection completed.",
+      "scenario": "A capture shows SYN retransmissions to 203.0.113.27:443 with no SYN-ACK.",
+      "pivot": "Check route, firewall and server listener before assuming the destination is malicious.",
+      "trap": "Blocked connectivity and malicious beaconing can look similar without context.",
+      "hint": "Wireshark display: tcp.flags.syn == 1 && tcp.flags.ack == 0.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check route, firewall and server listener before assuming the destination is malicious.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “TCP sessions from packets”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check route, firewall and server listener before assuming the destination is malicious."
+        ],
+        "answer": 2,
+        "explanation": "Check route, firewall and server listener before assuming the destination is malicious. A single signal does not establish scope or malicious intent. Blocked connectivity and malicious beaconing can look similar without context."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt008",
+      "area": "Network & Traffic",
+      "tier": "L1",
+      "title": "DNS answer changes",
+      "concept": "DNS responses, TTLs and resolver paths matter when triaging suspicious domain activity.",
+      "scenario": "The same hostname returns 192.0.2.40 and 192.0.2.41 within a minute.",
+      "pivot": "Inspect the resolver, answer TTL, request frequency and related TLS connections.",
+      "trap": "CDNs and load balancers commonly rotate addresses.",
+      "hint": "Correlate dns.question.name with client IP and the next outbound flow.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Inspect the resolver, answer TTL, request frequency and related TLS connections.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “DNS answer changes”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Inspect the resolver, answer TTL, request frequency and related TLS connections.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Inspect the resolver, answer TTL, request frequency and related TLS connections. A single signal does not establish scope or malicious intent. CDNs and load balancers commonly rotate addresses."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt009",
+      "area": "Network & Traffic",
+      "tier": "L1",
+      "title": "HTTP access-log triage",
+      "concept": "Method, path, status, user agent and response size together help distinguish scans from normal app use.",
+      "scenario": "A reverse proxy reports 120 POST requests to /login from one source with mostly 401 responses.",
+      "pivot": "Compare successful sessions, source concentration and application rate limits.",
+      "trap": "A security scanner can produce a burst of 401 responses.",
+      "hint": "Aggregate by client, URL path, status and five-minute window.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Compare successful sessions, source concentration and application rate limits.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “HTTP access-log triage”, what is the strongest immediate analyst action?",
+        "options": [
+          "Compare successful sessions, source concentration and application rate limits.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Compare successful sessions, source concentration and application rate limits. A single signal does not establish scope or malicious intent. A security scanner can produce a burst of 401 responses."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt010",
+      "area": "Network & Traffic",
+      "tier": "L2",
+      "title": "SMB lateral movement signals",
+      "concept": "File sharing, remote service creation and authentication together can suggest administrative pivoting.",
+      "scenario": "An uncommon workstation authenticates to three servers over TCP 445 and shortly afterward a new service appears.",
+      "pivot": "Pivot from SMB flow to logon type, service creation and source host EDR process tree.",
+      "trap": "Normal software deployment tools also use admin shares.",
+      "hint": "Correlate network 445, Windows 4624 logon type 3 and 7045 service events.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Pivot from SMB flow to logon type, service creation and source host EDR process tree.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “SMB lateral movement signals”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Pivot from SMB flow to logon type, service creation and source host EDR process tree."
+        ],
+        "answer": 2,
+        "explanation": "Pivot from SMB flow to logon type, service creation and source host EDR process tree. A single signal does not establish scope or malicious intent. Normal software deployment tools also use admin shares."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt011",
+      "area": "Network & Traffic",
+      "tier": "L2",
+      "title": "Zeek protocol logs",
+      "concept": "Zeek conn, dns, http and ssl records can be joined by flow UID to follow a session.",
+      "scenario": "A DNS query precedes repeated HTTPS connections from a newly provisioned host.",
+      "pivot": "Join the UID, examine duration, bytes, server name and interval pattern.",
+      "trap": "Periodic health checks may resemble beaconing.",
+      "hint": "Summarize orig_bytes, resp_bytes, conn_state and service by uid.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Join the UID, examine duration, bytes, server name and interval pattern.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Zeek protocol logs”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Join the UID, examine duration, bytes, server name and interval pattern.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Join the UID, examine duration, bytes, server name and interval pattern. A single signal does not establish scope or malicious intent. Periodic health checks may resemble beaconing."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt012",
+      "area": "Network & Traffic",
+      "tier": "L3",
+      "title": "Exfiltration validation",
+      "concept": "Unusual upload volume alone is weak; validate ownership, data sensitivity, destination and established transfer behavior.",
+      "scenario": "A finance workstation uploads 1.2 GB to a newly registered external destination at 02:10 UTC.",
+      "pivot": "Check approved tools, file access auditing, destination certificate, DNS and proxy metadata.",
+      "trap": "Backups and approved vendor sync jobs can create high uploads.",
+      "hint": "Baseline egress by host, destination class and hour, then pivot to accessed files.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check approved tools, file access auditing, destination certificate, DNS and proxy metadata.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Exfiltration validation”, what is the strongest immediate analyst action?",
+        "options": [
+          "Check approved tools, file access auditing, destination certificate, DNS and proxy metadata.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Check approved tools, file access auditing, destination certificate, DNS and proxy metadata. A single signal does not establish scope or malicious intent. Backups and approved vendor sync jobs can create high uploads."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt013",
+      "area": "Windows & Identity",
+      "tier": "Foundation",
+      "title": "Event 4624 logon types",
+      "concept": "Successful logon events require logon-type, source and account context to explain how access happened.",
+      "scenario": "Event 4624 type 10 occurs on a server from a help-desk jump box.",
+      "pivot": "Link related 4672 privileges, source asset role and interactive session provenance.",
+      "trap": "Administrative RDP is not automatically compromise.",
+      "hint": "Review TargetUserName, LogonType, IpAddress and LogonId.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Link related 4672 privileges, source asset role and interactive session provenance.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Event 4624 logon types”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Link related 4672 privileges, source asset role and interactive session provenance."
+        ],
+        "answer": 2,
+        "explanation": "Link related 4672 privileges, source asset role and interactive session provenance. A single signal does not establish scope or malicious intent. Administrative RDP is not automatically compromise."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt014",
+      "area": "Windows & Identity",
+      "tier": "L1",
+      "title": "Event 4625 failure storms",
+      "concept": "Failed logons become more meaningful when paired with a later success from the same source or account.",
+      "scenario": "A service account shows 40 failures and one success from a previously unseen host.",
+      "pivot": "Separate stale credentials from password spraying by counting accounts and source distribution.",
+      "trap": "An expired service password can flood 4625 without an attack.",
+      "hint": "Group 4625 by source IP and distinct account; join 4624 successes.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Separate stale credentials from password spraying by counting accounts and source distribution.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Event 4625 failure storms”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Separate stale credentials from password spraying by counting accounts and source distribution.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Separate stale credentials from password spraying by counting accounts and source distribution. A single signal does not establish scope or malicious intent. An expired service password can flood 4625 without an attack."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt015",
+      "area": "Windows & Identity",
+      "tier": "L1",
+      "title": "PowerShell telemetry",
+      "concept": "PowerShell process creation and script-block logs provide different evidence; one does not replace the other.",
+      "scenario": "An unsigned script launches after a spreadsheet attachment is opened.",
+      "pivot": "Inspect parent process, command-line parameters, 4104 content and signing controls.",
+      "trap": "Signed administrative scripts may also use encoded commands.",
+      "hint": "Compare Sysmon 1 or 4688 with 4104 and network events.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Inspect parent process, command-line parameters, 4104 content and signing controls.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “PowerShell telemetry”, what is the strongest immediate analyst action?",
+        "options": [
+          "Inspect parent process, command-line parameters, 4104 content and signing controls.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Inspect parent process, command-line parameters, 4104 content and signing controls. A single signal does not establish scope or malicious intent. Signed administrative scripts may also use encoded commands."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt016",
+      "area": "Windows & Identity",
+      "tier": "L2",
+      "title": "Kerberos ticket anomalies",
+      "concept": "TGT, service-ticket and logon events can reveal unusual access when associated with identities and hosts.",
+      "scenario": "One low-use account requests many distinct service tickets within seconds.",
+      "pivot": "Check 4769 SPNs, encryption types, source workstation and successful service use.",
+      "trap": "Service discovery and monitoring agents may request many tickets.",
+      "hint": "Scope 4769 by requester, SPN diversity and linked machine identity.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check 4769 SPNs, encryption types, source workstation and successful service use.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Kerberos ticket anomalies”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check 4769 SPNs, encryption types, source workstation and successful service use."
+        ],
+        "answer": 2,
+        "explanation": "Check 4769 SPNs, encryption types, source workstation and successful service use. A single signal does not establish scope or malicious intent. Service discovery and monitoring agents may request many tickets."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt017",
+      "area": "Windows & Identity",
+      "tier": "L2",
+      "title": "AD CS enrollment risk",
+      "concept": "Certificate requests can grant powerful authentication paths if templates allow unsafe subject or enrollment rights.",
+      "scenario": "A workstation user enrolls for a client-auth certificate using a template reserved for servers.",
+      "pivot": "Confirm template, requester, subject/SAN, enrollment permissions and issuance history.",
+      "trap": "Authorized PKI renewal can create bursts of requests.",
+      "hint": "Pivot CA issuance logs to template configuration and identity activity.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Confirm template, requester, subject/SAN, enrollment permissions and issuance history.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “AD CS enrollment risk”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Confirm template, requester, subject/SAN, enrollment permissions and issuance history.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Confirm template, requester, subject/SAN, enrollment permissions and issuance history. A single signal does not establish scope or malicious intent. Authorized PKI renewal can create bursts of requests."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt018",
+      "area": "Windows & Identity",
+      "tier": "L3",
+      "title": "Domain controller replication",
+      "concept": "Replication activity must be distinguished from credential-access patterns by source identity and replication rights.",
+      "scenario": "A non-DC host initiates directory replication operations using a newly delegated account.",
+      "pivot": "Validate DC inventory, source machine, directory service changes and rights grants.",
+      "trap": "Legitimate identity-management products can perform replication.",
+      "hint": "Review directory service access 4662 with granted rights and originating host.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Validate DC inventory, source machine, directory service changes and rights grants.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Domain controller replication”, what is the strongest immediate analyst action?",
+        "options": [
+          "Validate DC inventory, source machine, directory service changes and rights grants.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Validate DC inventory, source machine, directory service changes and rights grants. A single signal does not establish scope or malicious intent. Legitimate identity-management products can perform replication."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt019",
+      "area": "Email & Web",
+      "tier": "Foundation",
+      "title": "Email authentication results",
+      "concept": "SPF, DKIM and DMARC answer different questions: authorization, signature integrity and organizational alignment.",
+      "scenario": "A message passes SPF for a forwarding service but fails DMARC alignment with the visible From domain.",
+      "pivot": "Read Authentication-Results and distinguish envelope identity from displayed From.",
+      "trap": "SPF pass does not mean a message is legitimate.",
+      "hint": "Compare smtp.mailfrom, header.from, DKIM d= and DMARC disposition.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Read Authentication-Results and distinguish envelope identity from displayed From.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Email authentication results”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Read Authentication-Results and distinguish envelope identity from displayed From."
+        ],
+        "answer": 2,
+        "explanation": "Read Authentication-Results and distinguish envelope identity from displayed From. A single signal does not establish scope or malicious intent. SPF pass does not mean a message is legitimate."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt020",
+      "area": "Email & Web",
+      "tier": "L1",
+      "title": "Phishing URL review",
+      "concept": "URL syntax, host ownership, redirects and landing page behavior matter more than urgent wording alone.",
+      "scenario": "A payroll-themed message links to login.example.invalid and redirects twice.",
+      "pivot": "Use safe URL inspection, DNS history, browser isolation and identity sign-in review.",
+      "trap": "Common URL shorteners are not malicious by default.",
+      "hint": "Record final host, scheme, redirects and timestamp without opening live links.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Use safe URL inspection, DNS history, browser isolation and identity sign-in review.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Phishing URL review”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Use safe URL inspection, DNS history, browser isolation and identity sign-in review.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Use safe URL inspection, DNS history, browser isolation and identity sign-in review. A single signal does not establish scope or malicious intent. Common URL shorteners are not malicious by default."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt021",
+      "area": "Email & Web",
+      "tier": "L1",
+      "title": "Attachment execution chain",
+      "concept": "An attachment becomes a security incident when delivery is connected to execution or credential exposure.",
+      "scenario": "A zipped HTML attachment is opened and a browser process posts to an unfamiliar domain.",
+      "pivot": "Correlate gateway delivery, file open, process ancestry and proxy traffic.",
+      "trap": "A detected attachment may have been quarantined before any interaction.",
+      "hint": "Build a timeline from Received to delivery to process creation.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Correlate gateway delivery, file open, process ancestry and proxy traffic.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Attachment execution chain”, what is the strongest immediate analyst action?",
+        "options": [
+          "Correlate gateway delivery, file open, process ancestry and proxy traffic.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Correlate gateway delivery, file open, process ancestry and proxy traffic. A single signal does not establish scope or malicious intent. A detected attachment may have been quarantined before any interaction."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt022",
+      "area": "Email & Web",
+      "tier": "L2",
+      "title": "Web-shell indicators",
+      "concept": "Unexpected server-side scripts, anomalous requests and child processes can reveal persistence.",
+      "scenario": "A web service spawns cmd.exe after a POST to an uncommon upload path.",
+      "pivot": "Confirm process parent, request body context, app deployment history and file writes.",
+      "trap": "Some management agents run maintenance commands behind a web service.",
+      "hint": "Correlate IIS or nginx requests with EDR process-tree and file-create events.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Confirm process parent, request body context, app deployment history and file writes.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Web-shell indicators”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Confirm process parent, request body context, app deployment history and file writes."
+        ],
+        "answer": 2,
+        "explanation": "Confirm process parent, request body context, app deployment history and file writes. A single signal does not establish scope or malicious intent. Some management agents run maintenance commands behind a web service."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt023",
+      "area": "Email & Web",
+      "tier": "L2",
+      "title": "OAuth consent abuse",
+      "concept": "Malicious application consent can persist access without a stolen password.",
+      "scenario": "A user approves an unfamiliar application requesting Mail.Read and offline_access.",
+      "pivot": "Inspect application ID, publisher, grant scope, consent actor and subsequent API activity.",
+      "trap": "Approved integrations also request broad mail scopes.",
+      "hint": "Pivot sign-in and consent audit to token use and Graph activity.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Inspect application ID, publisher, grant scope, consent actor and subsequent API activity.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “OAuth consent abuse”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Inspect application ID, publisher, grant scope, consent actor and subsequent API activity.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Inspect application ID, publisher, grant scope, consent actor and subsequent API activity. A single signal does not establish scope or malicious intent. Approved integrations also request broad mail scopes."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt024",
+      "area": "Email & Web",
+      "tier": "L3",
+      "title": "Web attack detection coverage",
+      "concept": "A resilient web rule considers request methods, normalization, response behavior and expected traffic.",
+      "scenario": "Only POST payloads trigger a rule even though the application also accepts the same parameter over GET.",
+      "pivot": "Reproduce safely in staging, inspect WAF normalization and log every method supported by the app.",
+      "trap": "Overly broad signatures can block legitimate search inputs.",
+      "hint": "Write positive and negative tests for canonical paths and allowed HTTP methods.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Reproduce safely in staging, inspect WAF normalization and log every method supported by the app.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Web attack detection coverage”, what is the strongest immediate analyst action?",
+        "options": [
+          "Reproduce safely in staging, inspect WAF normalization and log every method supported by the app.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Reproduce safely in staging, inspect WAF normalization and log every method supported by the app. A single signal does not establish scope or malicious intent. Overly broad signatures can block legitimate search inputs."
+      },
+      "links": [
+        "thm-l1",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt025",
+      "area": "Endpoints & Malware",
+      "tier": "Foundation",
+      "title": "Process tree reasoning",
+      "concept": "Parent-child relationships and command lines explain what initiated an action, not just what ran.",
+      "scenario": "WINWORD.EXE starts a script interpreter followed by an outbound HTTPS request.",
+      "pivot": "Trace parent image, signer, command line and user interaction context.",
+      "trap": "Administrative automation can launch interpreters too.",
+      "hint": "Link event IDs to process GUID rather than PID alone.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Trace parent image, signer, command line and user interaction context.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Process tree reasoning”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Trace parent image, signer, command line and user interaction context."
+        ],
+        "answer": 2,
+        "explanation": "Trace parent image, signer, command line and user interaction context. A single signal does not establish scope or malicious intent. Administrative automation can launch interpreters too."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt026",
+      "area": "Endpoints & Malware",
+      "tier": "L1",
+      "title": "EDR alert validation",
+      "concept": "An EDR verdict is a hypothesis; inspect actual observed behavior and policy action.",
+      "scenario": "A high-severity detection fired on a signed admin tool used by a device-management service.",
+      "pivot": "Confirm execution, signed file path, parent process and alert disposition.",
+      "trap": "Tool name alone does not establish maliciousness.",
+      "hint": "Pivot process GUID to file writes, child processes and network flows.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Confirm execution, signed file path, parent process and alert disposition.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “EDR alert validation”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Confirm execution, signed file path, parent process and alert disposition.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Confirm execution, signed file path, parent process and alert disposition. A single signal does not establish scope or malicious intent. Tool name alone does not establish maliciousness."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt027",
+      "area": "Endpoints & Malware",
+      "tier": "L1",
+      "title": "Living-off-the-land binaries",
+      "concept": "Native operating-system utilities may be abused; intent depends on sequence and context.",
+      "scenario": "A rarely used system binary executes with an unusual remote URL argument.",
+      "pivot": "Check command line, initiating process, file output and related DNS or HTTP.",
+      "trap": "The same utility may be part of an approved deployment script.",
+      "hint": "Look for rare parent-child pairs instead of name-only blocking.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check command line, initiating process, file output and related DNS or HTTP.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Living-off-the-land binaries”, what is the strongest immediate analyst action?",
+        "options": [
+          "Check command line, initiating process, file output and related DNS or HTTP.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Check command line, initiating process, file output and related DNS or HTTP. A single signal does not establish scope or malicious intent. The same utility may be part of an approved deployment script."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt028",
+      "area": "Endpoints & Malware",
+      "tier": "L2",
+      "title": "Persistence triage",
+      "concept": "Scheduled tasks, services, registry autoruns and launch agents are common persistence locations.",
+      "scenario": "A task is created seconds after a suspicious download and runs at user logon.",
+      "pivot": "Check task creator, executable location, signature, creation event and autorun history.",
+      "trap": "Updates and enterprise tools commonly create tasks.",
+      "hint": "Correlate Windows 4698 and Sysmon 12/13 with process tree.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check task creator, executable location, signature, creation event and autorun history.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Persistence triage”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check task creator, executable location, signature, creation event and autorun history."
+        ],
+        "answer": 2,
+        "explanation": "Check task creator, executable location, signature, creation event and autorun history. A single signal does not establish scope or malicious intent. Updates and enterprise tools commonly create tasks."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt029",
+      "area": "Endpoints & Malware",
+      "tier": "L2",
+      "title": "Memory forensics basics",
+      "concept": "Memory captures preserve volatile process and network context but must be acquired with documented integrity.",
+      "scenario": "An incident responder needs to identify injected code in a suspicious parent process.",
+      "pivot": "Preserve acquisition hash, image metadata, analysis tool version and process relationships.",
+      "trap": "Memory scanning can generate false positives from legitimate JIT engines.",
+      "hint": "Compare process tree, loaded modules and network sockets before conclusions.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Preserve acquisition hash, image metadata, analysis tool version and process relationships.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Memory forensics basics”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Preserve acquisition hash, image metadata, analysis tool version and process relationships.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Preserve acquisition hash, image metadata, analysis tool version and process relationships. A single signal does not establish scope or malicious intent. Memory scanning can generate false positives from legitimate JIT engines."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt030",
+      "area": "Endpoints & Malware",
+      "tier": "L3",
+      "title": "YARA signature quality",
+      "concept": "YARA rules should balance invariant artifacts with false-positive review and engine constraints.",
+      "scenario": "A rule based on a generic string flags multiple legitimate system utilities.",
+      "pivot": "Select distinguishing strings, validate across benign corpus and document scope.",
+      "trap": "One common string is rarely sufficient attribution.",
+      "hint": "Use several high-signal strings and test known-safe binaries.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Select distinguishing strings, validate across benign corpus and document scope.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “YARA signature quality”, what is the strongest immediate analyst action?",
+        "options": [
+          "Select distinguishing strings, validate across benign corpus and document scope.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Select distinguishing strings, validate across benign corpus and document scope. A single signal does not establish scope or malicious intent. One common string is rarely sufficient attribution."
+      },
+      "links": [
+        "thm-l1",
+        "htb",
+        "cyberdefenders"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt031",
+      "area": "Cloud & Containers",
+      "tier": "Foundation",
+      "title": "Shared responsibility",
+      "concept": "Provider and customer responsibilities differ by service model; logs and identity remain essential.",
+      "scenario": "An object store bucket exposes a file because a customer-managed ACL changed.",
+      "pivot": "Locate ownership of storage policy, key usage, audit logging and encryption choices.",
+      "trap": "Cloud hosting does not automatically secure customer data.",
+      "hint": "Check public-access-block, bucket policy, object ACL and audit events.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Locate ownership of storage policy, key usage, audit logging and encryption choices.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Shared responsibility”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Locate ownership of storage policy, key usage, audit logging and encryption choices."
+        ],
+        "answer": 2,
+        "explanation": "Locate ownership of storage policy, key usage, audit logging and encryption choices. A single signal does not establish scope or malicious intent. Cloud hosting does not automatically secure customer data."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt032",
+      "area": "Cloud & Containers",
+      "tier": "L1",
+      "title": "AWS console sign-in",
+      "concept": "Authentication events need source, principal, MFA use, user agent and historical baseline.",
+      "scenario": "A root login occurs at a time with no planned administrative activity.",
+      "pivot": "Confirm CloudTrail ConsoleLogin record, MFA, access keys and organization change history.",
+      "trap": "An emergency documented access can be expected.",
+      "hint": "Filter eventName=ConsoleLogin and group by principalId, sourceIPAddress.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Confirm CloudTrail ConsoleLogin record, MFA, access keys and organization change history.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “AWS console sign-in”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Confirm CloudTrail ConsoleLogin record, MFA, access keys and organization change history.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Confirm CloudTrail ConsoleLogin record, MFA, access keys and organization change history. A single signal does not establish scope or malicious intent. An emergency documented access can be expected."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt033",
+      "area": "Cloud & Containers",
+      "tier": "L1",
+      "title": "Microsoft Entra sign-ins",
+      "concept": "Interactive, non-interactive and service-principal sign-ins answer different investigative questions.",
+      "scenario": "An unfamiliar device requests a token after multiple MFA denials.",
+      "pivot": "Inspect correlation ID, risk detail, device compliance, conditional access and token issuance.",
+      "trap": "Shared VPN egress can change geolocation without compromise.",
+      "hint": "Join user sign-ins with audit grants and device identity.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Inspect correlation ID, risk detail, device compliance, conditional access and token issuance.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Microsoft Entra sign-ins”, what is the strongest immediate analyst action?",
+        "options": [
+          "Inspect correlation ID, risk detail, device compliance, conditional access and token issuance.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Inspect correlation ID, risk detail, device compliance, conditional access and token issuance. A single signal does not establish scope or malicious intent. Shared VPN egress can change geolocation without compromise."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt034",
+      "area": "Cloud & Containers",
+      "tier": "L2",
+      "title": "AWS IAM policy modification",
+      "concept": "Permission grants are higher confidence when the actor, target and follow-on activity form a chain.",
+      "scenario": "A low-privileged role attaches AdministratorAccess and enumerates secrets afterward.",
+      "pivot": "Check AssumeRole chain, event source, actor identity, targeted role and future use.",
+      "trap": "Infrastructure-as-code deployments regularly alter IAM rights.",
+      "hint": "Correlate AttachRolePolicy with subsequent GetSecretValue or STS calls.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check AssumeRole chain, event source, actor identity, targeted role and future use.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “AWS IAM policy modification”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check AssumeRole chain, event source, actor identity, targeted role and future use."
+        ],
+        "answer": 2,
+        "explanation": "Check AssumeRole chain, event source, actor identity, targeted role and future use. A single signal does not establish scope or malicious intent. Infrastructure-as-code deployments regularly alter IAM rights."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt035",
+      "area": "Cloud & Containers",
+      "tier": "L2",
+      "title": "Kubernetes audit investigation",
+      "concept": "Kubernetes API audit metadata can expose suspicious service-account use and RBAC changes.",
+      "scenario": "A pod service account creates ClusterRoleBinding outside the deployment pipeline.",
+      "pivot": "Verify namespace, service account, user agent, verb, objectRef and allowed deployment history.",
+      "trap": "Controllers legitimately create RBAC objects during rollouts.",
+      "hint": "Group audit verbs create/patch on clusterrolebindings by user.username.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Verify namespace, service account, user agent, verb, objectRef and allowed deployment history.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Kubernetes audit investigation”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Verify namespace, service account, user agent, verb, objectRef and allowed deployment history.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Verify namespace, service account, user agent, verb, objectRef and allowed deployment history. A single signal does not establish scope or malicious intent. Controllers legitimately create RBAC objects during rollouts."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt036",
+      "area": "Cloud & Containers",
+      "tier": "L3",
+      "title": "Cloud collection blind spots",
+      "concept": "Cloud incident conclusions depend on account scope, regions, log retention and API coverage.",
+      "scenario": "A cloud incident spans a second account whose CloudTrail logs were never centralized.",
+      "pivot": "Enumerate accounts, regions, organization trails, collection health and cross-account roles.",
+      "trap": "No events in one account does not exclude lateral movement elsewhere.",
+      "hint": "Publish a source completeness matrix before scoping impact.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Enumerate accounts, regions, organization trails, collection health and cross-account roles.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Cloud collection blind spots”, what is the strongest immediate analyst action?",
+        "options": [
+          "Enumerate accounts, regions, organization trails, collection health and cross-account roles.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Enumerate accounts, regions, organization trails, collection health and cross-account roles. A single signal does not establish scope or malicious intent. No events in one account does not exclude lateral movement elsewhere."
+      },
+      "links": [
+        "thm-l2"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt037",
+      "area": "Detection & Hunting",
+      "tier": "Foundation",
+      "title": "ATT&CK behavior mapping",
+      "concept": "ATT&CK is a behavior taxonomy, not a verdict or an exhaustive representation of an incident.",
+      "scenario": "A suspicious remote service is detected during a deployment window.",
+      "pivot": "Describe actual technique observed and supporting data rather than assign a threat group.",
+      "trap": "A technique match does not prove an adversary family.",
+      "hint": "Record technique, evidence, confidence and alternative explanations.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Describe actual technique observed and supporting data rather than assign a threat group.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “ATT&CK behavior mapping”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Describe actual technique observed and supporting data rather than assign a threat group."
+        ],
+        "answer": 2,
+        "explanation": "Describe actual technique observed and supporting data rather than assign a threat group. A single signal does not establish scope or malicious intent. A technique match does not prove an adversary family."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt038",
+      "area": "Detection & Hunting",
+      "tier": "L1",
+      "title": "Threat intelligence freshness",
+      "concept": "An IOC needs confidence, first/last seen and business relevance before triggering high-impact actions.",
+      "scenario": "A domain from a stale list appears in a browser telemetry record.",
+      "pivot": "Check last observation, ownership changes, local activity and data-source provenance.",
+      "trap": "Old compromised domains can later return to legitimate use.",
+      "hint": "Separate indicator matches from behavior-based corroboration.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check last observation, ownership changes, local activity and data-source provenance.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Threat intelligence freshness”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check last observation, ownership changes, local activity and data-source provenance.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Check last observation, ownership changes, local activity and data-source provenance. A single signal does not establish scope or malicious intent. Old compromised domains can later return to legitimate use."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt039",
+      "area": "Detection & Hunting",
+      "tier": "L1",
+      "title": "SIEM query correctness",
+      "concept": "Accurate SIEM searches start with correct source fields, time boundaries and exact entity matching.",
+      "scenario": "A query returns zero events because local timestamps are compared with UTC filters.",
+      "pivot": "Inspect source timezone, field normalization, ingestion delay and case sensitivity.",
+      "trap": "Empty query results are not negative evidence unless the query and data are valid.",
+      "hint": "Validate query using a known-good record and widen time modestly.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Inspect source timezone, field normalization, ingestion delay and case sensitivity.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “SIEM query correctness”, what is the strongest immediate analyst action?",
+        "options": [
+          "Inspect source timezone, field normalization, ingestion delay and case sensitivity.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Inspect source timezone, field normalization, ingestion delay and case sensitivity. A single signal does not establish scope or malicious intent. Empty query results are not negative evidence unless the query and data are valid."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt040",
+      "area": "Detection & Hunting",
+      "tier": "L2",
+      "title": "Sigma rule intent",
+      "concept": "Sigma rules capture analytic logic independently of a particular SIEM but field mapping matters.",
+      "scenario": "A Sigma rule detects suspicious child processes in a test dataset, then misses production events.",
+      "pivot": "Check field names, event channel, parent image mapping and exclusions.",
+      "trap": "A successful syntax conversion is not a deployment test.",
+      "hint": "Run a positive and negative event fixture on the target SIEM mapping.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check field names, event channel, parent image mapping and exclusions.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Sigma rule intent”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check field names, event channel, parent image mapping and exclusions."
+        ],
+        "answer": 2,
+        "explanation": "Check field names, event channel, parent image mapping and exclusions. A single signal does not establish scope or malicious intent. A successful syntax conversion is not a deployment test."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt041",
+      "area": "Detection & Hunting",
+      "tier": "L2",
+      "title": "Hypothesis-driven hunting",
+      "concept": "A hunt begins with a falsifiable behavior hypothesis and a defined population.",
+      "scenario": "Hypothesis: web servers unexpectedly spawn scripting engines after inbound HTTP requests.",
+      "pivot": "Select relevant fleet, logs and baseline, then follow matching process/network pivots.",
+      "trap": "Finding nothing with sparse logs is inconclusive.",
+      "hint": "Write hypothesis, coverage, query, observations, follow-up and detection gap.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Select relevant fleet, logs and baseline, then follow matching process/network pivots.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Hypothesis-driven hunting”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Select relevant fleet, logs and baseline, then follow matching process/network pivots.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Select relevant fleet, logs and baseline, then follow matching process/network pivots. A single signal does not establish scope or malicious intent. Finding nothing with sparse logs is inconclusive."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt042",
+      "area": "Detection & Hunting",
+      "tier": "L3",
+      "title": "Detection engineering lifecycle",
+      "concept": "Rules need ownership, tests, alert handling, version control and review after rollout.",
+      "scenario": "A proposed rule matches staging data but floods production during scheduled maintenance.",
+      "pivot": "Create test fixtures, measure volume, tune exclusions, confirm owners and monitor drift.",
+      "trap": "An exclusion can hide actual attacker behavior if overly broad.",
+      "hint": "Document rule change, expected impact, rollback and validation date.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Create test fixtures, measure volume, tune exclusions, confirm owners and monitor drift.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Detection engineering lifecycle”, what is the strongest immediate analyst action?",
+        "options": [
+          "Create test fixtures, measure volume, tune exclusions, confirm owners and monitor drift.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Create test fixtures, measure volume, tune exclusions, confirm owners and monitor drift. A single signal does not establish scope or malicious intent. An exclusion can hide actual attacker behavior if overly broad."
+      },
+      "links": [
+        "thm-l1",
+        "thm-l2",
+        "htb",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt043",
+      "area": "Forensics & Reporting",
+      "tier": "Foundation",
+      "title": "Evidence handling chain",
+      "concept": "An evidence ledger proves who collected what, when, from where, using which method and hash.",
+      "scenario": "A laptop disk image is acquired after a legal hold request.",
+      "pivot": "Record case ID, source, tool, operator, UTC timestamp, digest and transfer locations.",
+      "trap": "Hash agreement shows unchanged bytes, not that a source was trustworthy.",
+      "hint": "Maintain SHA-256 on acquisition and every custody transfer.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Record case ID, source, tool, operator, UTC timestamp, digest and transfer locations.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Evidence handling chain”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Record case ID, source, tool, operator, UTC timestamp, digest and transfer locations."
+        ],
+        "answer": 2,
+        "explanation": "Record case ID, source, tool, operator, UTC timestamp, digest and transfer locations. A single signal does not establish scope or malicious intent. Hash agreement shows unchanged bytes, not that a source was trustworthy."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt044",
+      "area": "Forensics & Reporting",
+      "tier": "L1",
+      "title": "Timeline reconstruction",
+      "concept": "Cross-source chronology requires UTC normalization and uncertain timestamp handling.",
+      "scenario": "EDR reports process start 20 seconds before an authentication event on a delayed collector.",
+      "pivot": "Compare source clocks, ingestion times, event times and correlation IDs.",
+      "trap": "Arrival order in the SIEM is not always event order.",
+      "hint": "Normalize timezone then annotate latency and timestamp uncertainty.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Compare source clocks, ingestion times, event times and correlation IDs.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Timeline reconstruction”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Compare source clocks, ingestion times, event times and correlation IDs.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Compare source clocks, ingestion times, event times and correlation IDs. A single signal does not establish scope or malicious intent. Arrival order in the SIEM is not always event order."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt045",
+      "area": "Forensics & Reporting",
+      "tier": "L1",
+      "title": "Executive summary writing",
+      "concept": "An incident summary explains observed impact, current status and next steps without unnecessary tool jargon.",
+      "scenario": "Management asks whether a suspected credential leak affected customer data.",
+      "pivot": "State verified access, affected systems, unverified questions and response ownership.",
+      "trap": "Saying no breach occurred without visibility is an unsupported claim.",
+      "hint": "Write four sentences: observed, impact, action, outstanding uncertainty.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "State verified access, affected systems, unverified questions and response ownership.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Executive summary writing”, what is the strongest immediate analyst action?",
+        "options": [
+          "State verified access, affected systems, unverified questions and response ownership.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "State verified access, affected systems, unverified questions and response ownership. A single signal does not establish scope or malicious intent. Saying no breach occurred without visibility is an unsupported claim."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 12
+    },
+    {
+      "id": "pt046",
+      "area": "Forensics & Reporting",
+      "tier": "L2",
+      "title": "Disk artifact correlation",
+      "concept": "Registry, prefetch, browser downloads and file-system timestamps support distinct conclusions.",
+      "scenario": "A suspicious executable appears in Downloads but no EDR execution event exists.",
+      "pivot": "Check prefetch, Amcache, LNK, browser records and file timestamps while noting limitations.",
+      "trap": "Presence on disk does not prove execution.",
+      "hint": "Cross-check at least two execution artifacts before strong claims.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Check prefetch, Amcache, LNK, browser records and file timestamps while noting limitations.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Disk artifact correlation”, what is the strongest immediate analyst action?",
+        "options": [
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Check prefetch, Amcache, LNK, browser records and file timestamps while noting limitations."
+        ],
+        "answer": 2,
+        "explanation": "Check prefetch, Amcache, LNK, browser records and file timestamps while noting limitations. A single signal does not establish scope or malicious intent. Presence on disk does not prove execution."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt047",
+      "area": "Forensics & Reporting",
+      "tier": "L2",
+      "title": "Lateral movement scope",
+      "concept": "A single compromised endpoint may have multiple outgoing authentication and remote-execution paths.",
+      "scenario": "A finance machine contacts two servers after a suspicious token refresh.",
+      "pivot": "Trace user/device session, remote service events, file access and credential use.",
+      "trap": "Routine administrative tools can create similar paths.",
+      "hint": "Build source-to-destination entity graph with first and last observed time.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Trace user/device session, remote service events, file access and credential use.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “Lateral movement scope”, what is the strongest immediate analyst action?",
+        "options": [
+          "Ignore the record because similar benign activity sometimes exists.",
+          "Trace user/device session, remote service events, file access and credential use.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately."
+        ],
+        "answer": 1,
+        "explanation": "Trace user/device session, remote service events, file access and credential use. A single signal does not establish scope or malicious intent. Routine administrative tools can create similar paths."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    },
+    {
+      "id": "pt048",
+      "area": "Forensics & Reporting",
+      "tier": "L3",
+      "title": "After-action improvement",
+      "concept": "Post-incident review should identify changes to people, process, logging and detections with owners.",
+      "scenario": "An alert was raised but the response was delayed because endpoint logs lacked process ancestry.",
+      "pivot": "Assign a telemetry task, write a detection test and set a verification date.",
+      "trap": "A list of lessons learned without owners rarely improves readiness.",
+      "hint": "Track action, owner, target date, evidence of completion and retest outcome.",
+      "workflow": [
+        "Identify the affected identity, device or service and define the investigation time window in UTC.",
+        "Verify the source is collecting reliable events and look for a known-good record.",
+        "Assign a telemetry task, write a detection test and set a verification date.",
+        "Compare observed facts with normal authorized activity and explicitly record missing evidence.",
+        "Write a concise finding with evidence, confidence, impact and a safe next step."
+      ],
+      "check": {
+        "question": "In the situation described for “After-action improvement”, what is the strongest immediate analyst action?",
+        "options": [
+          "Assign a telemetry task, write a detection test and set a verification date.",
+          "Treat the initial alert as confirmed compromise and isolate everything immediately.",
+          "Ignore the record because similar benign activity sometimes exists."
+        ],
+        "answer": 0,
+        "explanation": "Assign a telemetry task, write a detection test and set a verification date. A single signal does not establish scope or malicious intent. A list of lessons learned without owners rarely improves readiness."
+      },
+      "links": [
+        "thm-l2",
+        "htb",
+        "cyberdefenders",
+        "letsdefend",
+        "btl1"
+      ],
+      "minutes": 17
+    }
+  ],
+  "labs": [
+    {
+      "id": "pl01",
+      "title": "Phishing report with no click",
+      "tier": "L1",
+      "area": "Email & Web",
+      "events": [
+        "09:10 gateway delivers payroll notice to one mailbox",
+        "09:12 gateway retroactively quarantines attachment",
+        "09:13 user reports mail but no matching endpoint execution events"
+      ],
+      "choices": [
+        "Declare complete account takeover from the subject line.",
+        "Delete all local browser profiles.",
+        "Treat quarantine plus no execution as a working containment indicator; verify coverage and report."
+      ],
+      "answer": 2,
+      "explanation": "Quarantine and lack of execution support a lower-confidence assessment; document coverage before closure.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl02",
+      "title": "Password spray and VPN success",
+      "tier": "L1",
+      "area": "Windows & Identity",
+      "events": [
+        "02:10 33 user accounts fail authentication from 198.51.100.31",
+        "02:12 one target account signs in successfully from same source",
+        "02:13 sign-in uses unmanaged device with MFA method newly registered"
+      ],
+      "choices": [
+        "Block every source IP in the country.",
+        "Join the successful session and MFA change; escalate identity compromise risk.",
+        "Assume a routine password reset because only one login succeeded."
+      ],
+      "answer": 1,
+      "explanation": "Cross-account failures followed by success and MFA enrollment provide stronger evidence than geolocation.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl03",
+      "title": "Beacon or scheduled telemetry",
+      "tier": "L1",
+      "area": "Network & Traffic",
+      "events": [
+        "10:00 a host opens HTTPS connection every 60s to 203.0.113.77",
+        "10:01 certificate subject and process signer match approved inventory service",
+        "10:02 same process appears on 120 managed devices"
+      ],
+      "choices": [
+        "Check software owner and change baseline; avoid IOC blocking until validated.",
+        "Isolate 120 devices immediately.",
+        "Treat periodic traffic as always benign."
+      ],
+      "answer": 0,
+      "explanation": "Beacon-like timing can be benign; provenance and controlled baseline are decisive.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl04",
+      "title": "Browser to script chain",
+      "tier": "L2",
+      "area": "Endpoints & Malware",
+      "events": [
+        "14:01 web browser downloads report.zip",
+        "14:03 archive tool extracts a shortcut",
+        "14:04 shortcut launches a signed script host and writes to user startup folder"
+      ],
+      "choices": [
+        "Close because the script interpreter is signed.",
+        "Block all ZIP files organization-wide.",
+        "Review process GUID lineage and persistence artifact; scope affected hosts."
+      ],
+      "answer": 2,
+      "explanation": "Signed binaries can be abused; execution chain plus persistence warrants investigation.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl05",
+      "title": "Non-DC replication access",
+      "tier": "L2",
+      "area": "Windows & Identity",
+      "events": [
+        "18:21 newly delegated account receives directory rights",
+        "18:24 EDR shows replication API access from DEV-WS-08",
+        "18:26 account exports sensitive directory data to local temp storage"
+      ],
+      "choices": [
+        "Reset every domain password before collecting evidence.",
+        "Confirm delegated rights and source host; activate high-priority AD investigation.",
+        "Dismiss because domain controllers are expected to replicate."
+      ],
+      "answer": 1,
+      "explanation": "Source host, new rights and data access create a coherent high-risk chain.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl06",
+      "title": "Cloud role escalates then reads secret",
+      "tier": "L2",
+      "area": "Cloud & Containers",
+      "events": [
+        "07:44 role policy receives broad secretsmanager read",
+        "07:46 STS AssumeRole from unusual workload",
+        "07:47 four GetSecretValue calls against production secrets"
+      ],
+      "choices": [
+        "Trace the assuming identity and compare deployment approvals; contain scoped credentials if confirmed.",
+        "Delete the cloud account to remove access.",
+        "Trust the calls because they were authenticated."
+      ],
+      "answer": 0,
+      "explanation": "Authentication does not establish authorization; permissions plus follow-on secret reads matter.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl07",
+      "title": "OAuth grant after login",
+      "tier": "L2",
+      "area": "Email & Web",
+      "events": [
+        "11:22 user consents to unknown app Mail.Read offline_access",
+        "11:23 app requests a refresh token",
+        "11:26 mail export requests appear from new client application"
+      ],
+      "choices": [
+        "Reset user password only and assume tokens are invalid.",
+        "Ignore consent because MFA was used.",
+        "Revoke suspicious consent and sessions through approved IR procedure; identify exposed mail."
+      ],
+      "answer": 2,
+      "explanation": "Consent grants and refresh tokens can survive password changes; address the app authorization.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl08",
+      "title": "Suspicious cluster role binding",
+      "tier": "L2",
+      "area": "Cloud & Containers",
+      "events": [
+        "03:14 new service-account token used from batch worker",
+        "03:15 API audit: create ClusterRoleBinding grants cluster-admin",
+        "03:17 service account lists secrets in five namespaces"
+      ],
+      "choices": [
+        "Ignore requests because they originate inside the cluster.",
+        "Validate workload identity and authorization; revoke excessive binding using change approval.",
+        "Restart every pod without examining RBAC."
+      ],
+      "answer": 1,
+      "explanation": "RBAC change plus secret enumeration warrants rapid containment and scope verification.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl09",
+      "title": "Web app spawns shell",
+      "tier": "L2",
+      "area": "Email & Web",
+      "events": [
+        "05:01 WAF records POST /api/upload with 200 status",
+        "05:02 application worker launches cmd.exe under web-service account",
+        "05:03 web worker creates scheduled task"
+      ],
+      "choices": [
+        "Correlate request, process lineage and task artifact; isolate affected application workload if approved.",
+        "Assume 200 means the request was safe.",
+        "Disable unrelated corporate email accounts."
+      ],
+      "answer": 0,
+      "explanation": "Multiple independent telemetry sources show server-side code execution and persistence.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl10",
+      "title": "Hunt returns no events",
+      "tier": "L3",
+      "area": "Detection & Hunting",
+      "events": [
+        "15:00 hunt searches for script hosts spawned by web workers",
+        "15:01 0 records returned for six hours",
+        "15:03 source-health dashboard shows half of web servers stopped forwarding process telemetry"
+      ],
+      "choices": [
+        "Report that all web servers are clean.",
+        "Lower the detection threshold to zero.",
+        "Report hunt as inconclusive and restore collection before drawing negative conclusions."
+      ],
+      "answer": 2,
+      "explanation": "A zero-result hunt with incomplete telemetry cannot support a no-threat conclusion.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl11",
+      "title": "Malware signature too broad",
+      "tier": "L3",
+      "area": "Endpoints & Malware",
+      "events": [
+        "12:04 YARA rule flags 500 benign binaries",
+        "12:07 every hit shares a common operating-system string",
+        "12:08 confirmed malicious sample contains distinct configuration markers"
+      ],
+      "choices": [
+        "Disable all YARA scanning permanently.",
+        "Replace generic-only matching with distinguishing conditions and test benign fixtures.",
+        "Block every matched executable."
+      ],
+      "answer": 1,
+      "explanation": "Test discriminative strings and false-positive corpus before deployment.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl12",
+      "title": "Case closure and residual risk",
+      "tier": "L3",
+      "area": "Forensics & Reporting",
+      "events": [
+        "16:00 original compromised identity disabled",
+        "16:20 token revocation confirmed",
+        "17:00 one SaaS connector still has persistent delegated app access"
+      ],
+      "choices": [
+        "Keep case open or track residual-risk owner until application grant is reviewed.",
+        "Declare eradication complete because account is disabled.",
+        "Delete all historical audit logs."
+      ],
+      "answer": 0,
+      "explanation": "Account revocation does not always revoke app permissions or independent tokens.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl13",
+      "title": "Safe network artifact triage",
+      "tier": "L1",
+      "area": "Network & Traffic",
+      "events": [
+        "08:31 outbound traffic spikes to newly observed host",
+        "08:32 firewall permits 443 with 3 GB upload",
+        "08:35 approved off-site backup job was scheduled for same window"
+      ],
+      "choices": [
+        "Treat high byte count alone as data theft.",
+        "Ignore all transfers over HTTPS.",
+        "Verify destination ownership, file provenance and backup job run ID before classifying exfiltration."
+      ],
+      "answer": 2,
+      "explanation": "Volume plus destination context must be reconciled with documented approved activity.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl14",
+      "title": "Disk evidence not execution",
+      "tier": "L2",
+      "area": "Forensics & Reporting",
+      "events": [
+        "13:05 a suspicious EXE appears in Downloads",
+        "13:09 no process records exist in SIEM",
+        "13:10 endpoint agent has a four-hour telemetry gap"
+      ],
+      "choices": [
+        "Claim it never ran because SIEM found nothing.",
+        "Check execution artifacts such as prefetch and Amcache while stating uncertainty.",
+        "Claim it executed because the file exists."
+      ],
+      "answer": 1,
+      "explanation": "Missing endpoint logs require corroborating forensic artifacts before conclusions.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl15",
+      "title": "Splunk rule misses AD behavior",
+      "tier": "L3",
+      "area": "Detection & Hunting",
+      "events": [
+        "09:10 staging detection matches 4769 event fields",
+        "09:15 production sourcetype uses alternate normalization for ServiceName",
+        "09:20 seeded positive test fails silently"
+      ],
+      "choices": [
+        "Correct the field mapping and rerun positive and negative fixtures.",
+        "Assume rule is valid because SPL compiles.",
+        "Suppress the alert permanently."
+      ],
+      "answer": 0,
+      "explanation": "Detection tests must verify field mapping on real target schema.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    },
+    {
+      "id": "pl16",
+      "title": "Identity handoff across shift",
+      "tier": "L1",
+      "area": "SOC Operations",
+      "events": [
+        "18:50 analyst confirms unrecognized sign-in session",
+        "18:55 device owner cannot yet be reached",
+        "19:00 shift handover begins"
+      ],
+      "choices": [
+        "Leave a comment saying suspicious activity, investigate later.",
+        "Close case to avoid duplicate handoff.",
+        "Record UTC timeline, correlation IDs, attempted contact, open risk and next owner."
+      ],
+      "answer": 2,
+      "explanation": "A bounded handoff includes context, evidence, unresolved questions and an accountable next step.",
+      "next": "Write an evidence-led handoff: affected entity, UTC window, confirmed observations, unknowns, requested owner and proposed action."
+    }
+  ]
+};
